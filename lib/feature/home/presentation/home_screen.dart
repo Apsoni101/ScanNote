@@ -431,7 +431,7 @@ class _ActionButtonsSection extends StatelessWidget {
           icon: Icons.history,
           label: context.locale.viewHistory,
           onPressed: () {
-            // TODO: Navigate to history screen
+            context.router.push(HistoryRoute());
           },
         ),
       ],

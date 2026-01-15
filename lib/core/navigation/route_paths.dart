@@ -10,7 +10,7 @@ class RoutePaths {
   static const String qrResult = 'qrResult';
   static const String qrResultConfirm = 'qrResultConfirm';
   static const String profile = 'profile';
-  static const String activity = 'activity';
+  static const String history = 'history';
   static const String friendsAndGroup = 'friendsAndGroup';
   static const String explore = 'explore';
   static const String settings = 'settings';

@@ -74,6 +74,75 @@
       }
     }
   },
+  "scanHistory": "Scan History",
+  "@scanHistory": {
+    "description": "Title for the history screen"
+  },
+  "searchScans": "Search scans...",
+  "@searchScans": {
+    "description": "Hint text for search field in history screen"
+  },
+  "noScansYet": "No scans yet",
+  "@noScansYet": {
+    "description": "Empty state message when there are no scans"
+  },
+  "noResultsFound": "No results found",
+  "@noResultsFound": {
+    "description": "Empty state message when search returns no results"
+  },
+  "commentLabel": "Comment",
+  "@commentLabel": {
+    "description": "Label for the comment field in scan card"
+  },
+  "copiedToClipboard": "Copied to clipboard",
+  "@copiedToClipboard": {
+    "description": "Success message after copying QR code"
+  },
+  "justNow": "just now",
+  "@justNow": {
+    "description": "Timestamp format for scans from seconds ago"
+  },
+  "minutesAgo": "{minutes}m ago",
+  "@minutesAgo": {
+    "description": "Timestamp format for scans from minutes ago",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "hoursAgo": "{hours}h ago",
+  "@hoursAgo": {
+    "description": "Timestamp format for scans from hours ago",
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "daysAgo": "{days}d ago",
+  "@daysAgo": {
+    "description": "Timestamp format for scans from days ago",
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "failedToFetchHistory": "Failed to fetch history",
+  "@failedToFetchHistory": {
+    "description": "Error message when fetching history fails"
+  },
+  "refreshing": "Refreshing...",
+  "@refreshing": {
+    "description": "Message shown while refreshing history"
+  },
+  "@viewHistory": {
+    "description": "Label for the button to view history"
+  },
   "qrCodeDetailsTitle": "QR Code Details",
   "offlineMode": "Offline Mode",
   "waitingToSyncMessage": "{count} scan waiting to sync",

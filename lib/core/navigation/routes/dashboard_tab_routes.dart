@@ -7,4 +7,5 @@ final List<AutoRoute> dashboardTabRoutes = <AutoRoute>[
   AutoRoute(page: QrScanningRoute.page, path: RoutePaths.qrScan),
   AutoRoute(page: QrResultRoute.page, path: RoutePaths.qrResult),
   AutoRoute(page: QrResultConfirmationRoute.page, path: RoutePaths.qrResultConfirm),
+  AutoRoute(page: HistoryRoute.page, path: RoutePaths.history),
 ];

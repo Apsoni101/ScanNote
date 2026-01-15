@@ -153,6 +153,63 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get scanHistory => 'Scan History';
+
+  @override
+  String get searchScans => 'Search scans...';
+
+  @override
+  String get noScansYet => 'No scans yet';
+
+  @override
+  String get noResultsFound => 'No results found';
+
+  @override
+  String get commentLabel => 'Comment';
+
+  @override
+  String get copiedToClipboard => 'Copied to clipboard';
+
+  @override
+  String get justNow => 'just now';
+
+  @override
+  String minutesAgo(int minutes) {
+    final intl.NumberFormat minutesNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String minutesString = minutesNumberFormat.format(minutes);
+
+    return '${minutesString}m ago';
+  }
+
+  @override
+  String hoursAgo(int hours) {
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String hoursString = hoursNumberFormat.format(hours);
+
+    return '${hoursString}h ago';
+  }
+
+  @override
+  String daysAgo(int days) {
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String daysString = daysNumberFormat.format(days);
+
+    return '${daysString}d ago';
+  }
+
+  @override
+  String get failedToFetchHistory => 'Failed to fetch history';
+
+  @override
+  String get refreshing => 'Refreshing...';
+
+  @override
   String get qrCodeDetailsTitle => 'QR Code Details';
 
   @override

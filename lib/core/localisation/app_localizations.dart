@@ -214,7 +214,7 @@ abstract class AppLocalizations {
   /// **'Point your camera at a QR code to scan'**
   String get pointCameraToScanQr;
 
-  /// No description provided for @viewHistory.
+  /// Label for the button to view history
   ///
   /// In en, this message translates to:
   /// **'View History'**
@@ -369,6 +369,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Modified: {date}'**
   String modified(String date);
+
+  /// Title for the history screen
+  ///
+  /// In en, this message translates to:
+  /// **'Scan History'**
+  String get scanHistory;
+
+  /// Hint text for search field in history screen
+  ///
+  /// In en, this message translates to:
+  /// **'Search scans...'**
+  String get searchScans;
+
+  /// Empty state message when there are no scans
+  ///
+  /// In en, this message translates to:
+  /// **'No scans yet'**
+  String get noScansYet;
+
+  /// Empty state message when search returns no results
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResultsFound;
+
+  /// Label for the comment field in scan card
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get commentLabel;
+
+  /// Success message after copying QR code
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get copiedToClipboard;
+
+  /// Timestamp format for scans from seconds ago
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get justNow;
+
+  /// Timestamp format for scans from minutes ago
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m ago'**
+  String minutesAgo(int minutes);
+
+  /// Timestamp format for scans from hours ago
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h ago'**
+  String hoursAgo(int hours);
+
+  /// Timestamp format for scans from days ago
+  ///
+  /// In en, this message translates to:
+  /// **'{days}d ago'**
+  String daysAgo(int days);
+
+  /// Error message when fetching history fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to fetch history'**
+  String get failedToFetchHistory;
+
+  /// Message shown while refreshing history
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshing...'**
+  String get refreshing;
 
   /// No description provided for @qrCodeDetailsTitle.
   ///
