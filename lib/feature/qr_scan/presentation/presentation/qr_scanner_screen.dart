@@ -5,6 +5,8 @@ import 'package:qr_scanner_practice/core/constants/app_textstyles.dart';
 import 'package:qr_scanner_practice/core/extensions/color_extension.dart';
 import 'package:qr_scanner_practice/core/extensions/localization_extension.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
+import 'package:qr_scanner_practice/core/services/image_picker_service.dart';
+import 'package:qr_scanner_practice/feature/qr_scan/presentation/widget/scanner_overlay_painter.dart';
 
 @RoutePage()
 class QrScanningScreen extends StatefulWidget {
@@ -17,8 +19,10 @@ class QrScanningScreen extends StatefulWidget {
 class _QrScanningScreenState extends State<QrScanningScreen> {
   final MobileScannerController _controller = MobileScannerController();
   final ValueNotifier<bool> _isFlashOn = ValueNotifier<bool>(false);
+  final ImagePickerService _imagePickerService = ImagePickerService();
 
   bool _hasNavigated = false;
+  bool _isProcessingImage = false;
 
   @override
   void dispose() {
@@ -43,6 +47,59 @@ class _QrScanningScreenState extends State<QrScanningScreen> {
     });
   }
 
+  Future<void> _scanQrFromGallery() async {
+    if (_isProcessingImage) {
+      return;
+    }
+
+    _isProcessingImage = true;
+    final String? imagePath = await _imagePickerService.pickImageFromGallery();
+
+    if (imagePath != null) {
+      await _processImageForQr(imagePath);
+    }
+    _isProcessingImage = false;
+  }
+
+  Future<void> _scanQrFromCamera() async {
+    if (_isProcessingImage) {
+      return;
+    }
+
+    _isProcessingImage = true;
+    final String? imagePath = await _imagePickerService.pickImageFromCamera();
+
+    if (imagePath != null) {
+      await _processImageForQr(imagePath);
+    }
+    _isProcessingImage = false;
+  }
+
+  Future<void> _processImageForQr(final String imagePath) async {
+    try {
+      final BarcodeCapture? barcodeCapture = await _controller.analyzeImage(
+        imagePath,
+      );
+
+      if (barcodeCapture != null && barcodeCapture.barcodes.isNotEmpty) {
+        final String? qrValue = barcodeCapture.barcodes.first.rawValue;
+        if (qrValue != null && qrValue.isNotEmpty) {
+          _onQrDetected(qrValue);
+        }
+      } else {
+        _showMessage('No QR code found in image');
+      }
+    } catch (e) {
+      _showMessage('Error processing image');
+    }
+  }
+
+  void _showMessage(final String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), duration: const Duration(seconds: 2)),
+    );
+  }
+
   @override
   Widget build(final BuildContext context) {
     final Size screenSize = MediaQuery.sizeOf(context);
@@ -50,7 +107,7 @@ class _QrScanningScreenState extends State<QrScanningScreen> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
-      appBar: _buildAppBar(context),
+      appBar: _ScanningAppBar(controller: _controller, isFlashOn: _isFlashOn),
       body: Stack(
         children: <Widget>[
           MobileScanner(
@@ -62,23 +119,36 @@ class _QrScanningScreenState extends State<QrScanningScreen> {
               }
             },
           ),
-
-          /// Scanner overlay (ONE widget, very fast)
           _ScannerOverlay(screenSize: screenSize),
-
-          /// Instruction text
           Positioned(
             bottom: screenSize.height * 0.175,
             left: 0,
             right: 0,
             child: Center(child: _InstructionText()),
           ),
+          _BottomActionButtons(
+            onGalleryTap: _scanQrFromGallery,
+            onCameraTap: _scanQrFromCamera,
+            isProcessing: _isProcessingImage,
+          ),
         ],
       ),
     );
   }
+}
 
-  PreferredSizeWidget _buildAppBar(final BuildContext context) {
+/* -------------------------------------------------------------------------- */
+/*                              SCANNING APP BAR                               */
+/* -------------------------------------------------------------------------- */
+
+class _ScanningAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const _ScanningAppBar({required this.controller, required this.isFlashOn});
+
+  final MobileScannerController controller;
+  final ValueNotifier<bool> isFlashOn;
+
+  @override
+  Widget build(final BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
       leading: IconButton(
@@ -86,7 +156,89 @@ class _QrScanningScreenState extends State<QrScanningScreen> {
         onPressed: () => context.router.maybePop(),
       ),
       actions: <Widget>[
-        _FlashToggleButton(controller: _controller, isFlashOn: _isFlashOn),
+        _FlashToggleButton(controller: controller, isFlashOn: isFlashOn),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            BOTTOM ACTION BUTTONS                            */
+/* -------------------------------------------------------------------------- */
+
+class _BottomActionButtons extends StatelessWidget {
+  const _BottomActionButtons({
+    required this.onGalleryTap,
+    required this.onCameraTap,
+    required this.isProcessing,
+  });
+
+  final VoidCallback onGalleryTap;
+  final VoidCallback onCameraTap;
+  final bool isProcessing;
+
+  @override
+  Widget build(final BuildContext context) {
+    final Size screenSize = MediaQuery.sizeOf(context);
+
+    return Positioned(
+      bottom: screenSize.height * 0.02,
+      left: 0,
+      right: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _ActionButton(
+            icon: Icons.image,
+            label: 'Gallery',
+            onPressed: isProcessing ? null : onGalleryTap,
+          ),
+          SizedBox(width: screenSize.width * 0.05),
+          _ActionButton(
+            icon: Icons.camera_alt,
+            label: 'Camera',
+            onPressed: isProcessing ? null : onCameraTap,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  const _ActionButton({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(final BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        FloatingActionButton(
+          mini: true,
+          backgroundColor: onPressed != null
+              ? context.appColors.white
+              : context.appColors.white.withValues(alpha: 0.5),
+          onPressed: onPressed,
+          child: Icon(icon, color: context.appColors.black),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
+            color: context.appColors.white,
+          ),
+        ),
       ],
     );
   }
@@ -137,95 +289,14 @@ class _ScannerOverlay extends StatelessWidget {
 
     return CustomPaint(
       size: screenSize,
-      painter: _ScannerOverlayPainter(
+      painter: ScannerOverlayPainter(
         frameSize: frameSize,
-        overlayColor: Colors.black.withValues(alpha: 0.65),
+        overlayColor: context.appColors.black.withValues(alpha: 0.65),
         cornerColor: context.appColors.white,
         screenSize: screenSize,
       ),
     );
   }
-}
-
-class _ScannerOverlayPainter extends CustomPainter {
-  _ScannerOverlayPainter({
-    required this.frameSize,
-    required this.overlayColor,
-    required this.cornerColor,
-    required this.screenSize,
-  });
-
-  final double frameSize;
-  final Color overlayColor;
-  final Color cornerColor;
-  final Size screenSize;
-
-  late final double _cornerLength = frameSize * 0.108;
-  late final double _strokeWidth = frameSize * 0.015;
-  late final double _radius = frameSize * 0.046;
-
-  @override
-  void paint(final Canvas canvas, final Size size) {
-    final Offset center = size.center(Offset.zero);
-
-    final Rect rect = Rect.fromCenter(
-      center: center,
-      width: frameSize,
-      height: frameSize,
-    );
-
-    final RRect rRect = RRect.fromRectAndRadius(rect, Radius.circular(_radius));
-
-    /// Dark overlay with transparent cut-out
-    final Path overlayPath = Path()
-      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height))
-      ..addRRect(rRect)
-      ..fillType = PathFillType.evenOdd;
-
-    canvas.drawPath(overlayPath, Paint()..color = overlayColor);
-
-    /// Corner lines
-    final Paint paint = Paint()
-      ..color = cornerColor
-      ..strokeWidth = _strokeWidth
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    void drawCorner(final Offset start, final Offset h, final Offset v) {
-      canvas
-        ..drawLine(start, start + h, paint)
-        ..drawLine(start, start + v, paint);
-    }
-
-    final double left = rect.left;
-    final double right = rect.right;
-    final double top = rect.top;
-    final double bottom = rect.bottom;
-
-    drawCorner(
-      Offset(left, top),
-      Offset(_cornerLength, 0),
-      Offset(0, _cornerLength),
-    );
-    drawCorner(
-      Offset(right, top),
-      Offset(-_cornerLength, 0),
-      Offset(0, _cornerLength),
-    );
-    drawCorner(
-      Offset(left, bottom),
-      Offset(_cornerLength, 0),
-      Offset(0, -_cornerLength),
-    );
-    drawCorner(
-      Offset(right, bottom),
-      Offset(-_cornerLength, 0),
-      Offset(0, -_cornerLength),
-    );
-  }
-
-  @override
-  bool shouldRepaint(_) => false;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -246,9 +317,7 @@ class _InstructionText extends StatelessWidget {
         vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.6),
-
-        ///kept color hardcoded since it will always be permanent irrespective of theme
+        color: context.appColors.black.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Text(
