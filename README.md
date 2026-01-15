@@ -102,10 +102,3 @@ The app shows:
 Like saying “Oops! Try again” if you make a mistake.
 
 ---
-
-## 🧠 Architecture Used
-
-The app follows **Clean Architecture**:
-![Screenshot_2026-01-16-04-16-27-422_com example qr_scanner_practice](https://github.com/user-attachments/assets/ae3a04fa-ceca-4524-956b-65210aff1ba0)
-![Screenshot_2026-01-16-03-58-32-668_com example qr_scanner_practice](https://github.com/user-attachments/assets/13654c40-ffea-4afa-bd6c-282c2c9448e4)
-
