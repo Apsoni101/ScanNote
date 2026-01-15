@@ -140,6 +140,27 @@
   "@refreshing": {
     "description": "Message shown while refreshing history"
   },
+  "cameraPermissionDenied": "Camera permission denied",
+  "@cameraPermissionDenied": {
+    "description": "Error message when camera permission is denied"
+  },
+  "scanningNotSupported": "QR scanning is not supported on this device",
+  "@scanningNotSupported": {
+    "description": "Error message when device doesn't support QR scanning"
+  },
+  "scannerControllerDisposed": "Scanner error: Controller disposed",
+  "@scannerControllerDisposed": {
+    "description": "Error message when scanner controller is disposed"
+  },
+  "scannerError": "Error: {errorCode}",
+  "@scannerError": {
+    "description": "Generic scanner error message",
+    "placeholders": {
+      "errorCode": {
+        "type": "String"
+      }
+    }
+  },
   "@viewHistory": {
     "description": "Label for the button to view history"
   },
@@ -155,6 +176,8 @@
       }
     }
   },
+  "noQrFound": "No QR code found in image",
+  "errorProcessingImage": "Error processing image",
   "waitingToSyncMessagePlural": "{count} scans waiting to sync",
   "@waitingToSyncMessagePlural": {
     "description": "Message shown when offline with multiple pending scans",

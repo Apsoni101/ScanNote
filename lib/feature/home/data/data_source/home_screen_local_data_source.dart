@@ -5,7 +5,7 @@ import 'package:qr_scanner_practice/feature/qr_scan/data/model/pending_sync_mode
 import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/data/model/sheet_model.dart';
 
-abstract class SheetsLocalDataSource {
+abstract class HomeScreenLocalDataSource {
   Future<Either<Failure, List<SheetModel>>> getLocalSheets();
 
   Future<Either<Failure, Unit>> saveSheetLocally(final SheetModel sheet);
@@ -27,8 +27,8 @@ abstract class SheetsLocalDataSource {
   Future<Either<Failure, Unit>> clearLocalData();
 }
 
-class SheetsLocalDataSourceImpl implements SheetsLocalDataSource {
-  SheetsLocalDataSourceImpl({required this.hiveService});
+class HomeScreenLocalDataSourceImpl implements HomeScreenLocalDataSource {
+  HomeScreenLocalDataSourceImpl({required this.hiveService});
 
   final HiveService hiveService;
 

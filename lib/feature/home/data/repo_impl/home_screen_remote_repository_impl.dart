@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:qr_scanner_practice/core/services/network/failure.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/data_source/qr_scan_remote_data_source.dart';
+import 'package:qr_scanner_practice/feature/home/data/data_source/home_screen_remote_data_source.dart';
+import 'package:qr_scanner_practice/feature/home/domain/repo/home_screen_remote_repository.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/qr_scan_entity.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/sheet_entity.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/repo/qr_scan_remote_repository.dart';
 
-class QrScanRemoteRepositoryImpl implements QrScanRemoteRepository {
-  const QrScanRemoteRepositoryImpl({required this.remoteDataSource});
+class HomeScreenRemoteRepositoryImpl implements HomeScreenRemoteRepository {
+  const HomeScreenRemoteRepositoryImpl({required this.remoteDataSource});
 
-  final QrScanRemoteDataSource remoteDataSource;
+  final HomeScreenRemoteDataSource remoteDataSource;
 
   @override
   Future<Either<Failure, List<SheetEntity>>> getOwnedSheets() =>

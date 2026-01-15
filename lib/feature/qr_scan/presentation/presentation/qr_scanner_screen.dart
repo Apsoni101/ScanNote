@@ -87,10 +87,10 @@ class _QrScanningScreenState extends State<QrScanningScreen> {
           _onQrDetected(qrValue);
         }
       } else {
-        _showMessage('No QR code found in image');
+        _showMessage(context.locale.noQrCodeFound);
       }
     } catch (e) {
-      _showMessage('Error processing image');
+      _showMessage(context.locale.errorProcessingImage);
     }
   }
 
@@ -118,6 +118,37 @@ class _QrScanningScreenState extends State<QrScanningScreen> {
                 _onQrDetected(code);
               }
             },
+            errorBuilder:
+                (
+                  final BuildContext context,
+                  final MobileScannerException error,
+                ) {
+                  if (error.errorCode ==
+                      MobileScannerErrorCode.permissionDenied) {
+                    return Center(
+                      child: Text(context.locale.cameraPermissionDenied),
+                    );
+                  }
+
+                  if (error.errorCode == MobileScannerErrorCode.unsupported) {
+                    return Center(
+                      child: Text(context.locale.scanningNotSupported),
+                    );
+                  }
+
+                  if (error.errorCode ==
+                      MobileScannerErrorCode.controllerDisposed) {
+                    return Center(
+                      child: Text(context.locale.scannerControllerDisposed),
+                    );
+                  }
+
+                  return Center(
+                    child: Text(
+                      context.locale.scannerError(error.errorCode.name),
+                    ),
+                  );
+                },
           ),
           _ScannerOverlay(screenSize: screenSize),
           Positioned(

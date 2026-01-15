@@ -6,7 +6,7 @@ import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/extensions/color_extension.dart';
 import 'package:qr_scanner_practice/core/extensions/localization_extension.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
-import 'package:qr_scanner_practice/feature/home/bloc/home_screen_bloc/home_screen_bloc.dart';
+import 'package:qr_scanner_practice/feature/home/presentation/bloc/home_screen_bloc/home_screen_bloc.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -22,8 +22,34 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _HomeScreenView extends StatelessWidget {
+class _HomeScreenView extends StatefulWidget {
   const _HomeScreenView();
+
+  @override
+  State<_HomeScreenView> createState() => _HomeScreenViewState();
+}
+
+class _HomeScreenViewState extends State<_HomeScreenView>
+    with RouteAware, WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(final AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      context.read<HomeScreenBloc>().add(const OnHomeUpdatePendingCount());
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -65,14 +91,17 @@ class _HomeScreenView extends StatelessWidget {
         context.locale.allScansSuccessfullyMessage,
         context.appColors.c3BA935,
       );
+      context.read<HomeScreenBloc>().add(const OnHomeResetSyncSuccess());
     }
 
     if (state.syncError != null && state.syncError!.isNotEmpty) {
       _showSnackBar(context, state.syncError!, context.appColors.red);
+      context.read<HomeScreenBloc>().add(const OnHomeResetSyncError());
     }
 
     if (state.error != null && state.error!.isNotEmpty) {
       _showSnackBar(context, state.error!, context.appColors.red);
+      context.read<HomeScreenBloc>().add(const OnHomeResetError());
     }
   }
 
@@ -431,7 +460,7 @@ class _ActionButtonsSection extends StatelessWidget {
           icon: Icons.history,
           label: context.locale.viewHistory,
           onPressed: () {
-            context.router.push(HistoryRoute());
+            context.router.push(const HistoryRoute());
           },
         ),
       ],

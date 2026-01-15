@@ -210,6 +210,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get refreshing => 'Refreshing...';
 
   @override
+  String get cameraPermissionDenied => 'Camera permission denied';
+
+  @override
+  String get scanningNotSupported =>
+      'QR scanning is not supported on this device';
+
+  @override
+  String get scannerControllerDisposed => 'Scanner error: Controller disposed';
+
+  @override
+  String scannerError(String errorCode) {
+    return 'Error: $errorCode';
+  }
+
+  @override
   String get qrCodeDetailsTitle => 'QR Code Details';
 
   @override
@@ -219,6 +234,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String waitingToSyncMessage(int count) {
     return '$count scan waiting to sync';
   }
+
+  @override
+  String get noQrFound => 'No QR code found in image';
+
+  @override
+  String get errorProcessingImage => 'Error processing image';
 
   @override
   String waitingToSyncMessagePlural(int count) {

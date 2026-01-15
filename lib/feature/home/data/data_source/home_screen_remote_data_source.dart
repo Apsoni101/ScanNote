@@ -8,7 +8,7 @@ import 'package:qr_scanner_practice/core/services/network/http_method.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/data/model/sheet_model.dart';
 
-abstract class SheetsRemoteDataSource {
+abstract class HomeScreenRemoteDataSource {
   Future<Either<Failure, List<SheetModel>>> getOwnedSheets();
 
   Future<Either<Failure, String>> createSheet(final String sheetName);
@@ -32,8 +32,8 @@ abstract class SheetsRemoteDataSource {
   );
 }
 
-class SheetsRemoteDataSourceImpl implements SheetsRemoteDataSource {
-  SheetsRemoteDataSourceImpl({
+class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
+  HomeScreenRemoteDataSourceImpl({
     required this.apiClient,
     required this.authService,
   });

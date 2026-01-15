@@ -19,7 +19,7 @@ import 'package:qr_scanner_practice/feature/auth/presentation/screens/sign_in_sc
     as _i8;
 import 'package:qr_scanner_practice/feature/history/presentation/screen/history_screen.dart'
     as _i3;
-import 'package:qr_scanner_practice/feature/home/presentation/home_screen.dart'
+import 'package:qr_scanner_practice/feature/home/presentation/screen/home_screen.dart'
     as _i4;
 import 'package:qr_scanner_practice/feature/qr_scan/presentation/presentation/qr_result_confirmation_screen.dart'
     as _i5;

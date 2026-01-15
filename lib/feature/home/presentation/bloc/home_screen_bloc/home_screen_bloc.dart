@@ -6,11 +6,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_scanner_practice/core/services/connectivity_service.dart';
 import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_local_use_case.dart';
+import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_remote_use_case.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/pending_sync_entity.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/qr_scan_entity.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/sheet_entity.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/usecase/qr_result_remote_use_case.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/usecase/qr_scan_local_use_case.dart';
 
 part 'home_screen_event.dart';
 
@@ -26,8 +26,11 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<OnHomeSyncPendingScans>(_onSyncPendingScans);
     on<OnHomeRefreshSheets>(_onRefreshSheets);
     on<OnHomeNetworkStatusChanged>(_onNetworkStatusChanged);
+    on<OnHomeResetSyncSuccess>(_onResetSyncSuccess);
+    on<OnHomeResetSyncError>(_onResetSyncError);
+    on<OnHomeResetError>(_onResetError);
+    on<OnHomeUpdatePendingCount>(_onUpdatePendingCount);
 
-    /// Listening to connectivity changes
     _connectivitySubscription = connectivityService
         .onConnectivityChanged()
         .listen((final bool isOnline) {
@@ -35,13 +38,12 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         });
   }
 
-  final QrResultRemoteUseCase remoteUseCase;
-  final QrScanLocalUseCase localUseCase;
+  final HomeScreenRemoteUseCase remoteUseCase;
+  final HomeScreenLocalUseCase localUseCase;
   final ConnectivityService connectivityService;
 
   late final StreamSubscription<bool> _connectivitySubscription;
 
-  /// Handle initial load: checking for pending syncs and loading sheets
   Future<void> _onLoadInitial(
     final OnHomeLoadInitial event,
     final Emitter<HomeScreenState> emit,
@@ -193,11 +195,63 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     final bool wasOnline = state.isOnline;
     final bool isNowOnline = event.isConnected;
 
-    emit(state.copyWith(isOnline: isNowOnline));
+    final Either<Failure, List<PendingSyncEntity>> pendingResult =
+        await localUseCase.getPendingSyncScans();
 
-    if (isNowOnline && !wasOnline && state.pendingSyncCount > 0) {
-      add(const OnHomeSyncPendingScans());
-    }
+    await pendingResult.fold(
+      (final Failure failure) async {
+        emit(state.copyWith(isOnline: isNowOnline, error: failure.message));
+      },
+      (final List<PendingSyncEntity> syncs) async {
+        final int pendingCount = syncs.length;
+
+        emit(
+          state.copyWith(isOnline: isNowOnline, pendingSyncCount: pendingCount),
+        );
+
+        if (isNowOnline && !wasOnline && pendingCount > 0) {
+          add(const OnHomeSyncPendingScans());
+        }
+      },
+    );
+  }
+
+  Future<void> _onUpdatePendingCount(
+    final OnHomeUpdatePendingCount event,
+    final Emitter<HomeScreenState> emit,
+  ) async {
+    final Either<Failure, List<PendingSyncEntity>> pendingResult =
+        await localUseCase.getPendingSyncScans();
+
+    await pendingResult.fold(
+      (final Failure failure) async {
+        emit(state.copyWith(error: failure.message));
+      },
+      (final List<PendingSyncEntity> syncs) async {
+        emit(state.copyWith(pendingSyncCount: syncs.length));
+      },
+    );
+  }
+
+  void _onResetSyncSuccess(
+    final OnHomeResetSyncSuccess event,
+    final Emitter<HomeScreenState> emit,
+  ) {
+    emit(state.copyWith(showSyncSuccess: false));
+  }
+
+  void _onResetSyncError(
+    final OnHomeResetSyncError event,
+    final Emitter<HomeScreenState> emit,
+  ) {
+    emit(state.copyWith());
+  }
+
+  void _onResetError(
+    final OnHomeResetError event,
+    final Emitter<HomeScreenState> emit,
+  ) {
+    emit(state.copyWith());
   }
 
   @override

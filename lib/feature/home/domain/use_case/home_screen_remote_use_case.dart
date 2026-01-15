@@ -1,45 +1,38 @@
 import 'package:dartz/dartz.dart';
 import 'package:qr_scanner_practice/core/services/network/failure.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/data_source/qr_scan_remote_data_source.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
+import 'package:qr_scanner_practice/feature/home/domain/repo/home_screen_remote_repository.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/qr_scan_entity.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/sheet_entity.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/repo/qr_scan_remote_repository.dart';
 
-class QrScanRemoteRepositoryImpl implements QrScanRemoteRepository {
-  const QrScanRemoteRepositoryImpl({required this.remoteDataSource});
+class HomeScreenRemoteUseCase {
+  const HomeScreenRemoteUseCase({required this.repository});
 
-  final QrScanRemoteDataSource remoteDataSource;
+  final HomeScreenRemoteRepository repository;
 
-  @override
   Future<Either<Failure, List<SheetEntity>>> getOwnedSheets() =>
-      remoteDataSource.getOwnedSheets();
+      repository.getOwnedSheets();
 
-  @override
   Future<Either<Failure, String>> createSheet(final String sheetName) =>
-      remoteDataSource.createSheet(sheetName);
+      repository.createSheet(sheetName);
 
-  @override
   Future<Either<Failure, Unit>> saveScan(
     final QrScanEntity entity,
     final String sheetId,
-  ) => remoteDataSource.saveScan(QrScanModel.fromEntity(entity), sheetId);
+  ) => repository.saveScan(entity, sheetId);
 
-  @override
   Future<Either<Failure, List<QrScanEntity>>> getAllScans(
     final String sheetId,
-  ) => remoteDataSource.read(sheetId);
+  ) => repository.getAllScans(sheetId);
 
-  @override
   Future<Either<Failure, Unit>> updateScan(
     final String sheetId,
     final String range,
     final QrScanEntity entity,
-  ) => remoteDataSource.update(sheetId, range, QrScanModel.fromEntity(entity));
+  ) => repository.updateScan(sheetId, range, entity);
 
-  @override
   Future<Either<Failure, Unit>> deleteScan(
     final String sheetId,
     final String range,
-  ) => remoteDataSource.delete(sheetId, range);
+  ) => repository.deleteScan(sheetId, range);
 }

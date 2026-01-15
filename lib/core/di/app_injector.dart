@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:qr_scanner_practice/core/controller/theme_controller.dart';
 import 'package:qr_scanner_practice/core/navigation/auth_guard.dart';
 import 'package:qr_scanner_practice/core/services/connectivity_service.dart';
+import 'package:qr_scanner_practice/core/services/device_info_service.dart';
 import 'package:qr_scanner_practice/core/services/firebase/crashlytics_service.dart';
 import 'package:qr_scanner_practice/core/services/firebase/firebase_auth_service.dart';
 import 'package:qr_scanner_practice/core/services/firebase/firebase_firestore_service.dart';
@@ -21,9 +22,17 @@ import 'package:qr_scanner_practice/feature/history/data/repo_impl/history_remot
 import 'package:qr_scanner_practice/feature/history/domain/repo/history_remote_repository.dart';
 import 'package:qr_scanner_practice/feature/history/domain/usecase/get_history_scans_use_case.dart';
 import 'package:qr_scanner_practice/feature/history/presentation/bloc/history_screen_bloc.dart';
-import 'package:qr_scanner_practice/feature/home/bloc/home_screen_bloc/home_screen_bloc.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/data_source/sheets_local_data_source.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/data_source/sheets_remote_data_source.dart';
+import 'package:qr_scanner_practice/feature/home/data/data_source/home_screen_local_data_source.dart';
+import 'package:qr_scanner_practice/feature/home/data/data_source/home_screen_remote_data_source.dart';
+import 'package:qr_scanner_practice/feature/home/data/repo_impl/home_screen_local_repository_impl.dart';
+import 'package:qr_scanner_practice/feature/home/data/repo_impl/home_screen_remote_repository_impl.dart';
+import 'package:qr_scanner_practice/feature/home/domain/repo/home_screen_local_repository.dart';
+import 'package:qr_scanner_practice/feature/home/domain/repo/home_screen_remote_repository.dart';
+import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_local_use_case.dart';
+import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_remote_use_case.dart';
+import 'package:qr_scanner_practice/feature/home/presentation/bloc/home_screen_bloc/home_screen_bloc.dart';
+import 'package:qr_scanner_practice/feature/qr_scan/data/data_source/qr_scan_local_data_source.dart';
+import 'package:qr_scanner_practice/feature/qr_scan/data/data_source/qr_scan_remote_data_source.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/data/repo_impl/qr_scan_local_repository_impl.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/data/repo_impl/qr_scan_remote_repository_impl.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/domain/repo/qr_scan_local_repository.dart';
@@ -45,6 +54,7 @@ class AppInjector {
       ..registerLazySingleton<HttpApiClient>(HttpApiClient.new)
       ..registerLazySingleton(FirebaseAuthService.new)
       ..registerLazySingleton(ConnectivityService.new)
+      ..registerLazySingleton(() => DeviceInfoService())
       ..registerLazySingleton(FirebaseFirestoreService.new)
       ..registerLazySingleton(CrashlyticsService.new)
       ..registerLazySingleton<ThemeController>(
@@ -63,18 +73,29 @@ class AppInjector {
       ..registerLazySingleton<AuthLocalDataSource>(
         () => AuthLocalDataSourceImpl(getIt<HiveService>()),
       )
-      ..registerLazySingleton<SheetsLocalDataSource>(
-        () => SheetsLocalDataSourceImpl(hiveService: getIt<HiveService>()),
+      ..registerLazySingleton<QrScanLocalDataSource>(
+        () => QrScanLocalDataSourceImpl(hiveService: getIt<HiveService>()),
       )
-      ..registerSingleton<SheetsRemoteDataSource>(
-        SheetsRemoteDataSourceImpl(
+      ..registerLazySingleton<HomeScreenLocalDataSource>(
+        () => HomeScreenLocalDataSourceImpl(hiveService: getIt<HiveService>()),
+      )
+      ..registerSingleton<QrScanRemoteDataSource>(
+        QrScanRemoteDataSourceImpl(
+          apiClient: getIt<HttpApiClient>(),
+          authService: getIt<FirebaseAuthService>(),
+          deviceInfoService: getIt<DeviceInfoService>(),
+        ),
+      )
+      ..registerSingleton<HomeScreenRemoteDataSource>(
+        HomeScreenRemoteDataSourceImpl(
           apiClient: getIt<HttpApiClient>(),
           authService: getIt<FirebaseAuthService>(),
         ),
       )
       ..registerSingleton<HistoryRemoteDataSource>(
         HistoryRemoteDataSourceImpl(
-          sheetsRemoteDataSource: getIt<SheetsRemoteDataSource>(),
+          apiClient: getIt<HttpApiClient>(),
+          authService: getIt<FirebaseAuthService>(),
         ),
       )
       ///Repo
@@ -85,7 +106,12 @@ class AppInjector {
       )
       ..registerSingleton<QrScanRemoteRepository>(
         QrScanRemoteRepositoryImpl(
-          remoteDataSource: getIt<SheetsRemoteDataSource>(),
+          remoteDataSource: getIt<QrScanRemoteDataSource>(),
+        ),
+      )
+      ..registerSingleton<HomeScreenRemoteRepository>(
+        HomeScreenRemoteRepositoryImpl(
+          remoteDataSource: getIt<HomeScreenRemoteDataSource>(),
         ),
       )
       ..registerLazySingleton<AuthLocalRepo>(
@@ -95,7 +121,12 @@ class AppInjector {
       )
       ..registerLazySingleton<QrScanLocalRepository>(
         () => QrScanLocalRepositoryImpl(
-          localDataSource: getIt<SheetsLocalDataSource>(),
+          localDataSource: getIt<QrScanLocalDataSource>(),
+        ),
+      )
+      ..registerLazySingleton<HomeScreenLocalRepository>(
+        () => HomeScreenLocalRepositoryImpl(
+          localDataSource: getIt<HomeScreenLocalDataSource>(),
         ),
       )
       ..registerSingleton<HistoryRemoteRepository>(
@@ -110,11 +141,21 @@ class AppInjector {
       ..registerSingleton<QrResultRemoteUseCase>(
         QrResultRemoteUseCase(repository: getIt<QrScanRemoteRepository>()),
       )
+      ..registerSingleton<HomeScreenRemoteUseCase>(
+        HomeScreenRemoteUseCase(
+          repository: getIt<HomeScreenRemoteRepository>(),
+        ),
+      )
       ..registerLazySingleton<AuthLocalUseCase>(
         () => AuthLocalUseCase(authLocalRepo: getIt<AuthLocalRepo>()),
       )
       ..registerLazySingleton<QrScanLocalUseCase>(
         () => QrScanLocalUseCase(repository: getIt<QrScanLocalRepository>()),
+      )
+      ..registerLazySingleton<HomeScreenLocalUseCase>(
+        () => HomeScreenLocalUseCase(
+          repository: getIt<HomeScreenLocalRepository>(),
+        ),
       )
       ..registerSingleton<GetHistoryScansUseCase>(
         GetHistoryScansUseCase(repository: getIt<HistoryRemoteRepository>()),
@@ -128,13 +169,13 @@ class AppInjector {
       )
       ..registerFactory(
         () => HomeScreenBloc(
-          remoteUseCase: getIt<QrResultRemoteUseCase>(),
-          localUseCase: getIt<QrScanLocalUseCase>(),
+          remoteUseCase: getIt<HomeScreenRemoteUseCase>(),
+          localUseCase: getIt<HomeScreenLocalUseCase>(),
           connectivityService: getIt<ConnectivityService>(),
         ),
       )
-      ..registerFactory<HistoryScreenBloc>(()=>
-        HistoryScreenBloc(
+      ..registerFactory<HistoryScreenBloc>(
+        () => HistoryScreenBloc(
           getHistoryScansUseCase: getIt<GetHistoryScansUseCase>(),
         ),
       )

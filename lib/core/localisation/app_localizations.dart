@@ -442,6 +442,30 @@ abstract class AppLocalizations {
   /// **'Refreshing...'**
   String get refreshing;
 
+  /// Error message when camera permission is denied
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission denied'**
+  String get cameraPermissionDenied;
+
+  /// Error message when device doesn't support QR scanning
+  ///
+  /// In en, this message translates to:
+  /// **'QR scanning is not supported on this device'**
+  String get scanningNotSupported;
+
+  /// Error message when scanner controller is disposed
+  ///
+  /// In en, this message translates to:
+  /// **'Scanner error: Controller disposed'**
+  String get scannerControllerDisposed;
+
+  /// Generic scanner error message
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {errorCode}'**
+  String scannerError(String errorCode);
+
   /// No description provided for @qrCodeDetailsTitle.
   ///
   /// In en, this message translates to:
@@ -459,6 +483,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} scan waiting to sync'**
   String waitingToSyncMessage(int count);
+
+  /// No description provided for @noQrFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No QR code found in image'**
+  String get noQrFound;
+
+  /// No description provided for @errorProcessingImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Error processing image'**
+  String get errorProcessingImage;
 
   /// Message shown when offline with multiple pending scans
   ///
