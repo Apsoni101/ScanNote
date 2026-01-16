@@ -35,88 +35,86 @@ class _SignInScreenState extends State<SignInScreen> {
       },
       child: Scaffold(
         backgroundColor: context.appColors.cF6F9FF,
+
         body: BlocBuilder<LoginBloc, LoginState>(
           builder: (final BuildContext context, final LoginState state) {
             final bool isLoading = state is LoginLoading;
 
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(30),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // App logo or title
-                    Icon(
-                      Icons.login,
-                      size: 80,
-                      color: context.appColors.primaryBlue,
-                    ),
-                    const SizedBox(height: 40),
+            return Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.login,
+                    size: 80,
+                    color: context.appColors.primaryBlue,
+                  ),
+                  const SizedBox(height: 40),
 
-                    Text(
-                      context.locale.welcomeBack,
-                      style: AppTextStyles.airbnbCerealW700S24Lh32LsMinus1
-                          .copyWith(color: context.appColors.black),
-                    ),
-                    const SizedBox(height: 16),
+                  Text(
+                    context.locale.welcomeBack,
+                    style: AppTextStyles.airbnbCerealW700S24Lh32LsMinus1
+                        .copyWith(color: context.appColors.black),
+                  ),
+                  const SizedBox(height: 16),
 
-                    Text(
-                      context.locale.signInWithGoogle,
-                      style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-                        color: context.appColors.slate,
-                      ),
-                      textAlign: TextAlign.center,
+                  Text(
+                    context.locale.signInWithGoogle,
+                    style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
+                      color: context.appColors.slate,
                     ),
-                    const SizedBox(height: 48),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 48),
 
-                    // Google Sign In Button
-                    SizedBox(
-                      width: double.infinity,
-                      height: 56,
-                      child: ElevatedButton.icon(
-                        onPressed: isLoading
-                            ? null
-                            : () {
-                                context.read<LoginBloc>().add(
-                                  const OnGoogleLoginEvent(),
-                                );
-                              },
-                        icon: isLoading
-                            ? SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    context.appColors.white,
-                                  ),
+                  // Google Sign In Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton.icon(
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              context.read<LoginBloc>().add(
+                                const OnGoogleLoginEvent(),
+                              );
+                            },
+                      icon: isLoading
+                          ? SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  context.appColors.white,
                                 ),
-                              )
-                            : SvgPicture.asset(
-                                AppAssets.googleIc,
-                                height: 24,
-                                width: 24,
                               ),
-                        label: Text(
-                          isLoading
-                              ? context.locale.signingIn
-                              : context.locale.signInWithGoogle,
-                          style: AppTextStyles.airbnbCerealW500S14Lh20Ls0
-                              .copyWith(color: context.appColors.black),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: context.appColors.white,
-                          foregroundColor: context.appColors.black,
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: context.appColors.cEAECF0),
-                          ),
+                            )
+                          : SvgPicture.asset(
+                              AppAssets.googleIc,
+                              height: 24,
+                              width: 24,
+                            ),
+                      label: Text(
+                        isLoading
+                            ? context.locale.signingIn
+                            : context.locale.signInWithGoogle,
+                        style: AppTextStyles.airbnbCerealW500S14Lh20Ls0
+                            .copyWith(color: context.appColors.black),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.appColors.white,
+                        foregroundColor: context.appColors.black,
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: BorderSide(color: context.appColors.cEAECF0),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           },
