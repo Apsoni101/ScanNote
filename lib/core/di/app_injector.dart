@@ -6,7 +6,9 @@ import 'package:qr_scanner_practice/core/services/device_info_service.dart';
 import 'package:qr_scanner_practice/core/services/firebase/crashlytics_service.dart';
 import 'package:qr_scanner_practice/core/services/firebase/firebase_auth_service.dart';
 import 'package:qr_scanner_practice/core/services/firebase/firebase_firestore_service.dart';
+import 'package:qr_scanner_practice/core/services/image_picker_service.dart';
 import 'package:qr_scanner_practice/core/services/network/http_api_client.dart';
+import 'package:qr_scanner_practice/core/services/ocr_service.dart';
 import 'package:qr_scanner_practice/core/services/storage/hive_service.dart';
 import 'package:qr_scanner_practice/feature/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:qr_scanner_practice/feature/auth/data/data_sources/auth_remote_datasource.dart';
@@ -31,16 +33,22 @@ import 'package:qr_scanner_practice/feature/home/domain/repo/home_screen_remote_
 import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_local_use_case.dart';
 import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_remote_use_case.dart';
 import 'package:qr_scanner_practice/feature/home/presentation/bloc/home_screen_bloc/home_screen_bloc.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/data_source/qr_scan_local_data_source.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/data_source/qr_scan_remote_data_source.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/repo_impl/qr_scan_local_repository_impl.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/repo_impl/qr_scan_remote_repository_impl.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/repo/qr_scan_local_repository.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/repo/qr_scan_remote_repository.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/usecase/qr_result_remote_use_case.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/usecase/qr_scan_local_use_case.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/presentation/bloc/qr_result_bloc/qr_result_bloc.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/presentation/bloc/qr_result_confirmation_bloc/qr_result_confirmation_bloc.dart';
+import 'package:qr_scanner_practice/feature/ocr/data/data_source/ocr_data_source.dart';
+import 'package:qr_scanner_practice/feature/ocr/data/repo_impl/ocr_repo_impl.dart';
+import 'package:qr_scanner_practice/feature/ocr/domain/repo/ocr_repo.dart';
+import 'package:qr_scanner_practice/feature/ocr/domain/use_case/ocr_use_case.dart';
+import 'package:qr_scanner_practice/feature/ocr/presentation/bloc/ocr_bloc.dart';
+import 'package:qr_scanner_practice/feature/qr_scan/presentation/bloc/qr_scanning_bloc/qr_scanning_bloc.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/data_source/result_scan_local_data_source.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/data_source/result_scan_remote_data_source.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/repo_impl/result_scan_local_repository_impl.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/repo_impl/result_scan_remote_repository_impl.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/repo/result_scan_local_repository.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/repo/result_scan_remote_repository.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/usecase/result_scan_local_use_case.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/usecase/result_scan_remote_use_case.dart';
+import 'package:qr_scanner_practice/feature/result_scan/presentation/bloc/result_bloc/result_bloc.dart';
+import 'package:qr_scanner_practice/feature/result_scan/presentation/bloc/result_confirmation_bloc/result_confirmation_bloc.dart';
 
 class AppInjector {
   AppInjector._();
@@ -54,9 +62,11 @@ class AppInjector {
       ..registerLazySingleton<HttpApiClient>(HttpApiClient.new)
       ..registerLazySingleton(FirebaseAuthService.new)
       ..registerLazySingleton(ConnectivityService.new)
-      ..registerLazySingleton(() => DeviceInfoService())
+      ..registerLazySingleton(DeviceInfoService.new)
       ..registerLazySingleton(FirebaseFirestoreService.new)
       ..registerLazySingleton(CrashlyticsService.new)
+      ..registerLazySingleton(ImagePickerService.new)
+      ..registerLazySingleton(OcrService.new)
       ..registerLazySingleton<ThemeController>(
         () => ThemeController(getIt<HiveService>()),
       )
@@ -73,14 +83,14 @@ class AppInjector {
       ..registerLazySingleton<AuthLocalDataSource>(
         () => AuthLocalDataSourceImpl(getIt<HiveService>()),
       )
-      ..registerLazySingleton<QrScanLocalDataSource>(
-        () => QrScanLocalDataSourceImpl(hiveService: getIt<HiveService>()),
+      ..registerLazySingleton<ResultScanLocalDataSource>(
+        () => ResultScanLocalDataSourceImpl(hiveService: getIt<HiveService>()),
       )
       ..registerLazySingleton<HomeScreenLocalDataSource>(
         () => HomeScreenLocalDataSourceImpl(hiveService: getIt<HiveService>()),
       )
-      ..registerSingleton<QrScanRemoteDataSource>(
-        QrScanRemoteDataSourceImpl(
+      ..registerSingleton<ResultScanRemoteDataSource>(
+        ResultScanRemoteDataSourceImpl(
           apiClient: getIt<HttpApiClient>(),
           authService: getIt<FirebaseAuthService>(),
           deviceInfoService: getIt<DeviceInfoService>(),
@@ -98,15 +108,21 @@ class AppInjector {
           authService: getIt<FirebaseAuthService>(),
         ),
       )
+      ..registerSingleton<OcrDataSource>(
+        OcrDataSourceImpl(
+          ocrService: getIt<OcrService>(),
+          imagePickerService: getIt<ImagePickerService>(),
+        ),
+      )
       ///Repo
       ..registerLazySingleton<AuthRemoteRepo>(
         () => AuthRemoteRepoImpl(
           authRemoteDataSource: getIt<AuthRemoteDataSource>(),
         ),
       )
-      ..registerSingleton<QrScanRemoteRepository>(
-        QrScanRemoteRepositoryImpl(
-          remoteDataSource: getIt<QrScanRemoteDataSource>(),
+      ..registerSingleton<ResultScanRemoteRepository>(
+        ResultScanRemoteRepositoryImpl(
+          remoteDataSource: getIt<ResultScanRemoteDataSource>(),
         ),
       )
       ..registerSingleton<HomeScreenRemoteRepository>(
@@ -119,9 +135,9 @@ class AppInjector {
           authLocalDataSource: getIt<AuthLocalDataSource>(),
         ),
       )
-      ..registerLazySingleton<QrScanLocalRepository>(
-        () => QrScanLocalRepositoryImpl(
-          localDataSource: getIt<QrScanLocalDataSource>(),
+      ..registerLazySingleton<ResultScanLocalRepository>(
+        () => ResultScanLocalRepositoryImpl(
+          localDataSource: getIt<ResultScanLocalDataSource>(),
         ),
       )
       ..registerLazySingleton<HomeScreenLocalRepository>(
@@ -134,12 +150,17 @@ class AppInjector {
           remoteDataSource: getIt<HistoryRemoteDataSource>(),
         ),
       )
+      ..registerSingleton<OcrRepository>(
+        OcrRepositoryImpl(
+          ocrDataSource: getIt<OcrDataSource>(),
+        ),
+      )
       ///USE CASES
       ..registerLazySingleton<AuthRemoteUseCase>(
         () => AuthRemoteUseCase(authRemoteRepo: getIt<AuthRemoteRepo>()),
       )
-      ..registerSingleton<QrResultRemoteUseCase>(
-        QrResultRemoteUseCase(repository: getIt<QrScanRemoteRepository>()),
+      ..registerSingleton<ResultScanRemoteUseCase>(
+        ResultScanRemoteUseCase(repository: getIt<ResultScanRemoteRepository>()),
       )
       ..registerSingleton<HomeScreenRemoteUseCase>(
         HomeScreenRemoteUseCase(
@@ -149,8 +170,8 @@ class AppInjector {
       ..registerLazySingleton<AuthLocalUseCase>(
         () => AuthLocalUseCase(authLocalRepo: getIt<AuthLocalRepo>()),
       )
-      ..registerLazySingleton<QrScanLocalUseCase>(
-        () => QrScanLocalUseCase(repository: getIt<QrScanLocalRepository>()),
+      ..registerLazySingleton<ResultScanLocalUseCase>(
+        () => ResultScanLocalUseCase(repository: getIt<ResultScanLocalRepository>()),
       )
       ..registerLazySingleton<HomeScreenLocalUseCase>(
         () => HomeScreenLocalUseCase(
@@ -159,6 +180,9 @@ class AppInjector {
       )
       ..registerSingleton<GetHistoryScansUseCase>(
         GetHistoryScansUseCase(repository: getIt<HistoryRemoteRepository>()),
+      )
+      ..registerSingleton<OcrUseCase>(
+        OcrUseCase(ocrRepository: getIt<OcrRepository>()),
       )
       ///BLOCS
       ..registerFactory(
@@ -179,11 +203,17 @@ class AppInjector {
           getHistoryScansUseCase: getIt<GetHistoryScansUseCase>(),
         ),
       )
-      ..registerFactory<QrResultBloc>(QrResultBloc.new)
-      ..registerFactory<QrResultConfirmationBloc>(
-        () => QrResultConfirmationBloc(
-          remoteUseCase: getIt<QrResultRemoteUseCase>(),
-          localUseCase: getIt<QrScanLocalUseCase>(),
+      ..registerFactory<ResultBloc>(ResultBloc.new)
+      ..registerFactory<ResultScanningBloc>(
+        () => ResultScanningBloc(imagePickerService: getIt<ImagePickerService>()),
+      )
+      ..registerFactory<OcrBloc>(
+        () => OcrBloc(ocrUseCase: getIt<OcrUseCase>()),
+      )
+      ..registerFactory<ResultConfirmationBloc>(
+        () => ResultConfirmationBloc(
+          remoteUseCase: getIt<ResultScanRemoteUseCase>(),
+          localUseCase: getIt<ResultScanLocalUseCase>(),
         ),
       );
   }

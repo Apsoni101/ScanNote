@@ -1,22 +1,22 @@
 import 'package:dartz/dartz.dart';
 import 'package:qr_scanner_practice/core/services/network/failure.dart';
 import 'package:qr_scanner_practice/core/services/storage/hive_service.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/pending_sync_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/sheet_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/pending_sync_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/result_scan_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/sheet_model.dart';
 
 abstract class HomeScreenLocalDataSource {
   Future<Either<Failure, List<SheetModel>>> getLocalSheets();
 
   Future<Either<Failure, Unit>> saveSheetLocally(final SheetModel sheet);
 
-  Future<Either<Failure, Unit>> saveQrScanLocally(
-    final QrScanModel scan,
+  Future<Either<Failure, Unit>> saveResultScanLocally(
+    final ResultScanModel scan,
     final String sheetId,
     final String sheetTitle,
   );
 
-  Future<Either<Failure, List<QrScanModel>>> getLocalQrScans(
+  Future<Either<Failure, List<ResultScanModel>>> getLocalResultScans(
     final String sheetId,
   );
 
@@ -77,17 +77,17 @@ class HomeScreenLocalDataSourceImpl implements HomeScreenLocalDataSource {
   }
 
   @override
-  Future<Either<Failure, Unit>> saveQrScanLocally(
-    final QrScanModel scan,
+  Future<Either<Failure, Unit>> saveResultScanLocally(
+    final ResultScanModel scan,
     final String sheetId,
     final String sheetTitle,
   ) async {
     try {
       final String scanKey = '${_scansBoxName}_$sheetId';
 
-      final List<QrScanModel>? existingScans = hiveService
-          .getObjectList<QrScanModel>(scanKey);
-      final List<QrScanModel> scans = existingScans ?? <QrScanModel>[]
+      final List<ResultScanModel>? existingScans = hiveService
+          .getObjectList<ResultScanModel>(scanKey);
+      final List<ResultScanModel> scans = existingScans ?? <ResultScanModel>[]
         ..add(scan);
       await hiveService.setObjectList(scanKey, scans);
 
@@ -103,17 +103,17 @@ class HomeScreenLocalDataSourceImpl implements HomeScreenLocalDataSource {
   }
 
   @override
-  Future<Either<Failure, List<QrScanModel>>> getLocalQrScans(
+  Future<Either<Failure, List<ResultScanModel>>> getLocalResultScans(
     final String sheetId,
   ) async {
     try {
       final String scanKey = '${_scansBoxName}_$sheetId';
-      final List<QrScanModel>? scans = hiveService.getObjectList<QrScanModel>(
+      final List<ResultScanModel>? scans = hiveService.getObjectList<ResultScanModel>(
         scanKey,
       );
-      return Right<Failure, List<QrScanModel>>(scans ?? <QrScanModel>[]);
+      return Right<Failure, List<ResultScanModel>>(scans ?? <ResultScanModel>[]);
     } catch (e) {
-      return Left<Failure, List<QrScanModel>>(
+      return Left<Failure, List<ResultScanModel>>(
         Failure(message: 'Failed to fetch local scans: $e'),
       );
     }
@@ -170,7 +170,7 @@ class HomeScreenLocalDataSourceImpl implements HomeScreenLocalDataSource {
   Future<void> _addPendingSync(
     final String sheetId,
     final String sheetTitle,
-    final QrScanModel scan,
+    final ResultScanModel scan,
   ) async {
     try {
       // Get existing pending syncs

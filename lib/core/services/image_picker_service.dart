@@ -1,11 +1,13 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:qr_scanner_practice/core/services/network/failure.dart';
 
 class ImagePickerService {
   final ImagePicker _picker = ImagePicker();
 
   /// Pick an image from the gallery
-  /// Returns the image path if successful, null otherwise
-  Future<String?> pickImageFromGallery() async {
+  Future<Either<Failure, String>> pickImageFromGallery() async {
     try {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.gallery,
@@ -14,16 +16,18 @@ class ImagePickerService {
         imageQuality: 85,
       );
 
-      return image?.path;
+      if (image == null) {
+        return left(const Failure(message: 'Image not selected'));
+      }
+
+      return right(image.path);
     } catch (e) {
-      // Silently handle error and return null
-      return null;
+      return left(_handleException(e));
     }
   }
 
   /// Pick an image from the camera
-  /// Returns the image path if successful, null otherwise
-  Future<String?> pickImageFromCamera() async {
+  Future<Either<Failure, String>> pickImageFromCamera() async {
     try {
       final XFile? image = await _picker.pickImage(
         source: ImageSource.camera,
@@ -32,16 +36,18 @@ class ImagePickerService {
         imageQuality: 85,
       );
 
-      return image?.path;
+      if (image == null) {
+        return left(const Failure(message: 'Image not captured'));
+      }
+
+      return right(image.path);
     } catch (e) {
-      // Silently handle error and return null
-      return null;
+      return left(_handleException(e));
     }
   }
 
   /// Pick multiple images from the gallery
-  /// Returns list of image paths, empty list if error or no selection
-  Future<List<String>> pickMultipleImages() async {
+  Future<Either<Failure, List<String>>> pickMultipleImages() async {
     try {
       final List<XFile> images = await _picker.pickMultiImage(
         maxWidth: 1920,
@@ -49,10 +55,36 @@ class ImagePickerService {
         imageQuality: 85,
       );
 
-      return images.map((image) => image.path).toList();
+      if (images.isEmpty) {
+        return left(const Failure(message: 'No images selected'));
+      }
+
+      return right(images.map((final XFile e) => e.path).toList());
     } catch (e) {
-      // Return empty list on error
-      return [];
+      return left(_handleException(e));
     }
+  }
+
+  /// Handle exceptions and return appropriate failure messages
+  Failure _handleException(final Object exception) {
+    if (exception is PlatformException) {
+      // Check for camera/gallery permission denied errors
+      if (exception.code == 'camera_access_denied' ||
+          exception.code == 'photo_access_denied' ||
+          exception.code.contains('denied')) {
+        return const Failure(message: 'Permission Denied');
+      }
+    }
+
+    final String exceptionString = exception.toString();
+
+    // Check for permission denied errors in string
+    if (exceptionString.contains('Permission denied') ||
+        exceptionString.contains('permission') ||
+        exceptionString.contains('Permission')) {
+      return const Failure(message: 'Permission Denied');
+    }
+
+    return Failure(message: exceptionString);
   }
 }

@@ -5,7 +5,16 @@
 
     <!-- Media Images - Android 13+ for gallery access -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- Camera Permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- Gallery/Photos Permissions -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- For Android 13+ (Scoped Storage) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <!-- Camera features - Flash support -->
     <uses-feature
         android:name="android.hardware.camera"

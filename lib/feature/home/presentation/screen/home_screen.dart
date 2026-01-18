@@ -449,19 +449,22 @@ class _ActionButtonsSection extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Column(
+      spacing: 16,
       children: <Widget>[
         _PrimaryButton(
           icon: Icons.qr_code_scanner,
           label: context.locale.scanQrCode,
-          onPressed: () => context.router.push(const QrScanningRoute()),
+          onPressed: () => context.router.push(const ResultScanningRoute()),
         ),
-        const SizedBox(height: 16),
+        _SecondaryButton(
+          icon: Icons.text_fields,
+          label: context.locale.extractText,
+          onPressed: () => context.router.push(const OcrRoute()),
+        ),
         _SecondaryButton(
           icon: Icons.history,
           label: context.locale.viewHistory,
-          onPressed: () {
-            context.router.push(const HistoryRoute());
-          },
+          onPressed: () => context.router.push(const HistoryRoute()),
         ),
       ],
     );

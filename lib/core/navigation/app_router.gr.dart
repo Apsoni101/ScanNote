@@ -9,36 +9,38 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i10;
-import 'package:flutter/material.dart' as _i11;
+import 'package:auto_route/auto_route.dart' as _i11;
+import 'package:flutter/material.dart' as _i12;
 import 'package:qr_scanner_practice/core/navigation/router/auth_router.dart'
     as _i1;
 import 'package:qr_scanner_practice/core/navigation/router/dashboard_router.dart'
     as _i2;
 import 'package:qr_scanner_practice/feature/auth/presentation/screens/sign_in_screen.dart'
-    as _i8;
+    as _i9;
 import 'package:qr_scanner_practice/feature/history/presentation/screen/history_screen.dart'
     as _i3;
 import 'package:qr_scanner_practice/feature/home/presentation/screen/home_screen.dart'
     as _i4;
-import 'package:qr_scanner_practice/feature/qr_scan/presentation/presentation/qr_result_confirmation_screen.dart'
+import 'package:qr_scanner_practice/feature/ocr/presentation/screen/ocr_screen.dart'
     as _i5;
-import 'package:qr_scanner_practice/feature/qr_scan/presentation/presentation/qr_result_screen.dart'
-    as _i6;
 import 'package:qr_scanner_practice/feature/qr_scan/presentation/presentation/qr_scanner_screen.dart'
     as _i7;
+import 'package:qr_scanner_practice/feature/result_scan/presentation/presentation/result_confirmation_screen.dart'
+    as _i6;
+import 'package:qr_scanner_practice/feature/result_scan/presentation/presentation/result_screen.dart'
+    as _i8;
 import 'package:qr_scanner_practice/feature/splash/presentation/screens/splash_screen.dart'
-    as _i9;
+    as _i10;
 
 /// generated route for
 /// [_i1.AuthRouterPage]
-class AuthRouter extends _i10.PageRouteInfo<void> {
-  const AuthRouter({List<_i10.PageRouteInfo>? children})
+class AuthRouter extends _i11.PageRouteInfo<void> {
+  const AuthRouter({List<_i11.PageRouteInfo>? children})
     : super(AuthRouter.name, initialChildren: children);
 
   static const String name = 'AuthRouter';
 
-  static _i10.PageInfo page = _i10.PageInfo(
+  static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
       return const _i1.AuthRouterPage();
@@ -48,13 +50,13 @@ class AuthRouter extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.DashboardRouterPage]
-class DashboardRouter extends _i10.PageRouteInfo<void> {
-  const DashboardRouter({List<_i10.PageRouteInfo>? children})
+class DashboardRouter extends _i11.PageRouteInfo<void> {
+  const DashboardRouter({List<_i11.PageRouteInfo>? children})
     : super(DashboardRouter.name, initialChildren: children);
 
   static const String name = 'DashboardRouter';
 
-  static _i10.PageInfo page = _i10.PageInfo(
+  static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
       return const _i2.DashboardRouterPage();
@@ -64,13 +66,13 @@ class DashboardRouter extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.HistoryScreen]
-class HistoryRoute extends _i10.PageRouteInfo<void> {
-  const HistoryRoute({List<_i10.PageRouteInfo>? children})
+class HistoryRoute extends _i11.PageRouteInfo<void> {
+  const HistoryRoute({List<_i11.PageRouteInfo>? children})
     : super(HistoryRoute.name, initialChildren: children);
 
   static const String name = 'HistoryRoute';
 
-  static _i10.PageInfo page = _i10.PageInfo(
+  static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
       return const _i3.HistoryScreen();
@@ -80,13 +82,13 @@ class HistoryRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.HomeScreen]
-class HomeRoute extends _i10.PageRouteInfo<void> {
-  const HomeRoute({List<_i10.PageRouteInfo>? children})
+class HomeRoute extends _i11.PageRouteInfo<void> {
+  const HomeRoute({List<_i11.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i10.PageInfo page = _i10.PageInfo(
+  static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
       return const _i4.HomeScreen();
@@ -95,161 +97,198 @@ class HomeRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.QrResultConfirmationScreen]
-class QrResultConfirmationRoute
-    extends _i10.PageRouteInfo<QrResultConfirmationRouteArgs> {
-  QrResultConfirmationRoute({
-    required String qrData,
+/// [_i5.OcrScreen]
+class OcrRoute extends _i11.PageRouteInfo<void> {
+  const OcrRoute({List<_i11.PageRouteInfo>? children})
+    : super(OcrRoute.name, initialChildren: children);
+
+  static const String name = 'OcrRoute';
+
+  static _i11.PageInfo page = _i11.PageInfo(
+    name,
+    builder: (data) {
+      return const _i5.OcrScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i6.ResultConfirmationScreen]
+class ResultConfirmationRoute
+    extends _i11.PageRouteInfo<ResultConfirmationRouteArgs> {
+  ResultConfirmationRoute({
+    required String data,
     required String comment,
-    _i11.Key? key,
-    List<_i10.PageRouteInfo>? children,
+    required _i8.ResultType resultType,
+    _i12.Key? key,
+    List<_i11.PageRouteInfo>? children,
   }) : super(
-         QrResultConfirmationRoute.name,
-         args: QrResultConfirmationRouteArgs(
-           qrData: qrData,
+         ResultConfirmationRoute.name,
+         args: ResultConfirmationRouteArgs(
+           data: data,
            comment: comment,
+           resultType: resultType,
            key: key,
          ),
          initialChildren: children,
        );
 
-  static const String name = 'QrResultConfirmationRoute';
+  static const String name = 'ResultConfirmationRoute';
 
-  static _i10.PageInfo page = _i10.PageInfo(
+  static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<QrResultConfirmationRouteArgs>();
-      return _i5.QrResultConfirmationScreen(
-        qrData: args.qrData,
+      final args = data.argsAs<ResultConfirmationRouteArgs>();
+      return _i6.ResultConfirmationScreen(
+        data: args.data,
         comment: args.comment,
+        resultType: args.resultType,
         key: args.key,
       );
     },
   );
 }
 
-class QrResultConfirmationRouteArgs {
-  const QrResultConfirmationRouteArgs({
-    required this.qrData,
+class ResultConfirmationRouteArgs {
+  const ResultConfirmationRouteArgs({
+    required this.data,
     required this.comment,
+    required this.resultType,
     this.key,
   });
 
-  final String qrData;
+  final String data;
 
   final String comment;
 
-  final _i11.Key? key;
+  final _i8.ResultType resultType;
+
+  final _i12.Key? key;
 
   @override
   String toString() {
-    return 'QrResultConfirmationRouteArgs{qrData: $qrData, comment: $comment, key: $key}';
+    return 'ResultConfirmationRouteArgs{data: $data, comment: $comment, resultType: $resultType, key: $key}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! QrResultConfirmationRouteArgs) return false;
-    return qrData == other.qrData &&
+    if (other is! ResultConfirmationRouteArgs) return false;
+    return data == other.data &&
         comment == other.comment &&
+        resultType == other.resultType &&
         key == other.key;
   }
 
   @override
-  int get hashCode => qrData.hashCode ^ comment.hashCode ^ key.hashCode;
+  int get hashCode =>
+      data.hashCode ^ comment.hashCode ^ resultType.hashCode ^ key.hashCode;
 }
 
 /// generated route for
-/// [_i6.QrResultScreen]
-class QrResultRoute extends _i10.PageRouteInfo<QrResultRouteArgs> {
-  QrResultRoute({
-    required String qrData,
-    _i11.Key? key,
-    List<_i10.PageRouteInfo>? children,
-  }) : super(
-         QrResultRoute.name,
-         args: QrResultRouteArgs(qrData: qrData, key: key),
-         initialChildren: children,
-       );
+/// [_i7.ResultScanningScreen]
+class ResultScanningRoute extends _i11.PageRouteInfo<void> {
+  const ResultScanningRoute({List<_i11.PageRouteInfo>? children})
+    : super(ResultScanningRoute.name, initialChildren: children);
 
-  static const String name = 'QrResultRoute';
+  static const String name = 'ResultScanningRoute';
 
-  static _i10.PageInfo page = _i10.PageInfo(
+  static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<QrResultRouteArgs>();
-      return _i6.QrResultScreen(qrData: args.qrData, key: args.key);
+      return const _i7.ResultScanningScreen();
     },
   );
 }
 
-class QrResultRouteArgs {
-  const QrResultRouteArgs({required this.qrData, this.key});
+/// generated route for
+/// [_i8.ResultScreen]
+class ResultRoute extends _i11.PageRouteInfo<ResultRouteArgs> {
+  ResultRoute({
+    required String data,
+    required _i8.ResultType resultType,
+    _i12.Key? key,
+    List<_i11.PageRouteInfo>? children,
+  }) : super(
+         ResultRoute.name,
+         args: ResultRouteArgs(data: data, resultType: resultType, key: key),
+         initialChildren: children,
+       );
 
-  final String qrData;
+  static const String name = 'ResultRoute';
 
-  final _i11.Key? key;
+  static _i11.PageInfo page = _i11.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ResultRouteArgs>();
+      return _i8.ResultScreen(
+        data: args.data,
+        resultType: args.resultType,
+        key: args.key,
+      );
+    },
+  );
+}
+
+class ResultRouteArgs {
+  const ResultRouteArgs({
+    required this.data,
+    required this.resultType,
+    this.key,
+  });
+
+  final String data;
+
+  final _i8.ResultType resultType;
+
+  final _i12.Key? key;
 
   @override
   String toString() {
-    return 'QrResultRouteArgs{qrData: $qrData, key: $key}';
+    return 'ResultRouteArgs{data: $data, resultType: $resultType, key: $key}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! QrResultRouteArgs) return false;
-    return qrData == other.qrData && key == other.key;
+    if (other is! ResultRouteArgs) return false;
+    return data == other.data &&
+        resultType == other.resultType &&
+        key == other.key;
   }
 
   @override
-  int get hashCode => qrData.hashCode ^ key.hashCode;
+  int get hashCode => data.hashCode ^ resultType.hashCode ^ key.hashCode;
 }
 
 /// generated route for
-/// [_i7.QrScanningScreen]
-class QrScanningRoute extends _i10.PageRouteInfo<void> {
-  const QrScanningRoute({List<_i10.PageRouteInfo>? children})
-    : super(QrScanningRoute.name, initialChildren: children);
-
-  static const String name = 'QrScanningRoute';
-
-  static _i10.PageInfo page = _i10.PageInfo(
-    name,
-    builder: (data) {
-      return const _i7.QrScanningScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i8.SignInScreen]
-class SignInRoute extends _i10.PageRouteInfo<void> {
-  const SignInRoute({List<_i10.PageRouteInfo>? children})
+/// [_i9.SignInScreen]
+class SignInRoute extends _i11.PageRouteInfo<void> {
+  const SignInRoute({List<_i11.PageRouteInfo>? children})
     : super(SignInRoute.name, initialChildren: children);
 
   static const String name = 'SignInRoute';
 
-  static _i10.PageInfo page = _i10.PageInfo(
+  static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
-      return const _i8.SignInScreen();
+      return const _i9.SignInScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i9.SplashScreen]
-class SplashRoute extends _i10.PageRouteInfo<void> {
-  const SplashRoute({List<_i10.PageRouteInfo>? children})
+/// [_i10.SplashScreen]
+class SplashRoute extends _i11.PageRouteInfo<void> {
+  const SplashRoute({List<_i11.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i10.PageInfo page = _i10.PageInfo(
+  static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
-      return const _i9.SplashScreen();
+      return const _i10.SplashScreen();
     },
   );
 }

@@ -106,30 +106,6 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get home;
 
-  /// No description provided for @analytics.
-  ///
-  /// In en, this message translates to:
-  /// **'Analytics'**
-  String get analytics;
-
-  /// No description provided for @groups.
-  ///
-  /// In en, this message translates to:
-  /// **'Groups'**
-  String get groups;
-
-  /// No description provided for @wallet.
-  ///
-  /// In en, this message translates to:
-  /// **'Wallet'**
-  String get wallet;
-
-  /// No description provided for @profile.
-  ///
-  /// In en, this message translates to:
-  /// **'Your Profile'**
-  String get profile;
-
   /// No description provided for @createAccount.
   ///
   /// In en, this message translates to:
@@ -153,6 +129,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Google'**
   String get google;
+
+  /// No description provided for @extractText.
+  ///
+  /// In en, this message translates to:
+  /// **'Extract Text'**
+  String get extractText;
 
   /// No description provided for @welcomeBack.
   ///
@@ -238,6 +220,54 @@ abstract class AppLocalizations {
   /// **'Enter your comment or notes...'**
   String get commentHint;
 
+  /// No description provided for @ocrTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'OCR Scanner'**
+  String get ocrTitle;
+
+  /// No description provided for @selectImagePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an image to extract text'**
+  String get selectImagePrompt;
+
+  /// No description provided for @extractedText.
+  ///
+  /// In en, this message translates to:
+  /// **'Extracted Text'**
+  String get extractedText;
+
+  /// No description provided for @textCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Text copied to clipboard'**
+  String get textCopiedToClipboard;
+
+  /// No description provided for @clearButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clearButtonLabel;
+
+  /// No description provided for @cameraButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get cameraButtonLabel;
+
+  /// No description provided for @galleryButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get galleryButtonLabel;
+
+  /// No description provided for @liveTextRecognition.
+  ///
+  /// In en, this message translates to:
+  /// **'Live Text Recognition'**
+  String get liveTextRecognition;
+
   /// No description provided for @cancelButton.
   ///
   /// In en, this message translates to:
@@ -250,11 +280,11 @@ abstract class AppLocalizations {
   /// **'Confirm Save'**
   String get confirmSave;
 
-  /// No description provided for @qrData.
+  /// No description provided for @data.
   ///
   /// In en, this message translates to:
   /// **'QR Data:'**
-  String get qrData;
+  String get data;
 
   /// No description provided for @comment.
   ///
@@ -273,6 +303,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm'**
   String get confirm;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+  /// No description provided for @camera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get camera;
 
   /// No description provided for @cancel.
   ///
@@ -537,6 +579,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No internet connection. Cannot refresh sheets.'**
   String get cannotRefreshSheets;
+
+  /// No description provided for @cameraPermissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera Permission Required'**
+  String get cameraPermissionTitle;
+
+  /// No description provided for @galleryPermissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery Permission Required'**
+  String get galleryPermissionTitle;
+
+  /// No description provided for @permissionRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This app needs permission to access your device. Please grant permission to continue.'**
+  String get permissionRequiredMessage;
+
+  /// No description provided for @permissionPermanentlyDeniedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission is permanently denied. Please enable it in app settings.'**
+  String get permissionPermanentlyDeniedMessage;
+
+  /// No description provided for @openSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get openSettings;
+
+  /// No description provided for @retryButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retryButtonLabel;
+
+  /// No description provided for @cancelButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButtonLabel;
 }
 
 class _AppLocalizationsDelegate

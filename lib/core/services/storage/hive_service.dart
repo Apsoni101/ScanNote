@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:qr_scanner_practice/feature/auth/data/models/user_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/pending_sync_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/sheet_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/pending_sync_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/result_scan_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/sheet_model.dart';
 
 class HiveService {
   late Box _box;
@@ -14,7 +14,7 @@ class HiveService {
       Hive.registerAdapter(UserModelAdapter());
     }
     if (!Hive.isAdapterRegistered(1)) {
-      Hive.registerAdapter(QrScanModelAdapter());
+      Hive.registerAdapter(ResultScanModelAdapter());
     }
     if (!Hive.isAdapterRegistered(2)) {
       Hive.registerAdapter(SheetModelAdapter());

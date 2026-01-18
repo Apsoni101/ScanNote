@@ -20,7 +20,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   @override
-  Widget build(final BuildContext context) => BlocProvider(
+  Widget build(final BuildContext context) => BlocProvider<LoginBloc>(
     create: (final BuildContext context) => AppInjector.getIt<LoginBloc>(),
     child: BlocListener<LoginBloc, LoginState>(
       listener: (final BuildContext context, final LoginState state) async {
@@ -30,12 +30,15 @@ class _SignInScreenState extends State<SignInScreen> {
           ).showSnackBar(SnackBar(content: Text(state.message)));
         }
         if (state is LoginSuccess) {
-          context.router.replace(DashboardRouter(children: [HomeRoute()]));
+          await context.router.replace(
+            const DashboardRouter(
+              children: <PageRouteInfo<Object?>>[HomeRoute()],
+            ),
+          );
         }
       },
       child: Scaffold(
         backgroundColor: context.appColors.cF6F9FF,
-
         body: BlocBuilder<LoginBloc, LoginState>(
           builder: (final BuildContext context, final LoginState state) {
             final bool isLoading = state is LoginLoading;

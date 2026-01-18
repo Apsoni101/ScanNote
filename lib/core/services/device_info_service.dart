@@ -24,7 +24,7 @@ class DeviceInfoService {
       }
     } catch (e) {
       return Left<Failure, String>(
-        Failure(message: 'Failed to get device ID: ${e.toString()}'),
+        Failure(message: 'Failed to get device ID: $e'),
       );
     }
   }

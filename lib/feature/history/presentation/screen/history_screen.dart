@@ -73,7 +73,7 @@ class _HistoryScreenView extends StatelessWidget {
                     itemBuilder: (final BuildContext context, final int index) {
                       final historyScan = state.filteredScans[index];
                       return HistoryScanCard(
-                        qrData: historyScan.scan.qrData,
+                        data: historyScan.scan.data,
                         sheetTitle: historyScan.sheetTitle,
                         timestamp: historyScan.scan.timestamp,
                         comment: historyScan.scan.comment,

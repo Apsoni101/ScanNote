@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       builder: (final BuildContext context, final ThemeMode themeMode, _) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          title: 'QR',
+          title: 'CodiScan',
           routerConfig: appRouter.config(),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

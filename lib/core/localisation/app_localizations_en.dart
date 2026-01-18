@@ -15,18 +15,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home => 'Home';
 
   @override
-  String get analytics => 'Analytics';
-
-  @override
-  String get groups => 'Groups';
-
-  @override
-  String get wallet => 'Wallet';
-
-  @override
-  String get profile => 'Your Profile';
-
-  @override
   String get createAccount => 'Create Account';
 
   @override
@@ -37,6 +25,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get google => 'Google';
+
+  @override
+  String get extractText => 'Extract Text';
 
   @override
   String get welcomeBack => 'Welcome Back';
@@ -81,13 +72,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commentHint => 'Enter your comment or notes...';
 
   @override
+  String get ocrTitle => 'OCR Scanner';
+
+  @override
+  String get selectImagePrompt => 'Select an image to extract text';
+
+  @override
+  String get extractedText => 'Extracted Text';
+
+  @override
+  String get textCopiedToClipboard => 'Text copied to clipboard';
+
+  @override
+  String get clearButtonLabel => 'Clear';
+
+  @override
+  String get cameraButtonLabel => 'Camera';
+
+  @override
+  String get galleryButtonLabel => 'Gallery';
+
+  @override
+  String get liveTextRecognition => 'Live Text Recognition';
+
+  @override
   String get cancelButton => 'Cancel';
 
   @override
   String get confirmSave => 'Confirm Save';
 
   @override
-  String get qrData => 'QR Data:';
+  String get data => 'QR Data:';
 
   @override
   String get comment => 'Comment:';
@@ -97,6 +112,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirm => 'Confirm';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get camera => 'Camera';
 
   @override
   String get cancel => 'Cancel';
@@ -269,4 +290,27 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get cannotRefreshSheets =>
       'No internet connection. Cannot refresh sheets.';
+
+  @override
+  String get cameraPermissionTitle => 'Camera Permission Required';
+
+  @override
+  String get galleryPermissionTitle => 'Gallery Permission Required';
+
+  @override
+  String get permissionRequiredMessage =>
+      'This app needs permission to access your device. Please grant permission to continue.';
+
+  @override
+  String get permissionPermanentlyDeniedMessage =>
+      'Permission is permanently denied. Please enable it in app settings.';
+
+  @override
+  String get openSettings => 'Open Settings';
+
+  @override
+  String get retryButtonLabel => 'Retry';
+
+  @override
+  String get cancelButtonLabel => 'Cancel';
 }

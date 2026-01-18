@@ -5,8 +5,8 @@ import 'package:qr_scanner_practice/core/services/firebase/firebase_auth_service
 import 'package:qr_scanner_practice/core/services/network/failure.dart';
 import 'package:qr_scanner_practice/core/services/network/http_api_client.dart';
 import 'package:qr_scanner_practice/core/services/network/http_method.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/sheet_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/result_scan_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/sheet_model.dart';
 
 abstract class HomeScreenRemoteDataSource {
   Future<Either<Failure, List<SheetModel>>> getOwnedSheets();
@@ -14,16 +14,16 @@ abstract class HomeScreenRemoteDataSource {
   Future<Either<Failure, String>> createSheet(final String sheetName);
 
   Future<Either<Failure, Unit>> saveScan(
-    final QrScanModel model,
+    final ResultScanModel model,
     final String sheetId,
   );
 
-  Future<Either<Failure, List<QrScanModel>>> read(final String sheetId);
+  Future<Either<Failure, List<ResultScanModel>>> read(final String sheetId);
 
   Future<Either<Failure, Unit>> update(
     final String sheetId,
     final String range,
-    final QrScanModel model,
+    final ResultScanModel model,
   );
 
   Future<Either<Failure, Unit>> delete(
@@ -187,14 +187,14 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
 
   @override
   Future<Either<Failure, Unit>> saveScan(
-    final QrScanModel model,
+    final ResultScanModel model,
     final String sheetId,
   ) async {
     final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
     return authOptions.fold(Left.new, (final Options options) async {
       final Either<Failure, String?> userIdResult = await _getUserId();
       return userIdResult.fold(Left.new, (final String? userId) async {
-        final QrScanModel modelWithUserId = model.copyWith(userId: userId);
+        final ResultScanModel modelWithUserId = model.copyWith(userId: userId);
         return apiClient.request<Unit>(
           url:
               '${AppConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${AppConstants.appendRange}?valueInputOption=RAW',
@@ -210,10 +210,10 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, List<QrScanModel>>> read(final String sheetId) async {
+  Future<Either<Failure, List<ResultScanModel>>> read(final String sheetId) async {
     final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
     return authOptions.fold(Left.new, (final Options options) async {
-      return apiClient.request<List<QrScanModel>>(
+      return apiClient.request<List<ResultScanModel>>(
         url:
             '${AppConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${AppConstants.readRange}',
         method: HttpMethod.get,
@@ -221,7 +221,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
         responseParser: (final Map<String, dynamic> json) {
           final List values = json['values'] as List<dynamic>? ?? <dynamic>[];
           return values
-              .map((final e) => QrScanModel.fromSheetRow(List<dynamic>.from(e)))
+              .map((final e) => ResultScanModel.fromSheetRow(List<dynamic>.from(e)))
               .toList();
         },
       );
@@ -232,13 +232,13 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
   Future<Either<Failure, Unit>> update(
     final String sheetId,
     final String range,
-    final QrScanModel model,
+    final ResultScanModel model,
   ) async {
     final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
     return authOptions.fold(Left.new, (final Options options) async {
       final Either<Failure, String?> userIdResult = await _getUserId();
       return userIdResult.fold(Left.new, (final String? userId) async {
-        final QrScanModel modelWithUserId = model.copyWith(userId: userId);
+        final ResultScanModel modelWithUserId = model.copyWith(userId: userId);
         return apiClient.request<Unit>(
           url:
               '${AppConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!$range?valueInputOption=RAW',

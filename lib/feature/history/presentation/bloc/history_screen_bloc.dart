@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_scanner_practice/core/services/network/failure.dart';
 import 'package:qr_scanner_practice/feature/history/domain/usecase/get_history_scans_use_case.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/pending_sync_entity.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/entity/pending_sync_entity.dart';
 
 part 'history_screen_event.dart';
 
@@ -59,7 +59,7 @@ class HistoryScreenBloc extends Bloc<HistoryScreenEvent, HistoryScreenState> {
     final List<PendingSyncEntity> filtered = state.allScans.where((
       final PendingSyncEntity item,
     ) {
-      final String qrDataLower = item.scan.qrData.toLowerCase();
+      final String qrDataLower = item.scan.data.toLowerCase();
       final String commentLower = item.scan.comment.toLowerCase();
       final String sheetTitleLower = item.sheetTitle.toLowerCase();
 

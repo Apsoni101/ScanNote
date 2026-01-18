@@ -2,12 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:qr_scanner_practice/core/services/network/failure.dart';
 import 'package:qr_scanner_practice/feature/home/data/data_source/home_screen_local_data_source.dart';
 import 'package:qr_scanner_practice/feature/home/domain/repo/home_screen_local_repository.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/pending_sync_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/sheet_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/pending_sync_entity.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/qr_scan_entity.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/sheet_entity.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/pending_sync_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/result_scan_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/sheet_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/entity/pending_sync_entity.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/entity/result_scan_entity.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/entity/sheet_entity.dart';
 
 class HomeScreenLocalRepositoryImpl implements HomeScreenLocalRepository {
   const HomeScreenLocalRepositoryImpl({required this.localDataSource});
@@ -23,20 +23,20 @@ class HomeScreenLocalRepositoryImpl implements HomeScreenLocalRepository {
       localDataSource.saveSheetLocally(SheetModel.fromEntity(sheet));
 
   @override
-  Future<Either<Failure, Unit>> cacheQrScan(
-    final QrScanEntity scan,
+  Future<Either<Failure, Unit>> cacheResultScan(
+    final ResultScanEntity scan,
     final String sheetId,
     final String sheetTitle,
-  ) => localDataSource.saveQrScanLocally(
-    QrScanModel.fromEntity(scan),
+  ) => localDataSource.saveResultScanLocally(
+    ResultScanModel.fromEntity(scan),
     sheetId,
     sheetTitle,
   );
 
   @override
-  Future<Either<Failure, List<QrScanEntity>>> getCachedScans(
+  Future<Either<Failure, List<ResultScanEntity>>> getCachedScans(
     final String sheetId,
-  ) => localDataSource.getLocalQrScans(sheetId);
+  ) => localDataSource.getLocalResultScans(sheetId);
 
   @override
   Future<Either<Failure, List<PendingSyncEntity>>> getPendingSyncScans() async {

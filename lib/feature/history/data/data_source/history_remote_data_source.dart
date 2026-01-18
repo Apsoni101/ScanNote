@@ -5,9 +5,9 @@ import 'package:qr_scanner_practice/core/services/firebase/firebase_auth_service
 import 'package:qr_scanner_practice/core/services/network/failure.dart';
 import 'package:qr_scanner_practice/core/services/network/http_api_client.dart';
 import 'package:qr_scanner_practice/core/services/network/http_method.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/qr_scan_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/data/model/sheet_model.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/domain/entity/pending_sync_entity.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/result_scan_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/data/model/sheet_model.dart';
+import 'package:qr_scanner_practice/feature/result_scan/domain/entity/pending_sync_entity.dart';
 
 abstract class HistoryRemoteDataSource {
   Future<Either<Failure, List<PendingSyncEntity>>> getAllScansFromAllSheets();
@@ -77,11 +77,11 @@ class HistoryRemoteDataSourceImpl implements HistoryRemoteDataSource {
     );
   }
 
-  Future<Either<Failure, List<QrScanModel>>> _readScansFromSheet(
+  Future<Either<Failure, List<ResultScanModel>>> _readScansFromSheet(
       String sheetId,
       Options options,
       ) async {
-    return apiClient.request<List<QrScanModel>>(
+    return apiClient.request<List<ResultScanModel>>(
       url:
       '${AppConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${AppConstants.readRange}',
       method: HttpMethod.get,
@@ -89,7 +89,7 @@ class HistoryRemoteDataSourceImpl implements HistoryRemoteDataSource {
       responseParser: (final Map<String, dynamic> json) {
         final List values = json['values'] as List<dynamic>? ?? <dynamic>[];
         return values
-            .map((final e) => QrScanModel.fromSheetRow(List<dynamic>.from(e)))
+            .map((final e) => ResultScanModel.fromSheetRow(List<dynamic>.from(e)))
             .toList();
       },
     );
@@ -118,18 +118,18 @@ class HistoryRemoteDataSourceImpl implements HistoryRemoteDataSource {
 
             // Step 2: For each sheet, fetch all scans
             for (final SheetModel sheet in sheets) {
-              final Either<Failure, List<QrScanModel>> scansResult =
+              final Either<Failure, List<ResultScanModel>> scansResult =
               await _readScansFromSheet(sheet.id, options);
 
               scansResult.fold(
                     (final Failure _) {
                   // Continue even if one sheet fails
                 },
-                    (final List<QrScanModel> scans) {
+                    (final List<ResultScanModel> scans) {
                   // Convert to PendingSyncEntity with sheet info
                   final List<PendingSyncEntity> sheetScans = scans
                       .map(
-                        (final QrScanModel scan) => PendingSyncEntity(
+                        (final ResultScanModel scan) => PendingSyncEntity(
                       scan: scan.toEntity(),
                       sheetId: sheet.id,
                       sheetTitle: sheet.title,

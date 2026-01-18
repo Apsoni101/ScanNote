@@ -4,8 +4,9 @@ import 'package:qr_scanner_practice/core/navigation/route_paths.dart';
 
 final List<AutoRoute> dashboardTabRoutes = <AutoRoute>[
   AutoRoute(page: HomeRoute.page, path: RoutePaths.home,initial: true),
-  AutoRoute(page: QrScanningRoute.page, path: RoutePaths.qrScan),
-  AutoRoute(page: QrResultRoute.page, path: RoutePaths.qrResult),
-  AutoRoute(page: QrResultConfirmationRoute.page, path: RoutePaths.qrResultConfirm),
+  AutoRoute(page: ResultScanningRoute.page, path: RoutePaths.qrScan),
+  AutoRoute(page: ResultRoute.page, path: RoutePaths.result),
+  AutoRoute(page: OcrRoute.page, path: RoutePaths.ocr),
+  AutoRoute(page: ResultConfirmationRoute.page, path: RoutePaths.resultConfirm),
   AutoRoute(page: HistoryRoute.page, path: RoutePaths.history),
 ];

@@ -1,11 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Failure extends Equatable {
-  const Failure({
-    required this.message,
-    this.statusCode,
-    this.data,
-  });
+  const Failure({required this.message, this.statusCode, this.data});
 
   final String? statusCode;
   final String message;
@@ -80,10 +76,6 @@ class FormattingFailure extends Failure {
 }
 
 class UnimplementedFailure extends Failure {
-  const UnimplementedFailure({
-    super.data,
-  }) : super(
-          message: 'Feature Not Implemented Yet!',
-          statusCode: '000',
-        );
+  const UnimplementedFailure({super.data})
+    : super(message: 'Feature Not Implemented Yet!', statusCode: '000');
 }

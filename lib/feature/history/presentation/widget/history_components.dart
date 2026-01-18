@@ -135,14 +135,14 @@ class HistoryErrorState extends StatelessWidget {
 /// Reusable scan card component
 class HistoryScanCard extends StatelessWidget {
   const HistoryScanCard({
-    required this.qrData,
+    required this.data,
     required this.sheetTitle,
     required this.timestamp,
     super.key,
     this.comment,
   });
 
-  final String qrData;
+  final String data;
   final String sheetTitle;
   final DateTime timestamp;
   final String? comment;
@@ -162,7 +162,7 @@ class HistoryScanCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _SheetTitleBadge(title: sheetTitle),
-          _QrDataWithCopyButton(qrData: qrData),
+          _QrDataWithCopyButton(data: data),
           if (comment != null && comment!.isNotEmpty)
             _CommentSection(comment: comment!),
           _TimestampText(timestamp: timestamp),
@@ -200,12 +200,12 @@ class _SheetTitleBadge extends StatelessWidget {
 
 /// QR data display with copy button
 class _QrDataWithCopyButton extends StatelessWidget {
-  const _QrDataWithCopyButton({required this.qrData});
+  const _QrDataWithCopyButton({required this.data});
 
-  final String qrData;
+  final String data;
 
   void _copyToClipboard(final BuildContext context) {
-    Clipboard.setData(ClipboardData(text: qrData));
+    Clipboard.setData(ClipboardData(text: data));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(context.locale.copiedToClipboard),
@@ -223,7 +223,7 @@ class _QrDataWithCopyButton extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Text(
-            qrData,
+            data,
             style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
               color: context.appColors.black,
             ),
