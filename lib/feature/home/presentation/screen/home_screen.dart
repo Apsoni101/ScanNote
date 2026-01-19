@@ -454,7 +454,7 @@ class _ActionButtonsSection extends StatelessWidget {
         _PrimaryButton(
           icon: Icons.qr_code_scanner,
           label: context.locale.scanQrCode,
-          onPressed: () => context.router.push(const ResultScanningRoute()),
+          onPressed: () => context.router.push(const QrScanningRoute()),
         ),
         _SecondaryButton(
           icon: Icons.text_fields,

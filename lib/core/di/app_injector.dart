@@ -204,8 +204,8 @@ class AppInjector {
         ),
       )
       ..registerFactory<ResultBloc>(ResultBloc.new)
-      ..registerFactory<ResultScanningBloc>(
-        () => ResultScanningBloc(imagePickerService: getIt<ImagePickerService>()),
+      ..registerFactory<QrScanningBloc>(
+        () => QrScanningBloc(imagePickerService: getIt<ImagePickerService>()),
       )
       ..registerFactory<OcrBloc>(
         () => OcrBloc(ocrUseCase: getIt<OcrUseCase>()),

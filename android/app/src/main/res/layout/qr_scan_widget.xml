@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_widget_complete"
+
+    android:padding="8dp"> <!-- reduced padding -->
+
+
+
+    <!-- APP LOGO -->
+    <ImageView
+        android:id="@+id/imgAppLogo"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_gravity="start|top"
+        android:src="@drawable/app_logo"
+        android:tint="@android:color/transparent" />
+
+    <!-- QR SCAN ICON -->
+    <ImageView
+        android:id="@+id/imgScan"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_gravity="end|top"
+        android:src="@drawable/ic_qr_code_scanner_24"
+        android:tint="@android:color/white" />
+
+    <!-- TEXT CONTAINER -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan QR Codes."
+            android:textColor="#CCFFFFFF"
+            android:textSize="12sp" /> <!-- half of 18sp -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Store Securely."
+            android:textColor="#CCFFFFFF"
+            android:textSize="12sp" /> <!-- half of 18sp -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google Sheets Ready."
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+        android:textStyle="bold" />
+    </LinearLayout>
+
+</FrameLayout>

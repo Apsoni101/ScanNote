@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:qr_scanner_practice/core/extensions/color_extension.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
 
@@ -15,13 +16,26 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future<void>.delayed(const Duration(seconds: 3), () async {
-      if (mounted) {
-        await context.router.replaceAll(<PageRouteInfo<Object?>>[
-          const DashboardRouter(),
-        ]);
-      }
-    });
+    _handleNavigation();
+  }
+
+  Future<void> _handleNavigation() async {
+
+    if (!mounted) return;
+
+    final Uri? uri = await HomeWidget.initiallyLaunchedFromHomeWidget();
+
+    if (uri?.scheme == 'qrscan') {
+      await context.router.replaceAll(<PageRouteInfo<Object?>>[
+        const DashboardRouter(children: <PageRouteInfo<Object?>>[
+          QrScanningRoute(),
+        ]),
+      ]);
+    } else {
+      await context.router.replaceAll(<PageRouteInfo<Object?>>[
+        const DashboardRouter(),
+      ]);
+    }
   }
 
   @override

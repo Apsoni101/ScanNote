@@ -1,7 +1,7 @@
 part of 'qr_scanning_bloc.dart';
 
-class ResultScanningState extends Equatable {
-  const ResultScanningState({
+class QrScanningState extends Equatable {
+  const QrScanningState({
     this.qrDetected,
     this.isLoading = false,
     this.isFlashOn = false,
@@ -17,7 +17,7 @@ class ResultScanningState extends Equatable {
   final String? error;
   final String? imagePath;
 
-  ResultScanningState copyWith({
+  QrScanningState copyWith({
     final String? qrDetected,
     final bool? isLoading,
     final bool? isFlashOn,
@@ -25,7 +25,7 @@ class ResultScanningState extends Equatable {
     final String? error,
     final String? imagePath,
   }) {
-    return ResultScanningState(
+    return QrScanningState(
       qrDetected: qrDetected ?? this.qrDetected,
       isLoading: isLoading ?? this.isLoading,
       isFlashOn: isFlashOn ?? this.isFlashOn,

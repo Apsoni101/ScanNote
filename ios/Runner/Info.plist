@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
     <dict>
         <key>CADisableMinimumFrameDurationOnPhone</key>
@@ -29,9 +29,7 @@
                 <string>Editor</string>
                 <key>CFBundleURLSchemes</key>
                 <array>
-                    <string>
-                        com.googleusercontent.apps.597710711272-qp2a7pobos5fs6hf9r147ro4tjehjo66
-                    </string>
+                    <string>com.googleusercontent.apps.597710711272-qp2a7pobos5fs6hf9r147ro4tjehjo66</string>
                 </array>
             </dict>
         </array>
@@ -39,10 +37,6 @@
         <string>$(FLUTTER_BUILD_NUMBER)</string>
         <key>LSRequiresIPhoneOS</key>
         <true />
-        <key>NSBonjourServices</key>
-        <array>
-            <string>_services._tcp</string>
-        </array>
 
         <!-- ============================================ -->
         <!-- CAMERA & PHOTO LIBRARY PERMISSIONS -->

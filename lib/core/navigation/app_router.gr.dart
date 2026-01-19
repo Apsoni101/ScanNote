@@ -24,9 +24,9 @@ import 'package:qr_scanner_practice/feature/home/presentation/screen/home_screen
 import 'package:qr_scanner_practice/feature/ocr/presentation/screen/ocr_screen.dart'
     as _i5;
 import 'package:qr_scanner_practice/feature/qr_scan/presentation/presentation/qr_scanner_screen.dart'
-    as _i7;
-import 'package:qr_scanner_practice/feature/result_scan/presentation/presentation/result_confirmation_screen.dart'
     as _i6;
+import 'package:qr_scanner_practice/feature/result_scan/presentation/presentation/result_confirmation_screen.dart'
+    as _i7;
 import 'package:qr_scanner_practice/feature/result_scan/presentation/presentation/result_screen.dart'
     as _i8;
 import 'package:qr_scanner_practice/feature/splash/presentation/screens/splash_screen.dart'
@@ -113,7 +113,23 @@ class OcrRoute extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.ResultConfirmationScreen]
+/// [_i6.QrScanningScreen]
+class QrScanningRoute extends _i11.PageRouteInfo<void> {
+  const QrScanningRoute({List<_i11.PageRouteInfo>? children})
+    : super(QrScanningRoute.name, initialChildren: children);
+
+  static const String name = 'QrScanningRoute';
+
+  static _i11.PageInfo page = _i11.PageInfo(
+    name,
+    builder: (data) {
+      return const _i6.QrScanningScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i7.ResultConfirmationScreen]
 class ResultConfirmationRoute
     extends _i11.PageRouteInfo<ResultConfirmationRouteArgs> {
   ResultConfirmationRoute({
@@ -139,7 +155,7 @@ class ResultConfirmationRoute
     name,
     builder: (data) {
       final args = data.argsAs<ResultConfirmationRouteArgs>();
-      return _i6.ResultConfirmationScreen(
+      return _i7.ResultConfirmationScreen(
         data: args.data,
         comment: args.comment,
         resultType: args.resultType,
@@ -183,22 +199,6 @@ class ResultConfirmationRouteArgs {
   @override
   int get hashCode =>
       data.hashCode ^ comment.hashCode ^ resultType.hashCode ^ key.hashCode;
-}
-
-/// generated route for
-/// [_i7.ResultScanningScreen]
-class ResultScanningRoute extends _i11.PageRouteInfo<void> {
-  const ResultScanningRoute({List<_i11.PageRouteInfo>? children})
-    : super(ResultScanningRoute.name, initialChildren: children);
-
-  static const String name = 'ResultScanningRoute';
-
-  static _i11.PageInfo page = _i11.PageInfo(
-    name,
-    builder: (data) {
-      return const _i7.ResultScanningScreen();
-    },
-  );
 }
 
 /// generated route for

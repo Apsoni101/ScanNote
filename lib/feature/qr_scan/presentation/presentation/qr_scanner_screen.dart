@@ -12,26 +12,26 @@ import 'package:qr_scanner_practice/feature/qr_scan/presentation/widgets/scanner
 import 'package:qr_scanner_practice/feature/result_scan/presentation/presentation/result_screen.dart';
 
 @RoutePage()
-class ResultScanningScreen extends StatelessWidget {
-  const ResultScanningScreen({super.key});
+class QrScanningScreen extends StatelessWidget {
+  const QrScanningScreen({super.key});
 
   @override
   Widget build(final BuildContext context) {
-    return BlocProvider<ResultScanningBloc>(
-      create: (_) => AppInjector.getIt<ResultScanningBloc>(),
-      child: const _ResultScanningView(),
+    return BlocProvider<QrScanningBloc>(
+      create: (_) => AppInjector.getIt<QrScanningBloc>(),
+      child: const _QrScanningView(),
     );
   }
 }
 
-class _ResultScanningView extends StatefulWidget {
-  const _ResultScanningView();
+class _QrScanningView extends StatefulWidget {
+  const _QrScanningView();
 
   @override
-  State<_ResultScanningView> createState() => _ResultScanningViewState();
+  State<_QrScanningView> createState() => _QrScanningViewState();
 }
 
-class _ResultScanningViewState extends State<_ResultScanningView> {
+class _QrScanningViewState extends State<_QrScanningView> {
   late final MobileScannerController _controller;
 
   @override
@@ -47,7 +47,7 @@ class _ResultScanningViewState extends State<_ResultScanningView> {
   }
 
   void _handleQrDetected(final String code) {
-    context.read<ResultScanningBloc>().add(QrDetectedEvent(code));
+    context.read<QrScanningBloc>().add(QrDetectedEvent(code));
     _controller.stop();
     context.router.push(
       ResultRoute(
@@ -57,7 +57,7 @@ class _ResultScanningViewState extends State<_ResultScanningView> {
     ).then((_) {
       if (mounted) {
         _controller.start();
-        context.read<ResultScanningBloc>().add(const ResetNavigationEvent());
+        context.read<QrScanningBloc>().add(const ResetNavigationEvent());
       }
     });
   }
@@ -98,8 +98,8 @@ class _ResultScanningViewState extends State<_ResultScanningView> {
   Widget build(final BuildContext context) {
     final Size screenSize = MediaQuery.sizeOf(context);
 
-    return BlocListener<ResultScanningBloc, ResultScanningState>(
-      listener: (final BuildContext context, final ResultScanningState state) {
+    return BlocListener<QrScanningBloc, QrScanningState>(
+      listener: (final BuildContext context, final QrScanningState state) {
         if (state.error != null && state.imagePath == null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -206,8 +206,8 @@ class _BottomActionButtons extends StatelessWidget {
       bottom: screenSize.height * 0.02,
       left: 0,
       right: 0,
-      child: BlocSelector<ResultScanningBloc, ResultScanningState, bool>(
-        selector: (final ResultScanningState state) => state.isProcessingImage,
+      child: BlocSelector<QrScanningBloc, QrScanningState, bool>(
+        selector: (final QrScanningState state) => state.isProcessingImage,
         builder: (final BuildContext context, final bool isProcessing) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -219,7 +219,7 @@ class _BottomActionButtons extends StatelessWidget {
                 onPressed: isProcessing
                     ? null
                     : () {
-                        context.read<ResultScanningBloc>().add(
+                        context.read<QrScanningBloc>().add(
                           const ScanQrFromGalleryEvent(),
                         );
                       },
@@ -230,7 +230,7 @@ class _BottomActionButtons extends StatelessWidget {
                 onPressed: isProcessing
                     ? null
                     : () {
-                        context.read<ResultScanningBloc>().add(
+                        context.read<QrScanningBloc>().add(
                           const ScanQrFromCameraEvent(),
                         );
                       },
@@ -290,8 +290,8 @@ class _FlashToggleButton extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return BlocSelector<ResultScanningBloc, ResultScanningState, bool>(
-      selector: (final ResultScanningState state) => state.isFlashOn,
+    return BlocSelector<QrScanningBloc, QrScanningState, bool>(
+      selector: (final QrScanningState state) => state.isFlashOn,
       builder: (final BuildContext context, final bool isFlashOn) {
         return IconButton(
           icon: Icon(
@@ -299,7 +299,7 @@ class _FlashToggleButton extends StatelessWidget {
             color: context.appColors.white,
           ),
           onPressed: () {
-            context.read<ResultScanningBloc>().add(const ToggleFlashEvent());
+            context.read<QrScanningBloc>().add(const ToggleFlashEvent());
             controller.toggleTorch();
           },
         );

@@ -1,13 +1,13 @@
 part of 'qr_scanning_bloc.dart';
 
-sealed class ResultScanningEvent extends Equatable {
-  const ResultScanningEvent();
+sealed class QrScanningEvent extends Equatable {
+  const QrScanningEvent();
 
   @override
   List<Object?> get props => <Object?>[];
 }
 
-class QrDetectedEvent extends ResultScanningEvent {
+class QrDetectedEvent extends QrScanningEvent {
   const QrDetectedEvent(this.code);
 
   final String code;
@@ -16,18 +16,18 @@ class QrDetectedEvent extends ResultScanningEvent {
   List<Object?> get props => <Object?>[code];
 }
 
-class ToggleFlashEvent extends ResultScanningEvent {
+class ToggleFlashEvent extends QrScanningEvent {
   const ToggleFlashEvent();
 }
 
-class ScanQrFromGalleryEvent extends ResultScanningEvent {
+class ScanQrFromGalleryEvent extends QrScanningEvent {
   const ScanQrFromGalleryEvent();
 }
 
-class ScanQrFromCameraEvent extends ResultScanningEvent {
+class ScanQrFromCameraEvent extends QrScanningEvent {
   const ScanQrFromCameraEvent();
 }
 
-class ResetNavigationEvent extends ResultScanningEvent {
+class ResetNavigationEvent extends QrScanningEvent {
   const ResetNavigationEvent();
 }

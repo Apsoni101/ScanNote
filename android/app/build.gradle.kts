@@ -40,8 +40,20 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
+dependencies {
+    // Core text recognition
+    implementation("com.google.mlkit:text-recognition:16.0.0")
 
+    // Language modules required by ML Kit internally
+    implementation("com.google.mlkit:text-recognition-chinese:16.0.0")
+    implementation("com.google.mlkit:text-recognition-devanagari:16.0.0")
+    implementation("com.google.mlkit:text-recognition-japanese:16.0.0")
+    implementation("com.google.mlkit:text-recognition-korean:16.0.0")
+}
 flutter {
     source = "../.."
 }
