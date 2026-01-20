@@ -9,7 +9,6 @@ import 'package:qr_scanner_practice/core/extensions/localization_extension.dart'
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
 import 'package:qr_scanner_practice/feature/result_scan/presentation/bloc/result_bloc/result_bloc.dart';
 
-
 @RoutePage()
 class ResultScreen extends StatelessWidget {
   const ResultScreen({required this.data, required this.resultType, super.key});
