@@ -13,10 +13,8 @@ class ConnectivityService {
       final List<ConnectivityResult> result = await _connectivity
           .checkConnectivity();
       final bool hasConnection = !result.contains(ConnectivityResult.none);
-      debugPrint('📡 [ConnectivityService] Connection status: $hasConnection');
       return hasConnection;
     } catch (e) {
-      debugPrint('❌ [ConnectivityService] Error checking connection: $e');
       return false;
     }
   }
@@ -27,9 +25,6 @@ class ConnectivityService {
       final List<ConnectivityResult> result,
     ) {
       final bool hasConnection = !result.contains(ConnectivityResult.none);
-      debugPrint(
-        '📡 [ConnectivityService] Connectivity changed: $hasConnection',
-      );
       return hasConnection;
     });
   }

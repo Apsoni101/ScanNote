@@ -56,7 +56,4 @@ extension DateTimeFormatting on DateTime {
       return '$day/$month/$year $hour:${minute.toString().padLeft(2, '0')}';
     }
   }
-
-
-
 }

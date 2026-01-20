@@ -1,0 +1,1 @@
+enum ResultType { qr, ocr }
