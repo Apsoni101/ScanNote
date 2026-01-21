@@ -8,5 +8,5 @@ final List<AutoRoute> dashboardTabRoutes = <AutoRoute>[
   AutoRoute(page: ResultRoute.page, path: RoutePaths.result),
   AutoRoute(page: OcrRoute.page, path: RoutePaths.ocr),
   AutoRoute(page: ResultSavingRoute.page, path: RoutePaths.resultConfirm),
-  AutoRoute(page: HistoryRoute.page, path: RoutePaths.history),
+  AutoRoute(page: ViewScansHistoryRoute.page, path: RoutePaths.history),
 ];

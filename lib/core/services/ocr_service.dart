@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
 
 class OcrService {
   OcrService() : _textRecognizer = TextRecognizer();

@@ -46,7 +46,7 @@ final class OnConfirmationCreateSheet extends ResultSavingEvent {
 class OnConfirmationSaveScan extends ResultSavingEvent {
   const OnConfirmationSaveScan(this.scanEntity, this.sheetId, this.sheetTitle);
 
-  final ResultScanEntity scanEntity;
+  final ScanResultEntity scanEntity;
   final String sheetId;
   final String sheetTitle;
 }

@@ -14,6 +14,6 @@ class ResultState extends Equatable {
   List<Object?> get props => <Object?>[comment];
 }
 
-class ResultScanInitial extends ResultState {
-  const ResultScanInitial();
+class ScanResultInitial extends ResultState {
+  const ScanResultInitial();
 }

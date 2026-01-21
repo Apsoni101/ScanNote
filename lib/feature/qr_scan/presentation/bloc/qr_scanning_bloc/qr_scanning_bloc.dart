@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:qr_scanner_practice/core/services/image_picker_service.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
 
 part 'qr_scanning_event.dart';
 

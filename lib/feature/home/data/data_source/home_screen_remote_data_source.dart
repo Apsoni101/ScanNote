@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:qr_scanner_practice/core/constants/app_constants.dart';
-import 'package:qr_scanner_practice/core/services/firebase/firebase_auth_service.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
-import 'package:qr_scanner_practice/core/services/network/http_api_client.dart';
-import 'package:qr_scanner_practice/core/services/network/http_method.dart';
+import 'package:qr_scanner_practice/core/firebase/firebase_auth_service.dart';
+import 'package:qr_scanner_practice/core/network/constants/network_constants.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/http_api_client.dart';
+import 'package:qr_scanner_practice/core/network/http_method.dart';
 import 'package:qr_scanner_practice/feature/scan_result/data/model/scan_result_model.dart';
 import 'package:qr_scanner_practice/feature/scan_result/data/model/sheet_model.dart';
 
@@ -71,12 +72,12 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
     final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
     return authOptions.fold(Left.new, (final Options options) async {
       const String query =
-          'mimeType="${AppConstants.sheetMimeType}" and "me" in owners and trashed=false';
+          'mimeType="${NetworkConstants.sheetMimeType}" and "me" in owners and trashed=false';
       final String encodedQuery = Uri.encodeComponent(query);
 
       return apiClient.request<List<SheetModel>>(
         url:
-            '${AppConstants.driveBaseUrl}?q=$encodedQuery&fields=${AppConstants.sheetFields}&pageSize=${AppConstants.pageSize}&orderBy=${AppConstants.orderBy}',
+            '${NetworkConstants.driveBaseUrl}?q=$encodedQuery&fields=${NetworkConstants.sheetFields}&pageSize=${NetworkConstants.pageSize}&orderBy=${NetworkConstants.orderBy}',
         method: HttpMethod.get,
         options: options,
         responseParser: (final Map<String, dynamic> json) {
@@ -113,7 +114,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
     return authOptions.fold(Left.new, (final Options options) async {
       final Either<Failure, String> spreadsheetId = await apiClient
           .request<String>(
-            url: AppConstants.sheetsBaseUrl,
+            url: NetworkConstants.sheetsBaseUrl,
             method: HttpMethod.post,
             options: options,
             data: <String, dynamic>{
@@ -169,7 +170,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
       return spreadsheetId.fold(Left.new, (final String id) async {
         final Either<Failure, Unit> updateResult = await apiClient
             .request<Unit>(
-              url: '${AppConstants.driveBaseUrl}/$id?fields=properties',
+              url: '${NetworkConstants.driveBaseUrl}/$id?fields=properties',
               method: HttpMethod.patch,
               options: options,
               data: <String, dynamic>{
@@ -197,7 +198,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
         final ScanResultModel modelWithUserId = model.copyWith(userId: userId);
         return apiClient.request<Unit>(
           url:
-              '${AppConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${AppConstants.appendRange}?valueInputOption=RAW',
+              '${NetworkConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${NetworkConstants.appendRange}?valueInputOption=RAW',
           method: HttpMethod.post,
           options: options,
           data: <String, dynamic>{
@@ -217,7 +218,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
     return authOptions.fold(Left.new, (final Options options) async {
       return apiClient.request<List<ScanResultModel>>(
         url:
-            '${AppConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${AppConstants.readRange}',
+            '${NetworkConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${AppConstants.readRange}',
         method: HttpMethod.get,
         options: options,
         responseParser: (final Map<String, dynamic> json) {
@@ -246,7 +247,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
         final ScanResultModel modelWithUserId = model.copyWith(userId: userId);
         return apiClient.request<Unit>(
           url:
-              '${AppConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!$range?valueInputOption=RAW',
+              '${NetworkConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!$range?valueInputOption=RAW',
           method: HttpMethod.put,
           options: options,
           data: <String, dynamic>{
@@ -267,7 +268,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
     return authOptions.fold(Left.new, (final Options options) async {
       return apiClient.request<Unit>(
         url:
-            '${AppConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!$range${AppConstants.clearRangeSuffix}',
+            '${NetworkConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!$range${NetworkConstants.clearRangeSuffix}',
         method: HttpMethod.post,
         options: options,
         responseParser: (_) => unit,

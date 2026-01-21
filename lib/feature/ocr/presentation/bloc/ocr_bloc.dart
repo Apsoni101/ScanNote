@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
 import 'package:qr_scanner_practice/feature/ocr/domain/use_case/ocr_use_case.dart';
 
 part 'ocr_event.dart';

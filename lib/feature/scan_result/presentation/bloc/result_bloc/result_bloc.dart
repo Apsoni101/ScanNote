@@ -6,7 +6,7 @@ part 'result_event.dart';
 part 'result_state.dart';
 
 class ResultBloc extends Bloc<ResultEvent, ResultState> {
-  ResultBloc() : super(const ResultScanInitial()) {
+  ResultBloc() : super(const ScanResultInitial()) {
     on<OnResultCommentChanged>(_onCommentChanged);
   }
 

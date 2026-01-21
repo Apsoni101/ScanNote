@@ -8,12 +8,12 @@ class PendingSyncEntity extends Equatable {
     required this.sheetTitle,
   });
 
-  final ResultScanEntity scan;
+  final ScanResultEntity scan;
   final String sheetId;
   final String sheetTitle;
 
   PendingSyncEntity copyWith({
-    final ResultScanEntity? scan,
+    final ScanResultEntity? scan,
     final String? sheetId,
     final String? sheetTitle,
   }) {

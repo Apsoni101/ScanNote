@@ -8,7 +8,6 @@ class UserModel extends UserEntity {
     super.name,
     super.surname = '',
     super.birthdate = '',
-    super.isNewUser = false,
   });
 
   factory UserModel.fromFirestore({required final Map<String, dynamic> data}) =>
@@ -18,14 +17,10 @@ class UserModel extends UserEntity {
         name: data['name']?.toString() ?? '',
         surname: data['surname']?.toString() ?? '',
         birthdate: data['birthdate']?.toString() ?? '',
-        isNewUser: false,
       );
 
   factory UserModel.fromFirebaseUser(final User user) {
-    final bool isNewUser =
-        user.metadata.creationTime == user.metadata.lastSignInTime;
-
-    // Extract name and surname from Google account
+    /// Extract name and surname from Google account
     final String fullName =
         user.displayName ?? user.email?.split('@').first ?? '';
     final List<String> nameParts = fullName.split(' ');
@@ -40,27 +35,24 @@ class UserModel extends UserEntity {
       email: user.email ?? '',
       name: name,
       surname: surname,
-      isNewUser: isNewUser,
     );
   }
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
     'uid': uid ?? '',
     'email': email ?? '',
     'name': name ?? '',
     'surname': surname ?? '',
     'birthdate': birthdate ?? '',
-    'isNewUser': isNewUser,
   };
 
   @override
   UserModel copyWith({
-    String? uid,
-    String? name,
-    String? surname,
-    String? email,
-    String? birthdate,
-    bool? isNewUser,
+    final String? uid,
+    final String? name,
+    final String? surname,
+    final String? email,
+    final String? birthdate,
   }) {
     return UserModel(
       uid: uid ?? this.uid,
@@ -68,7 +60,6 @@ class UserModel extends UserEntity {
       surname: surname ?? this.surname,
       email: email ?? this.email,
       birthdate: birthdate ?? this.birthdate,
-      isNewUser: isNewUser ?? this.isNewUser,
     );
   }
 }

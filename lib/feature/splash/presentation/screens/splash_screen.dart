@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
-import 'package:qr_scanner_practice/core/extensions/color_extension.dart';
+import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
+
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
+import 'package:qr_scanner_practice/core/navigation/route_paths.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {
@@ -24,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     final Uri? uri = await HomeWidget.initiallyLaunchedFromHomeWidget();
 
-    if (uri?.scheme == 'qrscan') {
+    if (uri?.scheme == RoutePaths.qrScan && mounted) {
       await context.router.replaceAll(<PageRouteInfo<Object?>>[
         const DashboardRouter(
           children: <PageRouteInfo<Object?>>[QrScanningRoute()],

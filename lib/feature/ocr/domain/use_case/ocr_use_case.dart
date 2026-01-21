@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
 import 'package:qr_scanner_practice/feature/ocr/domain/repo/ocr_repo.dart';
 
 class OcrUseCase {

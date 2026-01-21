@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
 
 class DeviceInfoService {
   DeviceInfoService();

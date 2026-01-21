@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
+import 'package:qr_scanner_practice/core/firebase/firebase_auth_service.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
-import 'package:qr_scanner_practice/core/services/firebase/firebase_auth_service.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
 
 class AuthGuard extends AutoRouteGuard {
   AuthGuard({required this.firebaseAuthService});
@@ -20,13 +20,13 @@ class AuthGuard extends AutoRouteGuard {
 
     await isSignedInResult.fold(
       (final Failure failure) async {
-        router.replace(SignInRoute());
+        await router.replace(const GoogleSignInSignUpRoute());
       },
       (final bool isSignedIn) async {
         if (isSignedIn) {
           resolver.next();
         } else {
-          router.replace(SignInRoute());
+          await router.replace(const GoogleSignInSignUpRoute());
         }
       },
     );

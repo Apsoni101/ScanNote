@@ -2,15 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:qr_scanner_practice/core/constants/app_textstyles.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/enums/result_type.dart';
-import 'package:qr_scanner_practice/core/extensions/color_extension.dart';
-import 'package:qr_scanner_practice/core/extensions/localization_extension.dart';
+import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/presentation/bloc/qr_scanning_bloc/qr_scanning_bloc.dart';
-import 'package:qr_scanner_practice/feature/qr_scan/presentation/widgets/scanner_overlay_painter.dart';
-import 'package:qr_scanner_practice/feature/scan_result/presentation/presentation/result_screen.dart';
+import 'package:qr_scanner_practice/feature/qr_scan/presentation/widgets/qr_scan_instruction_text.dart';
+import 'package:qr_scanner_practice/feature/qr_scan/presentation/widgets/qr_scan_source_buttons.dart';
+import 'package:qr_scanner_practice/feature/qr_scan/presentation/widgets/qr_scanner_app_bar.dart';
+import 'package:qr_scanner_practice/feature/qr_scan/presentation/widgets/qr_scanner_overlay.dart';
 
 @RoutePage()
 class QrScanningScreen extends StatelessWidget {
@@ -20,19 +20,19 @@ class QrScanningScreen extends StatelessWidget {
   Widget build(final BuildContext context) {
     return BlocProvider<QrScanningBloc>(
       create: (_) => AppInjector.getIt<QrScanningBloc>(),
-      child: const _QrScanningView(),
+      child: const QrScanningView(),
     );
   }
 }
 
-class _QrScanningView extends StatefulWidget {
-  const _QrScanningView();
+class QrScanningView extends StatefulWidget {
+  const QrScanningView({super.key});
 
   @override
-  State<_QrScanningView> createState() => _QrScanningViewState();
+  State<QrScanningView> createState() => QrScanningViewState();
 }
 
-class _QrScanningViewState extends State<_QrScanningView> {
+class QrScanningViewState extends State<QrScanningView> {
   late final MobileScannerController _controller;
 
   @override
@@ -72,24 +72,23 @@ class _QrScanningViewState extends State<_QrScanningView> {
       if (qrValue != null && qrValue.isNotEmpty) {
         _handleQrDetected(qrValue);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.locale.noQrCodeFound),
-            duration: const Duration(seconds: 2),
-          ),
-        );
+        _showNoQrFoundMessage();
       }
     } else {
       if (!mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(context.locale.noQrCodeFound),
-          duration: const Duration(seconds: 2),
-        ),
-      );
+      _showNoQrFoundMessage();
     }
+  }
+
+  void _showNoQrFoundMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(context.locale.noQrCodeFound),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -114,7 +113,7 @@ class _QrScanningViewState extends State<_QrScanningView> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         extendBodyBehindAppBar: true,
-        appBar: _ScanningAppBar(controller: _controller),
+        appBar: QrScannerAppBar(controller: _controller),
         body: Stack(
           children: <Widget>[
             MobileScanner(
@@ -135,14 +134,14 @@ class _QrScanningViewState extends State<_QrScanningView> {
                     );
                   },
             ),
-            ScannerOverlay(screenSize: screenSize),
+            QrScannerOverlay(screenSize: screenSize),
             Positioned(
               bottom: screenSize.height * 0.175,
               left: 0,
               right: 0,
-              child: Center(child: _InstructionText()),
+              child: const Center(child: QrScanInstructionText()),
             ),
-            _BottomActionButtons(controller: _controller),
+            QrScanSourceButtons(controller: _controller),
           ],
         ),
       ),
@@ -163,174 +162,5 @@ class _QrScanningViewState extends State<_QrScanningView> {
       return context.locale.scannerControllerDisposed;
     }
     return context.locale.scannerError(error.errorCode.name);
-  }
-}
-
-/// App bar for the QR scanning screen.
-/// Contains close button and flash toggle button.
-class _ScanningAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _ScanningAppBar({required this.controller});
-
-  final MobileScannerController controller;
-
-  @override
-  Widget build(final BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      leading: IconButton(
-        icon: Icon(Icons.close, color: context.appColors.white),
-        onPressed: () => context.router.maybePop(),
-      ),
-      actions: <Widget>[_FlashToggleButton(controller: controller)],
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}
-
-/// Bottom action buttons for gallery and camera image capture.
-/// Displays as a row of two FAB-style buttons with labels.
-class _BottomActionButtons extends StatelessWidget {
-  const _BottomActionButtons({required this.controller});
-
-  final MobileScannerController controller;
-
-  @override
-  Widget build(final BuildContext context) {
-    final Size screenSize = MediaQuery.sizeOf(context);
-
-    return Positioned(
-      bottom: screenSize.height * 0.02,
-      left: 0,
-      right: 0,
-      child: BlocSelector<QrScanningBloc, QrScanningState, bool>(
-        selector: (final QrScanningState state) => state.isProcessingImage,
-        builder: (final BuildContext context, final bool isProcessing) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: screenSize.width * 0.05,
-            children: <Widget>[
-              _ActionButton(
-                icon: Icons.image,
-                label: context.locale.gallery,
-                onPressed: isProcessing
-                    ? null
-                    : () {
-                        context.read<QrScanningBloc>().add(
-                          const ScanQrFromGalleryEvent(),
-                        );
-                      },
-              ),
-              _ActionButton(
-                icon: Icons.camera_alt,
-                label: context.locale.camera,
-                onPressed: isProcessing
-                    ? null
-                    : () {
-                        context.read<QrScanningBloc>().add(
-                          const ScanQrFromCameraEvent(),
-                        );
-                      },
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-/// Individual action button with icon and label.
-/// Disabled state applies opacity to the button.
-class _ActionButton extends StatelessWidget {
-  const _ActionButton({
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-  });
-
-  final IconData icon;
-  final String label;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(final BuildContext context) {
-    return Column(
-      spacing: 4,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        FloatingActionButton(
-          mini: true,
-          backgroundColor: onPressed != null
-              ? context.appColors.white
-              : context.appColors.white.withValues(alpha: 0.5),
-          onPressed: onPressed,
-          child: Icon(icon, color: context.appColors.black),
-        ),
-        Text(
-          label,
-          style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-            color: context.appColors.white,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-/// Flash toggle button for camera flash control.
-/// Displays flash on/off icon based on current state.
-class _FlashToggleButton extends StatelessWidget {
-  const _FlashToggleButton({required this.controller});
-
-  final MobileScannerController controller;
-
-  @override
-  Widget build(final BuildContext context) {
-    return BlocSelector<QrScanningBloc, QrScanningState, bool>(
-      selector: (final QrScanningState state) => state.isFlashOn,
-      builder: (final BuildContext context, final bool isFlashOn) {
-        return IconButton(
-          icon: Icon(
-            isFlashOn ? Icons.flash_on : Icons.flash_off,
-            color: context.appColors.white,
-          ),
-          onPressed: () {
-            context.read<QrScanningBloc>().add(const ToggleFlashEvent());
-            controller.toggleTorch();
-          },
-        );
-      },
-    );
-  }
-}
-
-/// Instruction text displayed above the bottom action buttons.
-/// Guides user to point camera at QR code.
-class _InstructionText extends StatelessWidget {
-  @override
-  Widget build(final BuildContext context) {
-    final Size screenSize = MediaQuery.sizeOf(context);
-    final double horizontalPadding = screenSize.width * 0.064;
-    final double verticalPadding = screenSize.height * 0.015;
-    final double borderRadius = screenSize.width * 0.02;
-
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: verticalPadding,
-      ),
-      decoration: BoxDecoration(
-        color: context.appColors.black.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(borderRadius),
-      ),
-      child: Text(
-        context.locale.pointCameraToScanQr,
-        style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-          color: context.appColors.white,
-        ),
-      ),
-    );
   }
 }

@@ -5,9 +5,8 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_scanner_practice/core/services/connectivity_service.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
-import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_local_use_case.dart';
-import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_remote_use_case.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
+import 'package:qr_scanner_practice/feature/home/domain/use_case/home_screen_use_case.dart';
 import 'package:qr_scanner_practice/feature/scan_result/domain/entity/pending_sync_entity.dart';
 import 'package:qr_scanner_practice/feature/scan_result/domain/entity/result_scan_entity.dart';
 import 'package:qr_scanner_practice/feature/scan_result/domain/entity/sheet_entity.dart';
@@ -17,11 +16,8 @@ part 'home_screen_event.dart';
 part 'home_screen_state.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
-  HomeScreenBloc({
-    required this.remoteUseCase,
-    required this.localUseCase,
-    required this.connectivityService,
-  }) : super(const HomeScreenInitial()) {
+  HomeScreenBloc({required this.useCase, required this.connectivityService})
+    : super(const HomeScreenInitial()) {
     on<OnHomeLoadInitial>(_onLoadInitial);
     on<OnHomeSyncPendingScans>(_onSyncPendingScans);
     on<OnHomeRefreshSheets>(_onRefreshSheets);
@@ -38,8 +34,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         });
   }
 
-  final HomeScreenRemoteUseCase remoteUseCase;
-  final HomeScreenLocalUseCase localUseCase;
+  final HomeScreenUseCase useCase;
   final ConnectivityService connectivityService;
 
   late final StreamSubscription<bool> _connectivitySubscription;
@@ -52,8 +47,8 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
     final bool isOnline = await connectivityService.hasInternetConnection();
 
-    final Either<Failure, List<PendingSyncEntity>> pendingResult =
-        await localUseCase.getPendingSyncScans();
+    final Either<Failure, List<PendingSyncEntity>> pendingResult = await useCase
+        .getPendingSyncScans();
 
     await pendingResult.fold(
       (final Failure failure) async {
@@ -95,8 +90,8 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
     emit(state.copyWith(isSyncing: true, isOnline: true));
 
-    final Either<Failure, List<PendingSyncEntity>> pendingResult =
-        await localUseCase.getPendingSyncScans();
+    final Either<Failure, List<PendingSyncEntity>> pendingResult = await useCase
+        .getPendingSyncScans();
 
     await pendingResult.fold(
       (final Failure failure) async {
@@ -119,10 +114,10 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
         for (int i = 0; i < pendingSyncs.length; i++) {
           final PendingSyncEntity pendingSync = pendingSyncs[i];
-          final ResultScanEntity scan = pendingSync.scan;
+          final ScanResultEntity scan = pendingSync.scan;
           final String sheetId = pendingSync.sheetId;
 
-          final Either<Failure, Unit> result = await remoteUseCase.saveScan(
+          final Either<Failure, Unit> result = await useCase.saveScan(
             scan,
             sheetId,
           );
@@ -133,7 +128,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
             },
             (_) async {
               syncedCount++;
-              await localUseCase.removeSyncedScan(i);
+              await useCase.removeSyncedScan(i);
             },
           );
         }
@@ -171,7 +166,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
     emit(state.copyWith(isLoading: true, isOnline: true));
 
-    final Either<Failure, List<SheetEntity>> result = await remoteUseCase
+    final Either<Failure, List<SheetEntity>> result = await useCase
         .getOwnedSheets();
 
     await result.fold(
@@ -180,7 +175,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       },
       (final List<SheetEntity> sheets) async {
         for (final SheetEntity sheet in sheets) {
-          await localUseCase.cacheSheet(sheet);
+          await useCase.cacheSheet(sheet);
         }
 
         emit(state.copyWith(isLoading: false));
@@ -195,8 +190,8 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     final bool wasOnline = state.isOnline;
     final bool isNowOnline = event.isConnected;
 
-    final Either<Failure, List<PendingSyncEntity>> pendingResult =
-        await localUseCase.getPendingSyncScans();
+    final Either<Failure, List<PendingSyncEntity>> pendingResult = await useCase
+        .getPendingSyncScans();
 
     await pendingResult.fold(
       (final Failure failure) async {
@@ -220,8 +215,8 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     final OnHomeUpdatePendingCount event,
     final Emitter<HomeScreenState> emit,
   ) async {
-    final Either<Failure, List<PendingSyncEntity>> pendingResult =
-        await localUseCase.getPendingSyncScans();
+    final Either<Failure, List<PendingSyncEntity>> pendingResult = await useCase
+        .getPendingSyncScans();
 
     await pendingResult.fold(
       (final Failure failure) async {

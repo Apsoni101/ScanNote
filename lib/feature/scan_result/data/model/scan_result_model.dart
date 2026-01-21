@@ -4,7 +4,7 @@ import 'package:qr_scanner_practice/feature/scan_result/domain/entity/result_sca
 part 'scan_result_model.g.dart';
 
 @HiveType(typeId: 1)
-class ScanResultModel extends ResultScanEntity {
+class ScanResultModel extends ScanResultEntity {
   const ScanResultModel({
     @HiveField(0) required super.data,
     @HiveField(1) required super.comment,
@@ -15,7 +15,7 @@ class ScanResultModel extends ResultScanEntity {
 
   // ---------- FACTORIES ----------
 
-  factory ScanResultModel.fromEntity(final ResultScanEntity entity) {
+  factory ScanResultModel.fromEntity(final ScanResultEntity entity) {
     return ScanResultModel(
       data: entity.data,
       comment: entity.comment,
@@ -76,8 +76,8 @@ class ScanResultModel extends ResultScanEntity {
     userId ?? '',
   ];
 
-  ResultScanEntity toEntity() {
-    return ResultScanEntity(
+  ScanResultEntity toEntity() {
+    return ScanResultEntity(
       data: data,
       comment: comment,
       timestamp: timestamp,

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class ResultScanEntity extends Equatable {
-  const ResultScanEntity({
+class ScanResultEntity extends Equatable {
+  const ScanResultEntity({
     required this.data,
     required this.comment,
     required this.timestamp,
@@ -15,14 +15,14 @@ class ResultScanEntity extends Equatable {
   final String? deviceId;
   final String? userId;
 
-  ResultScanEntity copyWith({
+  ScanResultEntity copyWith({
     final String? data,
     final String? comment,
     final DateTime? timestamp,
     final String? deviceId,
     final String? userId,
   }) {
-    return ResultScanEntity(
+    return ScanResultEntity(
       data: data ?? this.data,
       comment: comment ?? this.comment,
       timestamp: timestamp ?? this.timestamp,

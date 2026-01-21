@@ -6,7 +6,7 @@ class RoutePaths {
 
   // Dashboard tab routes
   static const String home = 'home';
-  static const String qrScan = 'qrScan';
+  static const String qrScan = 'qrscan';
   static const String result = 'result';
   static const String ocr = 'pcr';
   static const String resultConfirm = 'resultConfirm';

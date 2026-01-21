@@ -2,17 +2,16 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
 import 'package:qr_scanner_practice/feature/scan_result/domain/entity/result_scan_entity.dart';
 import 'package:qr_scanner_practice/feature/scan_result/domain/entity/sheet_entity.dart';
-import 'package:qr_scanner_practice/feature/scan_result/domain/usecase/result_scan_local_use_case.dart';
-import 'package:qr_scanner_practice/feature/scan_result/domain/usecase/result_scan_remote_use_case.dart';
+import 'package:qr_scanner_practice/feature/scan_result/domain/usecase/scan_result_use_case.dart';
 
 part 'result_saving_event.dart';
 part 'result_saving_state.dart';
 
 class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
-  ResultSavingBloc({required this.remoteUseCase, required this.localUseCase})
+  ResultSavingBloc({required this.useCase})
     : super(const ResultSavingInitial()) {
     on<OnConfirmationLoadSheets>(_onLoadSheets);
     on<OnConfirmationSheetSelected>(_onSheetSelected);
@@ -22,8 +21,7 @@ class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
     on<OnConfirmationSaveScan>(_onSaveScan);
   }
 
-  final ResultScanRemoteUseCase remoteUseCase;
-  final ResultScanLocalUseCase localUseCase;
+  final ScanResultUseCase useCase;
 
   Future<void> _onLoadSheets(
     final OnConfirmationLoadSheets event,
@@ -31,13 +29,13 @@ class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
   ) async {
     emit(state.copyWith(isLoadingSheets: true));
 
-    final Either<Failure, List<SheetEntity>> remoteResult = await remoteUseCase
+    final Either<Failure, List<SheetEntity>> remoteResult = await useCase
         .getOwnedSheets();
 
     await remoteResult.fold(
       (final Failure failure) async {
-        final Either<Failure, List<SheetEntity>> localResult =
-            await localUseCase.getLocalSheets();
+        final Either<Failure, List<SheetEntity>> localResult = await useCase
+            .getLocalSheets();
 
         localResult.fold(
           (final Failure localFailure) {
@@ -65,7 +63,7 @@ class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
       },
       (final List<SheetEntity> sheets) async {
         for (final SheetEntity sheet in sheets) {
-          await localUseCase.cacheSheet(sheet);
+          await useCase.cacheSheet(sheet);
         }
 
         emit(
@@ -131,8 +129,9 @@ class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
 
     emit(state.copyWith(isCreatingSheet: true));
 
-    final Either<Failure, String> createResult = await remoteUseCase
-        .createSheet(trimmedName);
+    final Either<Failure, String> createResult = await useCase.createSheet(
+      trimmedName,
+    );
 
     await createResult.fold(
       (final Failure failure) async {
@@ -152,9 +151,9 @@ class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
           modifiedTime: DateTime.now().toIso8601String(),
         );
 
-        await localUseCase.cacheSheet(sheet);
+        await useCase.cacheSheet(sheet);
 
-        final Either<Failure, List<SheetEntity>> loadResult = await localUseCase
+        final Either<Failure, List<SheetEntity>> loadResult = await useCase
             .getLocalSheets();
 
         loadResult.fold(
@@ -184,8 +183,8 @@ class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
       (final String sheetId) async {
         emit(state.copyWith(isCreatingSheet: false));
 
-        final Either<Failure, List<SheetEntity>> loadResult =
-            await remoteUseCase.getOwnedSheets();
+        final Either<Failure, List<SheetEntity>> loadResult = await useCase
+            .getOwnedSheets();
 
         await loadResult.fold(
           (final Failure failure) {
@@ -199,7 +198,7 @@ class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
           },
           (final List<SheetEntity> sheets) async {
             for (final SheetEntity sheet in sheets) {
-              await localUseCase.cacheSheet(sheet);
+              await useCase.cacheSheet(sheet);
             }
 
             final int newSheetIndex = sheets.indexWhere(
@@ -234,15 +233,18 @@ class ResultSavingBloc extends Bloc<ResultSavingEvent, ResultSavingState> {
     final String sheetId = event.sheetId;
     final String sheetTitle = state.selectedSheetTitle ?? 'Unknown';
 
-    final Either<Failure, Unit> remoteResult = await remoteUseCase.saveScan(
+    final Either<Failure, Unit> remoteResult = await useCase.saveScan(
       event.scanEntity,
       sheetId,
     );
 
     await remoteResult.fold(
       (final Failure failure) async {
-        final Either<Failure, Unit> localResult = await localUseCase
-            .cacheResultScan(event.scanEntity, sheetId, sheetTitle);
+        final Either<Failure, Unit> localResult = await useCase.cacheScanResult(
+          event.scanEntity,
+          sheetId,
+          sheetTitle,
+        );
 
         localResult.fold(
           (final Failure localFailure) {

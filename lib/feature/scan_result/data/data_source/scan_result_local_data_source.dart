@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:qr_scanner_practice/core/services/network/failure.dart';
+import 'package:qr_scanner_practice/core/network/failure.dart';
 import 'package:qr_scanner_practice/core/services/storage/hive_key_constants.dart';
 import 'package:qr_scanner_practice/core/services/storage/hive_service.dart';
 import 'package:qr_scanner_practice/feature/scan_result/data/model/pending_sync_model.dart';
@@ -11,13 +11,13 @@ abstract class ScanResultLocalDataSource {
 
   Future<Either<Failure, Unit>> saveSheetLocally(final SheetModel sheet);
 
-  Future<Either<Failure, Unit>> saveResultScanLocally(
+  Future<Either<Failure, Unit>> saveScanResultLocally(
     final ScanResultModel scan,
     final String sheetId,
     final String sheetTitle,
   );
 
-  Future<Either<Failure, List<ScanResultModel>>> getLocalResultScans(
+  Future<Either<Failure, List<ScanResultModel>>> getLocalScanResults(
     final String sheetId,
   );
 
@@ -62,7 +62,7 @@ class ScanResultLocalDataSourceImpl implements ScanResultLocalDataSource {
   }
 
   @override
-  Future<Either<Failure, Unit>> saveResultScanLocally(
+  Future<Either<Failure, Unit>> saveScanResultLocally(
     final ScanResultModel scan,
     final String sheetId,
     final String sheetTitle,
@@ -81,7 +81,7 @@ class ScanResultLocalDataSourceImpl implements ScanResultLocalDataSource {
   }
 
   @override
-  Future<Either<Failure, List<ScanResultModel>>> getLocalResultScans(
+  Future<Either<Failure, List<ScanResultModel>>> getLocalScanResults(
     final String sheetId,
   ) async {
     final String scanKey = '${HiveKeyConstants.scansKeyPrefix}_$sheetId';
