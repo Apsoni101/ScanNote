@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:home_widget/home_widget.dart';
 
 import 'package:qr_scanner_practice/core/controller/theme_controller.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
@@ -13,12 +16,15 @@ import 'package:qr_scanner_practice/firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  if (Platform.isIOS) {
+    await HomeWidget.setAppGroupId('group.com.coditas.qrscanner.googleSheets');
+  }
   await _initializeFirebase();
   await _initializeHive();
   await AppInjector.setUp();
 
   final HiveService hiveService = AppInjector.getIt<HiveService>();
-  await hiveService.init(boxName: 'userBox');
+  await hiveService.init(boxName: HiveKeyConstants.boxName);
 
   final String? modeName = hiveService.getString(HiveKeyConstants.themeMode);
   final ThemeMode savedTheme = modeName != null
