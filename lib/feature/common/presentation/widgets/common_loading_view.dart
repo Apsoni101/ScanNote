@@ -9,7 +9,7 @@ class CommonLoadingView extends StatelessWidget {
     return Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(
-          context.appColors.primaryBlue,
+          context.appColors.iconPrimary,
         ),
       ),
     );

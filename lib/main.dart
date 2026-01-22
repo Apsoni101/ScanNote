@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:qr_scanner_practice/core/app_theming/app_dark_theme_colors.dart';
+import 'package:qr_scanner_practice/core/app_theming/app_light_theme_colors.dart';
 
 import 'package:qr_scanner_practice/core/controller/theme_controller.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
@@ -56,8 +58,14 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           themeMode: themeMode,
-          theme: ThemeData(useMaterial3: true, brightness: Brightness.light),
-          darkTheme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
+          theme: ThemeData(
+            brightness: Brightness.light,
+            extensions: [AppLightThemeColors()],
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            extensions: [AppDarkThemeColors()],
+          ),
         );
       },
     );

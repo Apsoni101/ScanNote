@@ -1,7 +1,9 @@
 {
   "@@locale": "en",
-  "appName": "Qr",
+  "appName": "CodiScan",
+  "scanExtractSave" : "Scan, Extract, Save",
   "home": "Home",
+  "history": "History",
   "createAccount": "Create Account",
   "signIn": "Sign In",
   "google": "Google",

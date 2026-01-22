@@ -13,13 +13,13 @@ class SyncButton extends StatelessWidget {
       onPressed: () =>
           context.read<HomeScreenBloc>().add(const OnHomeSyncPendingScans()),
       style: ElevatedButton.styleFrom(
-        backgroundColor: context.appColors.kellyGreen,
+        backgroundColor: context.appColors.semanticsIconSuccess,
         elevation: 0,
       ),
       child: Text(
         context.locale.syncButtonLabel,
         style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-          color: context.appColors.white,
+          color: context.appColors.textInversePrimary,
         ),
       ),
     );

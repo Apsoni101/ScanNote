@@ -17,7 +17,7 @@ class QrFlashToggleButton extends StatelessWidget {
         return IconButton(
           icon: Icon(
             isFlashOn ? Icons.flash_on : Icons.flash_off,
-            color: context.appColors.white,
+            color: context.appColors.textInversePrimary,
           ),
           onPressed: () {
             context.read<QrScanningBloc>().add(const ToggleFlashEvent());

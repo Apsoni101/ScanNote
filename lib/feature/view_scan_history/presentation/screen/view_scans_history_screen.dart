@@ -33,7 +33,7 @@ class _HistoryScreenView extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-      backgroundColor: context.appColors.ghostWhite,
+      backgroundColor: context.appColors.scaffoldBackground,
       appBar: _buildAppBar(context),
       body: Column(
         children: <Widget>[
@@ -77,8 +77,8 @@ class _HistoryScreenView extends StatelessWidget {
                               const OnHistoryLoadScans(),
                             );
                           },
-                          color: context.appColors.primaryBlue,
-                          backgroundColor: context.appColors.white,
+                          color: context.appColors.iconPrimary,
+                          backgroundColor: context.appColors.textInversePrimary,
                           child: ListView.builder(
                             padding: const EdgeInsets.all(16),
                             itemCount: state.filteredScans.length,
@@ -105,17 +105,17 @@ class _HistoryScreenView extends StatelessWidget {
 
   PreferredSizeWidget _buildAppBar(final BuildContext context) {
     return AppBar(
-      backgroundColor: context.appColors.white,
+      backgroundColor: context.appColors.textInversePrimary,
       elevation: 0,
       title: Text(
         context.locale.scanHistory,
         style: AppTextStyles.airbnbCerealW500S18Lh24Ls0.copyWith(
-          color: context.appColors.black,
+          color: context.appColors.textPrimary,
         ),
       ),
       centerTitle: true,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: context.appColors.black),
+        icon: Icon(Icons.arrow_back, color: context.appColors.textPrimary),
         onPressed: () => context.router.maybePop(),
       ),
     );

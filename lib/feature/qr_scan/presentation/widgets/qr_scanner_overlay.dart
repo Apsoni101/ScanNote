@@ -16,8 +16,8 @@ class QrScannerOverlay extends StatelessWidget {
       size: screenSize,
       painter: ScannerOverlayPainter(
         frameSize: frameSize,
-        overlayColor: context.appColors.black.withValues(alpha: 0.65),
-        cornerColor: context.appColors.white,
+        overlayColor: context.appColors.textPrimary.withValues(alpha: 0.65),
+        cornerColor: context.appColors.textInversePrimary,
         screenSize: screenSize,
       ),
     );

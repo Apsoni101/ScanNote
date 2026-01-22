@@ -53,7 +53,7 @@ class _ResultViewState extends State<_ResultView> {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
-      backgroundColor: context.appColors.white,
+      backgroundColor: context.appColors.textInversePrimary,
       appBar: _buildAppBar(context),
       body: ListView(
         padding: const EdgeInsets.all(24),
@@ -77,9 +77,9 @@ class _ResultViewState extends State<_ResultView> {
 
   PreferredSizeWidget _buildAppBar(final BuildContext context) {
     return AppBar(
-      backgroundColor: context.appColors.white,
+      backgroundColor: context.appColors.textInversePrimary,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: context.appColors.black),
+        icon: Icon(Icons.arrow_back, color: context.appColors.textPrimary),
         onPressed: () => context.router.maybePop(),
       ),
       title: Text(
@@ -87,7 +87,7 @@ class _ResultViewState extends State<_ResultView> {
             ? context.locale.qrCodeDetailsTitle
             : context.locale.extractedText,
         style: AppTextStyles.airbnbCerealW500S18Lh24Ls0.copyWith(
-          color: context.appColors.black,
+          color: context.appColors.textPrimary,
         ),
       ),
     );
@@ -102,8 +102,12 @@ class _SuccessIcon extends StatelessWidget {
     return Center(
       child: CircleAvatar(
         radius: 40,
-        backgroundColor: context.appColors.kellyGreen,
-        child: Icon(Icons.check, size: 48, color: context.appColors.white),
+        backgroundColor: context.appColors.semanticsIconSuccess,
+        child: Icon(
+          Icons.check,
+          size: 48,
+          color: context.appColors.textInversePrimary,
+        ),
       ),
     );
   }
@@ -130,7 +134,7 @@ class _DataSection extends StatelessWidget {
           child: Text(
             data,
             style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-              color: context.appColors.black,
+              color: context.appColors.textPrimary,
             ),
           ),
         ),
@@ -167,7 +171,7 @@ class _SectionLabel extends StatelessWidget {
     return Text(
       label,
       style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-        color: context.appColors.slate,
+        color: context.appColors.textSecondary,
       ),
     );
   }
@@ -184,9 +188,9 @@ class _DataContainer extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: context.appColors.white,
+        color: context.appColors.textInversePrimary,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: context.appColors.lightGray),
+        border: Border.all(color: context.appColors.borderInputDefault),
       ),
       child: child,
     );
@@ -207,7 +211,7 @@ class _CommentTextField extends StatelessWidget {
       },
       maxLines: 4,
       style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-        color: context.appColors.black,
+        color: context.appColors.textPrimary,
       ),
       decoration: _buildInputDecoration(context),
     );
@@ -216,20 +220,20 @@ class _CommentTextField extends StatelessWidget {
   InputDecoration _buildInputDecoration(final BuildContext context) {
     final BorderRadius borderRadius = BorderRadius.circular(12);
     final BorderSide normalBorder = BorderSide(
-      color: context.appColors.lightGray,
+      color: context.appColors.borderInputDefault,
     );
     final BorderSide focusedBorder = BorderSide(
-      color: context.appColors.primaryBlue,
+      color: context.appColors.iconPrimary,
       width: 2,
     );
 
     return InputDecoration(
       hintText: context.locale.commentHint,
       hintStyle: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-        color: context.appColors.slate,
+        color: context.appColors.textSecondary,
       ),
       filled: true,
-      fillColor: context.appColors.white,
+      fillColor: context.appColors.textInversePrimary,
       border: OutlineInputBorder(
         borderRadius: borderRadius,
         borderSide: normalBorder,
@@ -269,8 +273,10 @@ class _ActionButtons extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: () => context.router.maybePop(),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: context.appColors.black,
-                    side: BorderSide(color: context.appColors.lightGray),
+                    foregroundColor: context.appColors.textPrimary,
+                    side: BorderSide(
+                      color: context.appColors.borderInputDefault,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -278,7 +284,7 @@ class _ActionButtons extends StatelessWidget {
                   child: Text(
                     context.locale.cancelButton,
                     style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                      color: context.appColors.black,
+                      color: context.appColors.textPrimary,
                     ),
                   ),
                 ),
@@ -297,8 +303,8 @@ class _ActionButtons extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: context.appColors.primaryBlue,
-                    foregroundColor: context.appColors.white,
+                    backgroundColor: context.appColors.iconPrimary,
+                    foregroundColor: context.appColors.textInversePrimary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -306,7 +312,7 @@ class _ActionButtons extends StatelessWidget {
                   child: Text(
                     context.locale.saveButton,
                     style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                      color: context.appColors.white,
+                      color: context.appColors.textInversePrimary,
                     ),
                   ),
                 ),

@@ -79,12 +79,16 @@ class _ResultSavingViewState extends State<_ResultSavingView> {
     return BlocListener<ResultSavingBloc, ResultSavingState>(
       listener: (final BuildContext context, final ResultSavingState state) {
         if (state.scanSaveError != null) {
-          _showSnackBar(context, state.scanSaveError!, context.appColors.red);
+          _showSnackBar(
+            context,
+            state.scanSaveError!,
+            context.appColors.semanticsIconError,
+          );
         } else if (state.isScanSaved) {
           _showSnackBar(
             context,
             context.locale.scanSavedSuccessfully,
-            context.appColors.kellyGreen,
+            context.appColors.semanticsIconSuccess,
           );
           if (context.mounted) {
             context.router.maybePop();
@@ -92,7 +96,7 @@ class _ResultSavingViewState extends State<_ResultSavingView> {
         }
       },
       child: Scaffold(
-        backgroundColor: context.appColors.white,
+        backgroundColor: context.appColors.textInversePrimary,
         appBar: _buildAppBar(context),
         body: ListView(
           padding: const EdgeInsets.all(24),
@@ -131,15 +135,15 @@ class _ResultSavingViewState extends State<_ResultSavingView> {
 
   PreferredSizeWidget _buildAppBar(final BuildContext context) {
     return AppBar(
-      backgroundColor: context.appColors.white,
+      backgroundColor: context.appColors.textInversePrimary,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: context.appColors.black),
+        icon: Icon(Icons.arrow_back, color: context.appColors.textPrimary),
         onPressed: () => context.router.maybePop(),
       ),
       title: Text(
         context.locale.confirmAndSaveTitle,
         style: AppTextStyles.airbnbCerealW500S18Lh24Ls0.copyWith(
-          color: context.appColors.black,
+          color: context.appColors.textPrimary,
         ),
       ),
     );
@@ -180,7 +184,7 @@ class _ScanDetailsSection extends StatelessWidget {
               ? context.locale.scanDetailsTitle
               : context.locale.extractedText,
           style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-            color: context.appColors.black,
+            color: context.appColors.textPrimary,
           ),
         ),
         const SizedBox(height: 16),
@@ -220,7 +224,7 @@ class _DetailRow extends StatelessWidget {
         Text(
           label,
           style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-            color: context.appColors.slate,
+            color: context.appColors.textSecondary,
           ),
         ),
         const SizedBox(height: 6),
@@ -228,15 +232,15 @@ class _DetailRow extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: context.appColors.lightGray,
+            color: context.appColors.borderInputDefault,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
             value,
             style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
               color: isSubtle
-                  ? context.appColors.slate
-                  : context.appColors.black,
+                  ? context.appColors.textSecondary
+                  : context.appColors.textPrimary,
             ),
           ),
         ),
@@ -275,14 +279,14 @@ class _SelectSheetSection extends StatelessWidget {
                 Text(
                   context.locale.selectSheetTitle,
                   style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                    color: context.appColors.slate,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
                 const SizedBox(height: 12),
                 if (data.isLoading)
                   Center(
                     child: CircularProgressIndicator(
-                      color: context.appColors.primaryBlue,
+                      color: context.appColors.iconPrimary,
                     ),
                   )
                 else if (data.error != null)
@@ -309,7 +313,7 @@ class _SheetsList extends StatelessWidget {
   Widget build(final BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        border: Border.all(color: context.appColors.lightGray),
+        border: Border.all(color: context.appColors.borderInputDefault),
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListView.separated(
@@ -317,7 +321,7 @@ class _SheetsList extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: sheets.length,
         separatorBuilder: (final _, final __) =>
-            Divider(height: 1, color: context.appColors.lightGray),
+            Divider(height: 1, color: context.appColors.borderInputDefault),
         itemBuilder: (final _, final int index) {
           final SheetEntity sheet = sheets[index];
           return _SheetItem(sheet: sheet);
@@ -345,18 +349,18 @@ class _SheetItem extends StatelessWidget {
               OnConfirmationSheetSelected(sheet.id),
             );
           },
-          activeColor: context.appColors.primaryBlue,
+          activeColor: context.appColors.iconPrimary,
           title: Text(
             sheet.title,
             style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-              color: context.appColors.black,
+              color: context.appColors.textPrimary,
             ),
           ),
           subtitle: sheet.modifiedTime != null
               ? Text(
                   context.locale.modified(sheet.modifiedTime.toFriendlyDate()),
                   style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-                    color: context.appColors.slate,
+                    color: context.appColors.textSecondary,
                   ),
                 )
               : null,
@@ -400,7 +404,7 @@ class _CreateNewSheetSection extends StatelessWidget {
                 Text(
                   context.locale.newSheetNameTitle,
                   style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                    color: context.appColors.slate,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -413,30 +417,30 @@ class _CreateNewSheetSection extends StatelessWidget {
                     );
                   },
                   style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-                    color: context.appColors.black,
+                    color: context.appColors.textPrimary,
                   ),
                   decoration: InputDecoration(
                     hintText: context.locale.sheetNameHint,
                     hintStyle: AppTextStyles.airbnbCerealW400S14Lh20Ls0
-                        .copyWith(color: context.appColors.slate),
+                        .copyWith(color: context.appColors.textSecondary),
                     filled: true,
-                    fillColor: context.appColors.white,
+                    fillColor: context.appColors.textInversePrimary,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        color: context.appColors.lightGray,
+                        color: context.appColors.borderInputDefault,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        color: context.appColors.lightGray,
+                        color: context.appColors.borderInputDefault,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(
-                        color: context.appColors.primaryBlue,
+                        color: context.appColors.iconPrimary,
                         width: 2,
                       ),
                     ),
@@ -458,7 +462,7 @@ class _CreateNewSheetSection extends StatelessWidget {
                             );
                           },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: context.appColors.primaryBlue,
+                      backgroundColor: context.appColors.iconPrimary,
                     ),
                     child: data.isCreating
                         ? SizedBox(
@@ -467,14 +471,16 @@ class _CreateNewSheetSection extends StatelessWidget {
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                context.appColors.white,
+                                context.appColors.textInversePrimary,
                               ),
                             ),
                           )
                         : Text(
                             context.locale.createSheetButton,
                             style: AppTextStyles.airbnbCerealW500S14Lh20Ls0
-                                .copyWith(color: context.appColors.white),
+                                .copyWith(
+                                  color: context.appColors.textInversePrimary,
+                                ),
                           ),
                   ),
                 ),
@@ -506,14 +512,16 @@ class _ModeToggleButton extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: context.appColors.lightGray.withValues(alpha: 0.5),
+              color: context.appColors.borderInputDefault.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               children: <Widget>[
                 Icon(
                   isCreatingNewSheet ? Icons.add_circle : Icons.list,
-                  color: context.appColors.primaryBlue,
+                  color: context.appColors.iconPrimary,
                 ),
                 const SizedBox(width: 12),
                 Text(
@@ -521,7 +529,7 @@ class _ModeToggleButton extends StatelessWidget {
                       ? context.locale.switchToSelectSheet
                       : context.locale.createNewSheet,
                   style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                    color: context.appColors.primaryBlue,
+                    color: context.appColors.iconPrimary,
                   ),
                 ),
               ],
@@ -581,7 +589,9 @@ class _ConfirmationActionButtons extends StatelessWidget {
                         ? null
                         : () => context.router.maybePop(),
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: context.appColors.lightGray),
+                      side: BorderSide(
+                        color: context.appColors.borderInputDefault,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -589,7 +599,7 @@ class _ConfirmationActionButtons extends StatelessWidget {
                     child: Text(
                       context.locale.cancelButton,
                       style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                        color: context.appColors.black,
+                        color: context.appColors.textPrimary,
                       ),
                     ),
                   ),
@@ -642,8 +652,10 @@ class _ConfirmationActionButtons extends StatelessWidget {
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: context.appColors.primaryBlue,
-                              disabledBackgroundColor: context.appColors.slate
+                              backgroundColor: context.appColors.iconPrimary,
+                              disabledBackgroundColor: context
+                                  .appColors
+                                  .textSecondary
                                   .withValues(alpha: 0.3),
                             ),
                             child: selectorData.isSaving
@@ -653,7 +665,7 @@ class _ConfirmationActionButtons extends StatelessWidget {
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                        context.appColors.white,
+                                        context.appColors.textInversePrimary,
                                       ),
                                     ),
                                   )
@@ -662,7 +674,9 @@ class _ConfirmationActionButtons extends StatelessWidget {
                                     style: AppTextStyles
                                         .airbnbCerealW500S14Lh20Ls0
                                         .copyWith(
-                                          color: context.appColors.white,
+                                          color: context
+                                              .appColors
+                                              .textInversePrimary,
                                         ),
                                   ),
                           );
@@ -689,13 +703,13 @@ class _ErrorContainer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: context.appColors.red.withValues(alpha: 0.1),
+        color: context.appColors.semanticsIconError.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
         message,
         style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-          color: context.appColors.red,
+          color: context.appColors.semanticsIconError,
         ),
       ),
     );
@@ -712,13 +726,13 @@ class _EmptyStateContainer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: context.appColors.lightGray,
+        color: context.appColors.borderInputDefault,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
         message,
         style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-          color: context.appColors.slate,
+          color: context.appColors.textSecondary,
         ),
       ),
     );

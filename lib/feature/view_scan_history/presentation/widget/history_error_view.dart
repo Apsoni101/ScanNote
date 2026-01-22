@@ -19,7 +19,11 @@ class HistoryErrorState extends StatelessWidget {
       spacing: 16,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(Icons.error_outline, size: iconSize, color: context.appColors.red),
+        Icon(
+          Icons.error_outline,
+          size: iconSize,
+          color: context.appColors.semanticsIconError,
+        ),
         Text(
           errorMessage,
           style: AppTextStyles.airbnbCerealW400S14Lh20Ls0,

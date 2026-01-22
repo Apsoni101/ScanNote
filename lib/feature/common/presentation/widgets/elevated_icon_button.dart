@@ -18,16 +18,16 @@ class ElevatedIconButton extends StatelessWidget {
   Widget build(final BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: Icon(icon, color: context.appColors.white),
+      icon: Icon(icon, color: context.appColors.textInversePrimary),
       label: Text(
         label,
         style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-          color: context.appColors.white,
+          color: context.appColors.textInversePrimary,
         ),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: context.appColors.primaryBlue,
-        foregroundColor: context.appColors.white,
+        backgroundColor: context.appColors.iconPrimary,
+        foregroundColor: context.appColors.textInversePrimary,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),

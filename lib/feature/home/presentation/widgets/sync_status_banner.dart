@@ -52,8 +52,8 @@ class SyncingBanner extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return BannerContainer(
-      backgroundColor: context.appColors.primaryBlue.withAlpha(26),
-      borderColor: context.appColors.primaryBlue.withAlpha(77),
+      backgroundColor: context.appColors.iconPrimary.withAlpha(26),
+      borderColor: context.appColors.iconPrimary.withAlpha(77),
       child: Row(
         children: <Widget>[
           SizedBox(
@@ -62,7 +62,7 @@ class SyncingBanner extends StatelessWidget {
             child: CircularProgressIndicator(
               strokeWidth: 2,
               valueColor: AlwaysStoppedAnimation<Color>(
-                context.appColors.primaryBlue,
+                context.appColors.iconPrimary,
               ),
             ),
           ),
@@ -71,7 +71,7 @@ class SyncingBanner extends StatelessWidget {
             child: Text(
               _getSyncingMessage(context, pendingCount),
               style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                color: context.appColors.primaryBlue,
+                color: context.appColors.iconPrimary,
               ),
             ),
           ),
@@ -96,11 +96,15 @@ class OfflineBanner extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return BannerContainer(
-      backgroundColor: context.appColors.red.withAlpha(26),
-      borderColor: context.appColors.red.withAlpha(77),
+      backgroundColor: context.appColors.semanticsIconError.withAlpha(26),
+      borderColor: context.appColors.semanticsIconError.withAlpha(77),
       child: Row(
         children: <Widget>[
-          Icon(Icons.cloud_off, color: context.appColors.red, size: 20),
+          Icon(
+            Icons.cloud_off,
+            color: context.appColors.semanticsIconError,
+            size: 20,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -109,13 +113,13 @@ class OfflineBanner extends StatelessWidget {
                 Text(
                   context.locale.offlineMode,
                   style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                    color: context.appColors.red,
+                    color: context.appColors.semanticsIconError,
                   ),
                 ),
                 Text(
                   _getWaitingToSyncMessage(context, pendingCount),
                   style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-                    color: context.appColors.slate,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               ],
@@ -142,8 +146,8 @@ class ReadyToSyncBanner extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return BannerContainer(
-      backgroundColor: context.appColors.kellyGreen.withAlpha(26),
-      borderColor: context.appColors.kellyGreen.withAlpha(77),
+      backgroundColor: context.appColors.semanticsIconSuccess.withAlpha(26),
+      borderColor: context.appColors.semanticsIconSuccess.withAlpha(77),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -154,13 +158,13 @@ class ReadyToSyncBanner extends StatelessWidget {
                 Text(
                   _getScanToSyncMessage(context, pendingCount),
                   style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                    color: context.appColors.kellyGreen,
+                    color: context.appColors.semanticsIconSuccess,
                   ),
                 ),
                 Text(
                   context.locale.connectionAvailableSync,
                   style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-                    color: context.appColors.slate,
+                    color: context.appColors.textSecondary,
                   ),
                 ),
               ],

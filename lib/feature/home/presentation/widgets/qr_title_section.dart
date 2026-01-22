@@ -13,14 +13,14 @@ class QrTitleSection extends StatelessWidget {
         Text(
           context.locale.scanQrCode,
           style: AppTextStyles.airbnbCerealW700S24Lh32LsMinus1.copyWith(
-            color: context.appColors.black,
+            color: context.appColors.textPrimary,
           ),
           textAlign: TextAlign.center,
         ),
         Text(
           context.locale.pointCameraToScanQr,
           style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-            color: context.appColors.slate,
+            color: context.appColors.textSecondary,
           ),
           textAlign: TextAlign.center,
         ),

@@ -26,9 +26,9 @@ class HistoryCardItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: context.appColors.white,
+        color: context.appColors.textInversePrimary,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: context.appColors.cloudBlue),
+        border: Border.all(color: context.appColors.surfaceL2),
       ),
       child: Column(
         spacing: 12,
@@ -56,7 +56,7 @@ class _SheetTitleBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: context.appColors.primaryBlue.withAlpha(26),
+        color: context.appColors.iconPrimary.withAlpha(26),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -64,7 +64,7 @@ class _SheetTitleBadge extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-          color: context.appColors.primaryBlue,
+          color: context.appColors.iconPrimary,
         ),
       ),
     );
@@ -83,7 +83,7 @@ class _QrDataWithCopyButton extends StatelessWidget {
       SnackBar(
         content: Text(context.locale.copiedToClipboard),
         duration: const Duration(seconds: 1),
-        backgroundColor: context.appColors.kellyGreen,
+        backgroundColor: context.appColors.semanticsIconSuccess,
       ),
     );
   }
@@ -98,7 +98,7 @@ class _QrDataWithCopyButton extends StatelessWidget {
           child: Text(
             data,
             style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-              color: context.appColors.black,
+              color: context.appColors.textPrimary,
             ),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -108,7 +108,7 @@ class _QrDataWithCopyButton extends StatelessWidget {
         IconButton(
           icon: Icon(
             Icons.copy,
-            color: context.appColors.primaryBlue,
+            color: context.appColors.iconPrimary,
             size: 20,
           ),
           onPressed: () => _copyToClipboard(context),
@@ -134,14 +134,14 @@ class _CommentSection extends StatelessWidget {
         Text(
           context.locale.commentLabel,
           style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-            color: context.appColors.slate,
+            color: context.appColors.textSecondary,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           comment,
           style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-            color: context.appColors.black,
+            color: context.appColors.textPrimary,
           ),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
@@ -163,7 +163,7 @@ class _TimestampText extends StatelessWidget {
     return Text(
       timestamp.toRelativeFormat(context),
       style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-        color: context.appColors.slate,
+        color: context.appColors.textSecondary,
       ),
     );
   }

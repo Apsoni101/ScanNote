@@ -17,13 +17,13 @@ class OcrContentView extends StatelessWidget {
         Icon(
           Icons.document_scanner_outlined,
           size: 100,
-          color: context.appColors.slate,
+          color: context.appColors.textSecondary,
         ),
         const SizedBox(height: 24),
         Text(
           context.locale.selectImagePrompt,
           style: AppTextStyles.airbnbCerealW500S18Lh24Ls0.copyWith(
-            color: context.appColors.darkGrey,
+            color: context.appColors.textSecondary,
           ),
           textAlign: TextAlign.center,
         ),

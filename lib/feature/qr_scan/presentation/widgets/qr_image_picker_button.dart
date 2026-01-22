@@ -23,15 +23,15 @@ class QrImagePickerButton extends StatelessWidget {
         FloatingActionButton(
           mini: true,
           backgroundColor: onPressed != null
-              ? context.appColors.white
-              : context.appColors.white.withValues(alpha: 0.5),
+              ? context.appColors.textInversePrimary
+              : context.appColors.textInversePrimary.withValues(alpha: 0.5),
           onPressed: onPressed,
-          child: Icon(icon, color: context.appColors.black),
+          child: Icon(icon, color: context.appColors.textPrimary),
         ),
         Text(
           label,
           style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
-            color: context.appColors.white,
+            color: context.appColors.textInversePrimary,
           ),
         ),
       ],

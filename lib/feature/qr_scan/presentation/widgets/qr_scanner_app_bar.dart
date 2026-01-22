@@ -14,7 +14,7 @@ class QrScannerAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       leading: IconButton(
-        icon: Icon(Icons.close, color: context.appColors.white),
+        icon: Icon(Icons.close, color: context.appColors.textInversePrimary),
         onPressed: () => context.router.maybePop(),
       ),
       actions: <Widget>[QrFlashToggleButton(controller: controller)],

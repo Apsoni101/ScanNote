@@ -18,13 +18,13 @@ class QrScanInstructionText extends StatelessWidget {
         vertical: verticalPadding,
       ),
       decoration: BoxDecoration(
-        color: context.appColors.black.withValues(alpha: 0.6),
+        color: context.appColors.textPrimary.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Text(
         context.locale.pointCameraToScanQr,
         style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-          color: context.appColors.white,
+          color: context.appColors.textInversePrimary,
         ),
       ),
     );

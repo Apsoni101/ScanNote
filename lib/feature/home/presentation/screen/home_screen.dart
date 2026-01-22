@@ -58,14 +58,14 @@ class HomeScreenViewState extends State<HomeScreenView>
     return BlocListener<HomeScreenBloc, HomeScreenState>(
       listener: _handleStateChanges,
       child: Scaffold(
-        backgroundColor: context.appColors.ghostWhite,
+        backgroundColor: context.appColors.scaffoldBackground,
         appBar: _buildAppBar(context),
         body: RefreshIndicator(
           onRefresh: () async {
             context.read<HomeScreenBloc>().add(const OnHomeRefreshSheets());
           },
-          color: context.appColors.primaryBlue,
-          backgroundColor: context.appColors.white,
+          color: context.appColors.iconPrimary,
+          backgroundColor: context.appColors.textInversePrimary,
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: const <Widget>[
@@ -91,18 +91,26 @@ class HomeScreenViewState extends State<HomeScreenView>
       _showSnackBar(
         context,
         context.locale.allScansSuccessfullyMessage,
-        context.appColors.kellyGreen,
+        context.appColors.semanticsIconSuccess,
       );
       context.read<HomeScreenBloc>().add(const OnHomeResetSyncSuccess());
     }
 
     if (state.syncError != null && state.syncError!.isNotEmpty) {
-      _showSnackBar(context, state.syncError!, context.appColors.red);
+      _showSnackBar(
+        context,
+        state.syncError!,
+        context.appColors.semanticsIconError,
+      );
       context.read<HomeScreenBloc>().add(const OnHomeResetSyncError());
     }
 
     if (state.error != null && state.error!.isNotEmpty) {
-      _showSnackBar(context, state.error!, context.appColors.red);
+      _showSnackBar(
+        context,
+        state.error!,
+        context.appColors.semanticsIconError,
+      );
       context.read<HomeScreenBloc>().add(const OnHomeResetError());
     }
   }
@@ -123,12 +131,12 @@ class HomeScreenViewState extends State<HomeScreenView>
 
   PreferredSizeWidget _buildAppBar(final BuildContext context) {
     return AppBar(
-      backgroundColor: context.appColors.white,
+      backgroundColor: context.appColors.textInversePrimary,
       elevation: 0,
       title: Text(
         context.locale.qrScanner,
         style: AppTextStyles.airbnbCerealW500S18Lh24Ls0.copyWith(
-          color: context.appColors.black,
+          color: context.appColors.textPrimary,
         ),
       ),
       centerTitle: true,
@@ -161,7 +169,7 @@ class HomeScreenViewState extends State<HomeScreenView>
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                context.appColors.primaryBlue,
+                                context.appColors.iconPrimary,
                               ),
                             ),
                           )
@@ -171,13 +179,16 @@ class HomeScreenViewState extends State<HomeScreenView>
                               vertical: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: context.appColors.red.withAlpha(51),
+                              color: context.appColors.semanticsIconError
+                                  .withAlpha(51),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
                               '${data.pendingCount}',
                               style: AppTextStyles.airbnbCerealW400S12Lh16
-                                  .copyWith(color: context.appColors.red),
+                                  .copyWith(
+                                    color: context.appColors.semanticsIconError,
+                                  ),
                             ),
                           ),
                   ),

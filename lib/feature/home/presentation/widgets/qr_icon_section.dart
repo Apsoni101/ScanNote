@@ -10,13 +10,13 @@ class QrIconSection extends StatelessWidget {
       width: 120,
       height: 120,
       decoration: BoxDecoration(
-        color: context.appColors.cloudBlue,
+        color: context.appColors.surfaceL2,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Icon(
         Icons.qr_code_scanner,
         size: 64,
-        color: context.appColors.primaryBlue,
+        color: context.appColors.iconPrimary,
       ),
     );
   }

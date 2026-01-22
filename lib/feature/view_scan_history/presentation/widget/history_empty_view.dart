@@ -19,7 +19,11 @@ class HistoryEmptyState extends StatelessWidget {
       spacing: 16,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(Icons.history, size: iconSize, color: context.appColors.slate),
+        Icon(
+          Icons.history,
+          size: iconSize,
+          color: context.appColors.textSecondary,
+        ),
         Text(
           isSearchActive
               ? context.locale.noResultsFound

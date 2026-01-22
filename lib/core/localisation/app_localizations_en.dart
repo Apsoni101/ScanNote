@@ -9,10 +9,16 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Qr';
+  String get appName => 'CodiScan';
+
+  @override
+  String get scanExtractSave => 'Scan, Extract, Save';
 
   @override
   String get home => 'Home';
+
+  @override
+  String get history => 'History';
 
   @override
   String get createAccount => 'Create Account';

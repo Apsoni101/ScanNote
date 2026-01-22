@@ -47,25 +47,25 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
             }
           },
       child: Scaffold(
-        backgroundColor: context.appColors.ghostWhite,
+        backgroundColor: context.appColors.scaffoldBackground,
         body: Padding(
           padding: const EdgeInsets.all(30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(Icons.login, size: 80, color: context.appColors.primaryBlue),
+              Icon(Icons.login, size: 80, color: context.appColors.iconPrimary),
               const SizedBox(height: 40),
               Text(
                 context.locale.welcomeBack,
                 style: AppTextStyles.airbnbCerealW700S24Lh32LsMinus1.copyWith(
-                  color: context.appColors.black,
+                  color: context.appColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 16),
               Text(
                 context.locale.signInWithGoogle,
                 style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
-                  color: context.appColors.slate,
+                  color: context.appColors.textSecondary,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -96,7 +96,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                  context.appColors.white,
+                                  context.appColors.textInversePrimary,
                                 ),
                               ),
                             )
@@ -110,15 +110,17 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
                             ? context.locale.signingIn
                             : context.locale.signInWithGoogle,
                         style: AppTextStyles.airbnbCerealW500S14Lh20Ls0
-                            .copyWith(color: context.appColors.black),
+                            .copyWith(color: context.appColors.textPrimary),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: context.appColors.white,
-                        foregroundColor: context.appColors.black,
+                        backgroundColor: context.appColors.textInversePrimary,
+                        foregroundColor: context.appColors.textPrimary,
                         elevation: 2,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
-                          side: BorderSide(color: context.appColors.lightGray),
+                          side: BorderSide(
+                            color: context.appColors.borderInputDefault,
+                          ),
                         ),
                       ),
                     ),

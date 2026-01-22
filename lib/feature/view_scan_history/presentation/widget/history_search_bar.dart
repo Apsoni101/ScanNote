@@ -40,10 +40,16 @@ class _HistorySearchBarState extends State<HistorySearchBar> {
         onChanged: widget.onSearchChanged,
         decoration: InputDecoration(
           hintText: widget.hintText ?? context.locale.searchScans,
-          prefixIcon: Icon(Icons.search, color: context.appColors.slate),
+          prefixIcon: Icon(
+            Icons.search,
+            color: context.appColors.textSecondary,
+          ),
           suffixIcon: _controller.text.isNotEmpty
               ? IconButton(
-                  icon: Icon(Icons.clear, color: context.appColors.slate),
+                  icon: Icon(
+                    Icons.clear,
+                    color: context.appColors.textSecondary,
+                  ),
                   onPressed: () {
                     _controller.clear();
                     widget.onSearchChanged('');
@@ -52,11 +58,11 @@ class _HistorySearchBarState extends State<HistorySearchBar> {
               : null,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: context.appColors.cloudBlue),
+            borderSide: BorderSide(color: context.appColors.surfaceL2),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: context.appColors.cloudBlue),
+            borderSide: BorderSide(color: context.appColors.surfaceL2),
           ),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,

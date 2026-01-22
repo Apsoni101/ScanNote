@@ -97,14 +97,26 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Qr'**
+  /// **'CodiScan'**
   String get appName;
+
+  /// No description provided for @scanExtractSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan, Extract, Save'**
+  String get scanExtractSave;
 
   /// No description provided for @home.
   ///
   /// In en, this message translates to:
   /// **'Home'**
   String get home;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
 
   /// No description provided for @createAccount.
   ///

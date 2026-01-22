@@ -33,11 +33,11 @@ class OcrView extends StatelessWidget {
         title: Text(
           context.locale.ocrTitle,
           style: AppTextStyles.airbnbCerealW700S24Lh32LsMinus1.copyWith(
-            color: context.appColors.black,
+            color: context.appColors.textPrimary,
           ),
         ),
         centerTitle: true,
-        backgroundColor: context.appColors.white,
+        backgroundColor: context.appColors.textInversePrimary,
         elevation: 0,
       ),
       body: BlocListener<OcrBloc, OcrState>(
@@ -48,10 +48,10 @@ class OcrView extends StatelessWidget {
                 content: Text(
                   state.message,
                   style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                    color: context.appColors.white,
+                    color: context.appColors.textInversePrimary,
                   ),
                 ),
-                backgroundColor: context.appColors.red,
+                backgroundColor: context.appColors.semanticsIconError,
               ),
             );
           }
