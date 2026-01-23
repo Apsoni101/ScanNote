@@ -12,4 +12,14 @@ class SettingsUseCase {
       repository.getCurrentUser();
 
   Future<Either<Failure, Unit>> signOut() => repository.signOut();
+
+  Future<void> saveThemeMode(final String themeName) =>
+      repository.saveThemeMode(themeName);
+
+  String getThemeMode() => repository.getThemeMode();
+
+  Future<void> saveLanguage(final String languageCode) =>
+      repository.saveLanguage(languageCode);
+
+  String getLanguage() => repository.getLanguage();
 }

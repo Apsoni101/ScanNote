@@ -26,11 +26,10 @@ class SettingsScreen extends StatelessWidget {
   Widget build(final BuildContext context) {
     return BlocProvider<SettingsBloc>(
       create: (_) =>
-          AppInjector.getIt<SettingsBloc>()..add(const GetCurrentUserEvent()),
+          AppInjector.getIt<SettingsBloc>()..add(const LoadSettingsEvent()),
       child: Builder(
         builder: (final BuildContext context) {
-          final bool isDark =
-              Theme.of(context).brightness == Brightness.dark;
+          final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
           return Scaffold(
             backgroundColor: context.appColors.scaffoldBackground,
@@ -69,9 +68,15 @@ class SettingsScreen extends StatelessWidget {
                           title: context.locale.theme,
                           iconAsset: AppAssets.lightThemeIc,
                           onPressed: () {
-                            AppInjector.getIt<ThemeController>().toggleTheme();
-                          },
-                          trailingTitle: isDark?context.locale.dark:context.locale.light,
+                           final ThemeController themeController= AppInjector.getIt<ThemeController>()
+                           ..toggleTheme();
+                            final String themeName = themeController.themeName;
+                            context.read<SettingsBloc>().add(
+                              SaveThemeModeEvent(themeName: themeName),
+                            );                          },
+                          trailingTitle: isDark
+                              ? context.locale.dark
+                              : context.locale.light,
                           trailing: const SettingsThemeSwitch(),
                         ),
                       ),
@@ -92,18 +97,18 @@ class SettingsScreen extends StatelessWidget {
                           onPressed: () {
                             showDialog<void>(
                               context: context,
-                              builder: (BuildContext dialogContext) {
+                              builder: (final BuildContext dialogContext) {
                                 return LanguageSelectionDialog(
                                   currentLanguage: LanguageEnum.english,
-                                  onLanguageSelected: (LanguageEnum language) {
-                                    // Handle language change
-                                    print('Selected: ${language.nativeName}');
-                                  },
+                                  onLanguageSelected:
+                                      (final LanguageEnum language) {
+                                        dialogContext.router.pop();
+                                      },
                                 );
                               },
                             );
                           },
-                          trailingTitle: 'English',
+                          trailingTitle: context.locale.english,
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -173,7 +178,9 @@ class SettingsScreen extends StatelessWidget {
                               final SettingsState state,
                             ) {
                               if (state is SignOutSuccess) {
-                                context.router.replaceAll([const AuthRouter()]);
+                                context.router.replaceAll(
+                                  <PageRouteInfo<Object?>>[const AuthRouter()],
+                                );
                               }
                             },
                         child: SettingsSectionCardContent(

@@ -6,4 +6,5 @@ class HiveKeyConstants {
   static const String scansKeyPrefix = 'qr_scans';
   static const String pendingSyncs = 'pending_syncs';
   static const String boxName = 'userBox';
+  static const String language = 'language';
 }

@@ -37,7 +37,7 @@ class SettingsUserInfoTile extends StatelessWidget {
               ),
             ),
           ),
-          CurrentUserLoaded() => ListTile(
+          SettingsLoaded() => ListTile(
             contentPadding: const EdgeInsets.symmetric(
               vertical: 12,
               horizontal: 14,

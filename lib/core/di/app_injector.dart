@@ -32,6 +32,7 @@ import 'package:qr_scanner_practice/feature/scan_result/domain/repo/scan_result_
 import 'package:qr_scanner_practice/feature/scan_result/domain/usecase/scan_result_use_case.dart';
 import 'package:qr_scanner_practice/feature/scan_result/presentation/bloc/result_bloc/result_bloc.dart';
 import 'package:qr_scanner_practice/feature/scan_result/presentation/bloc/result_saving_bloc/result_saving_bloc.dart';
+import 'package:qr_scanner_practice/feature/setting/data/data_source/settings_local_data_source.dart';
 import 'package:qr_scanner_practice/feature/setting/data/data_source/settings_remote_data_source.dart';
 import 'package:qr_scanner_practice/feature/setting/data/repo_impl/settings_repository_impl.dart';
 import 'package:qr_scanner_practice/feature/setting/domain/repo/settings_repository.dart';
@@ -104,6 +105,9 @@ class AppInjector {
           firebaseAuthService: getIt<FirebaseAuthService>(),
         ),
       )
+      ..registerSingleton<SettingsLocalDataSource>(
+        SettingsLocalDataSourceImpl(getIt<HiveService>()),
+      )
       ///Repo
       ..registerLazySingleton<GoogleSignInSignUpRemoteRepo>(
         () => GoogleSignInSignUpRemoteRepoImpl(
@@ -133,6 +137,7 @@ class AppInjector {
       ..registerSingleton<SettingsRepository>(
         SettingsRepositoryImpl(
           remoteDataSource: getIt<SettingsRemoteDataSource>(),
+          localDataSource: getIt<SettingsLocalDataSource>(),
         ),
       )
       ///USE CASES

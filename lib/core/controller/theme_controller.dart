@@ -8,6 +8,8 @@ class ThemeController extends ValueNotifier<ThemeMode> {
     value = theme;
   }
 
+  String get themeName => value.name;
+
   /// Switch between light and dark
   Future<void> toggleTheme() async {
     if (value == ThemeMode.light) {
