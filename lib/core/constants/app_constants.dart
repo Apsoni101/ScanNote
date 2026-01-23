@@ -1,5 +1,6 @@
 class AppConstants {
   static const String appCreatedLabel = 'qr-scanner-app';
+  static const String appGroupId = 'group.com.coditas.qrscanner.googleSheets';
 
   static const String sheetName = 'Scans';
   static const String headerTimestamp = 'Timestamp';

@@ -11,7 +11,7 @@ plugins {
 android {
     namespace = "com.example.qr_scanner_practice"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "29.0.14206865"
     flavorDimensions += "default"
     productFlavors {
         create("uat") {

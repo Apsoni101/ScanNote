@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:home_widget/home_widget.dart';
 import 'package:qr_scanner_practice/core/app_theming/app_dark_theme_colors.dart';
 import 'package:qr_scanner_practice/core/app_theming/app_light_theme_colors.dart';
+import 'package:qr_scanner_practice/core/constants/app_constants.dart';
 
 import 'package:qr_scanner_practice/core/controller/theme_controller.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
@@ -19,7 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isIOS) {
-    await HomeWidget.setAppGroupId('group.com.coditas.qrscanner.googleSheets');
+    await HomeWidget.setAppGroupId(AppConstants.appGroupId);
   }
   await _initializeFirebase();
   await _initializeHive();
