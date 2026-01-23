@@ -58,7 +58,9 @@ class SettingsScreen extends StatelessWidget {
                       SettingsSectionCardContent(
                         child: SettingsActionTile(
                           title: context.locale.theme,
-                          iconAsset:isDark?AppAssets.darkThemeIc: AppAssets.lightThemeIc,
+                          iconAsset: isDark
+                              ? AppAssets.darkThemeIc
+                              : AppAssets.lightThemeIc,
                           onPressed: () {
                             final ThemeController themeController =
                                 AppInjector.getIt<ThemeController>()

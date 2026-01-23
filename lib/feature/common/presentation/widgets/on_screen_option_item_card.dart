@@ -20,8 +20,7 @@ class OnScreenOptionItemCard extends StatefulWidget {
   final Duration animationDuration;
 
   @override
-  State<OnScreenOptionItemCard> createState() =>
-      _OnScreenOptionItemCardState();
+  State<OnScreenOptionItemCard> createState() => _OnScreenOptionItemCardState();
 }
 
 class _OnScreenOptionItemCardState extends State<OnScreenOptionItemCard>
@@ -33,7 +32,10 @@ class _OnScreenOptionItemCardState extends State<OnScreenOptionItemCard>
   void initState() {
     super.initState();
 
-    _controller = AnimationController(vsync: this, duration: widget.animationDuration);
+    _controller = AnimationController(
+      vsync: this,
+      duration: widget.animationDuration,
+    );
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(1, 0),
