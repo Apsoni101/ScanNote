@@ -12,8 +12,8 @@ import 'package:qr_scanner_practice/core/controller/theme_controller.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/localisation/app_localizations.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.dart';
-import 'package:qr_scanner_practice/core/services/storage/hive_key_constants.dart';
-import 'package:qr_scanner_practice/core/services/storage/hive_service.dart';
+import 'package:qr_scanner_practice/core/local_storage/hive_key_constants.dart';
+import 'package:qr_scanner_practice/core/local_storage/hive_service.dart';
 import 'package:qr_scanner_practice/firebase_options.dart';
 
 Future<void> main() async {

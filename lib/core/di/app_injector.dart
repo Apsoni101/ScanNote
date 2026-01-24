@@ -7,7 +7,7 @@ import 'package:qr_scanner_practice/core/services/connectivity_service.dart';
 import 'package:qr_scanner_practice/core/services/device_info_service.dart';
 import 'package:qr_scanner_practice/core/services/image_picker_service.dart';
 import 'package:qr_scanner_practice/core/services/ocr_service.dart';
-import 'package:qr_scanner_practice/core/services/storage/hive_service.dart';
+import 'package:qr_scanner_practice/core/local_storage/hive_service.dart';
 import 'package:qr_scanner_practice/feature/auth/data/data_sources/google_sign_in_sign_up_remote_datasource.dart';
 import 'package:qr_scanner_practice/feature/auth/data/repositories/google_sign_in_sign_up_remote_repo_impl.dart';
 import 'package:qr_scanner_practice/feature/auth/domain/repositories/google_sign_in_sign_up_remote_repo.dart';

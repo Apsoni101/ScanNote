@@ -1,5 +1,5 @@
-import 'package:qr_scanner_practice/core/services/storage/hive_key_constants.dart';
-import 'package:qr_scanner_practice/core/services/storage/hive_service.dart';
+import 'package:qr_scanner_practice/core/local_storage/hive_key_constants.dart';
+import 'package:qr_scanner_practice/core/local_storage/hive_service.dart';
 
 abstract class SettingsLocalDataSource {
   Future<void> saveThemeMode(final String themeName);
