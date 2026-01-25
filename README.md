@@ -67,6 +67,275 @@ Google signin for authentication
 
 ---
 
+# Project Structure source files 
+```
+lib/
+├── core/
+│   ├── app_theming/
+│   │   ├── app_color_theme_extension.dart
+│   │   ├── app_dark_theme_colors.dart
+│   │   └── app_light_theme_colors.dart
+│   ├── constants/
+│   │   ├── app_constants.dart
+│   │   ├── app_textstyles.dart
+│   │   └── asset_constants.dart
+│   ├── controller/
+│   │   └── app_settings_controller.dart
+│   ├── di/
+│   │   └── app_injector.dart
+│   ├── enums/
+│   │   ├── language_enum.dart
+│   │   └── result_type.dart
+│   ├── extensions/
+│   │   ├── context_extensions.dart
+│   │   ├── date_time_extension.dart
+│   │   ├── string_extensions.dart
+│   │   └── theme_extensions.dart
+│   ├── firebase/
+│   │   └── firebase_auth_service.dart
+│   ├── local_storage/
+│   │   ├── hive_key_constants.dart
+│   │   └── hive_service.dart
+│   ├── localisation/
+│   │   ├── app_localizations.dart
+│   │   ├── app_localizations_en.dart
+│   │   ├── app_localizations_hi.dart
+│   │   ├── intl_en.arb
+│   │   └── intl_hi.arb
+│   ├── navigation/
+│   │   ├── router/
+│   │   │   ├── auth_router.dart
+│   │   │   └── dashboard_router.dart
+│   │   ├── routes/
+│   │   │   ├── no_bottom_nav_bar_routes.dart
+│   │   │   └── with_bottom_nav_bar_routes.dart
+│   │   ├── app_router.dart
+│   │   ├── app_router.gr.dart
+│   │   ├── auth_guard.dart
+│   │   └── route_paths.dart
+│   └── network/
+│       ├── constants/
+│       │   └── network_constants.dart
+│       └── interceptors/
+│           ├── api_log_interceptor.dart
+│           ├── failure.dart
+│           ├── http_api_client.dart
+│           ├── http_method.dart
+│           └── http_network_service.dart
+├── services/
+│   ├── connectivity_service.dart
+│   ├── device_info_service.dart
+│   ├── image_picker_service.dart
+│   └── ocr_service.dart
+└── feature/
+    ├── auth/
+    │   ├── data/
+    │   │   ├── data_sources/
+    │   │   │   └── google_sign_in_sign_up_remote_datasource.dart
+    │   │   ├── models/
+    │   │   │   └── user_model.dart
+    │   │   └── repositories/
+    │   │       └── google_sign_in_sign_up_remote_repo_impl.dart
+    │   ├── domain/
+    │   │   ├── entities/
+    │   │   │   └── user_entity.dart
+    │   │   ├── repositories/
+    │   │   │   └── google_sign_in_sign_up_remote_repo.dart
+    │   │   └── use_cases/
+    │   │       └── google_sign_in_sign_up_remote_usecase.dart
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── google_sign_in_sign_up_bloc.dart
+    │       │   ├── google_sign_in_sign_up_event.dart
+    │       │   └── google_sign_in_sign_up_state.dart
+    │       └── screens/
+    │           └── google_sign_in_sign_up_screen.dart
+    ├── dashboard/
+    │   └── presentation/
+    │       ├── screens/
+    │       │   └── dashboard_screen.dart
+    │       └── widgets/
+    │           └── bottom_nav_icon.dart
+    ├── home/
+    │   ├── data/
+    │   │   ├── data_source/
+    │   │   │   ├── home_screen_local_data_source.dart
+    │   │   │   └── home_screen_remote_data_source.dart
+    │   │   └── repo_impl/
+    │   │       └── home_screen_repository_impl.dart
+    │   ├── domain/
+    │   │   ├── repo/
+    │   │   │   └── home_screen_repository.dart
+    │   │   └── use_case/
+    │   │       └── home_screen_use_case.dart
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── home_screen_bloc.dart
+    │       │   ├── home_screen_event.dart
+    │       │   └── home_screen_state.dart
+    │       ├── screen/
+    │       │   └── home_screen.dart
+    │       └── widgets/
+    │           ├── banner_container.dart
+    │           ├── home_screen_app_bar.dart
+    │           ├── sync_button.dart
+    │           └── sync_status_banner.dart
+    ├── ocr/
+    │   ├── data/
+    │   │   ├── data_source/
+    │   │   │   └── ocr_data_source.dart
+    │   │   ├── model/
+    │   │   │   └── ocr_result_model.dart
+    │   │   └── repo_impl/
+    │   │       └── ocr_repo_impl.dart
+    │   ├── domain/
+    │   │   ├── entity/
+    │   │   │   └── ocr_result_entity.dart
+    │   │   ├── repo/
+    │   │   │   └── ocr_repo.dart
+    │   │   └── use_case/
+    │   │       └── ocr_use_case.dart
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── ocr_bloc.dart
+    │       │   ├── ocr_event.dart
+    │       │   └── ocr_state.dart
+    │       ├── screen/
+    │       │   └── ocr_screen.dart
+    │       └── widgets/
+    │           └── ocr_screen_content_view.dart
+    ├── qr_scan/
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── qr_scanning_bloc.dart
+    │       │   ├── qr_scanning_event.dart
+    │       │   └── qr_scanning_state.dart
+    │       ├── screen/
+    │       │   └── qr_scanner_screen.dart
+    │       └── widgets/
+    │           ├── qr_flash_toggle_button.dart
+    │           ├── qr_image_picker_button.dart
+    │           ├── qr_scan_instruction_text.dart
+    │           ├── qr_scanner_app_bar.dart
+    │           └── qr_scanner_overlay.dart
+    ├── scan_result/
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── result_bloc.dart
+    │       │   ├── result_event.dart
+    │       │   └── result_state.dart
+    │       ├── screen/
+    │       │   └── scan_result_screen.dart
+    │       └── widgets/
+    │           ├── comment_input_card.dart
+    │           ├── ocr_preview_image.dart
+    │           ├── scan_result_section.dart
+    │           └── section_title.dart
+    ├── settings/
+    │   ├── data/
+    │   │   ├── data_source/
+    │   │   │   ├── settings_local_data_source.dart
+    │   │   │   └── settings_remote_data_source.dart
+    │   │   └── repo_impl/
+    │   │       └── settings_repository_impl.dart
+    │   ├── domain/
+    │   │   ├── repo/
+    │   │   │   └── settings_repository.dart
+    │   │   └── use_case/
+    │   │       └── settings_usecase.dart
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── settings_bloc.dart
+    │       │   ├── settings_event.dart
+    │       │   └── settings_state.dart
+    │       ├── screen/
+    │       │   └── settings_screen.dart
+    │       └── widgets/
+    │           ├── language_selection_dialog.dart
+    │           ├── settings_about_text_button_tile.dart
+    │           ├── settings_action_tile.dart
+    │           ├── settings_app_info_tile.dart
+    │           ├── settings_theme_switch.dart
+    │           └── settings_user_info_tile.dart
+    ├── sheet_selection/
+    │   ├── data/
+    │   │   ├── data_source/
+    │   │   │   ├── sheet_selection_local_data_source.dart
+    │   │   │   └── sheet_selection_remote_data_source.dart
+    │   │   ├── model/
+    │   │   │   ├── pending_sync_model.dart
+    │   │   │   ├── pending_sync_model.g.dart
+    │   │   │   ├── scan_result_model.dart
+    │   │   │   ├── scan_result_model.g.dart
+    │   │   │   ├── sheet_model.dart
+    │   │   │   └── sheet_model.g.dart
+    │   │   └── repo_impl/
+    │   │       └── sheet_selection_repository_impl.dart
+    │   ├── domain/
+    │   │   ├── entity/
+    │   │   │   ├── pending_sync_entity.dart
+    │   │   │   ├── result_scan_entity.dart
+    │   │   │   └── sheet_entity.dart
+    │   │   ├── repo/
+    │   │   │   └── sheet_selection_repository.dart
+    │   │   └── use_case/
+    │   │       └── sheet_selection_use_case.dart
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── sheet_selection_bloc.dart
+    │       │   ├── sheet_selection_event.dart
+    │       │   └── sheet_selection_state.dart
+    │       ├── screen/
+    │       │   └── sheet_selection_screen.dart
+    │       └── widget/
+    │           ├── create_new_sheet_button_and_form.dart
+    │           ├── existing_sheets_view_builder_and_selector.dart
+    │           ├── save_to_sheet_button.dart
+    │           └── scanned_data_preview.dart
+    ├── splash/
+    │   └── presentation/
+    │       ├── screens/
+    │       │   └── splash_screen.dart
+    │       └── widgets/
+    │           ├── splash_appear_animation.dart
+    │           └── splash_logo_container.dart
+    ├── view_scan_history/
+    │   ├── data/
+    │   │   ├── data_source/
+    │   │   │   └── view_scans_history_remote_data_source.dart
+    │   │   └── repo_impl/
+    │   │       └── view_scans_history_remote_repository_impl.dart
+    │   ├── domain/
+    │   │   ├── repo/
+    │   │   │   └── view_scans_history_remote_repository.dart
+    │   │   └── use_case/
+    │   │       └── view_scans_history_remote_use_case.dart
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── view_scans_history_screen_bloc.dart
+    │       │   ├── view_scans_history_screen_event.dart
+    │       │   └── view_scans_history_screen_state.dart
+    │       ├── screen/
+    │       │   └── view_scans_history_screen.dart
+    │       └── widget/
+    │           ├── history_card_item.dart
+    │           ├── history_empty_view.dart
+    │           ├── history_error_view.dart
+    │           └── history_search_bar.dart
+    └── common/
+        └── presentation/
+            └── widgets/
+                ├── common_app_bar.dart
+                ├── common_loading_view.dart
+                ├── decorated_svg_asset_icon_container.dart
+                ├── elevated_icon_button.dart
+                ├── elevated_svg_icon_button.dart
+                ├── error_or_empty_message_container.dart
+                ├── on_screen_option_item_card.dart
+                ├── outlined_icon_button.dart
+                ├── padded_text.dart
+                └── rounded_corner_elevated_card.dart
+```
 
 
 
