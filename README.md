@@ -70,6 +70,29 @@ Google signin for authentication
 
 
 
+# Features
+
+| Feature | Sub Features | Status |
+|---------|-------------|--------|
+| **Authentication** | • Google Sign In/Sign Up scren<br>• User Session Management | ✅ |
+| **Home Dashboard** | • Sync Status Banner<br>• Choose option qr scan or extract text(ocr)<br>• Recent Activity Overview<br>• Sync Management | ✅ |
+| **QR Code Scanner** | • Real-time QR Scanning<br>• Flash Toggle<br>• Image Picker for QR<br>• Scanner Overlay | ✅ |
+| **OCR (Text Recognition)** | • Image to Text Conversion<br>• Camera Capture<br>• Image Selection<br>• Text Extraction | ✅ |
+| **Scan Results** | • View Scanned Data<br>• Add Comments<br>• Preview Images<br> | ✅ |
+| **Sheet Selection and creation** | • Create New Sheets<br>• Select Existing Sheets<br>• View Sheet List<br>• Save Scanned Data to Sheets<br>• Google Sheets Integration | ✅ |
+| **Scan History** | • View All Scans history<br> | ✅ |
+| **Settings** | • Theme Toggle (Light/Dark)<br>• Language Selection (English/Hindi)<br>• User Profile Management<br>• App Information<br>• About Section(Privacy policy , terms of service , help and support) | ✅ |
+| **Localization** | • Multi-language Support<br>• English & Hindi Languages<br>• Dynamic Language Switching | ✅ |
+| **Offline Support** | • Local Data Storage (Hive)<br>• Pending Sync Queue<br>• Offline Mode Detection<br>• Auto-sync on Connection | ✅ |
+| **Theming** | • Light Theme<br>• Dark Theme<br>• Theme Persistence | ✅ |
+
+
+
+
+
+
+
+
 # Folder Structure Convention
 
 ## Top-level directory layout
