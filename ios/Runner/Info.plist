@@ -3,11 +3,11 @@
 <plist version="1.0">
     <dict>
         <key>CADisableMinimumFrameDurationOnPhone</key>
-        <true />
+        <true/>
         <key>CFBundleDevelopmentRegion</key>
         <string>$(DEVELOPMENT_LANGUAGE)</string>
         <key>CFBundleDisplayName</key>
-        <string>CodiScan</string>
+        <string>$(PRODUCT_NAME)</string>
         <key>CFBundleExecutable</key>
         <string>$(EXECUTABLE_NAME)</string>
         <key>CFBundleIdentifier</key>
@@ -29,48 +29,34 @@
                 <string>Editor</string>
                 <key>CFBundleURLSchemes</key>
                 <array>
+                    <!-- Dev flavor REVERSED_CLIENT_ID -->
+                    <string>com.googleusercontent.apps.597710711272-pj9obtethb815r4tsc8dhgkfoorrbmi5</string>
+                    <!-- Prod flavor REVERSED_CLIENT_ID -->
                     <string>com.googleusercontent.apps.597710711272-qp2a7pobos5fs6hf9r147ro4tjehjo66</string>
+                    <!-- UAT flavor REVERSED_CLIENT_ID -->
+                    <string>com.googleusercontent.apps.597710711272-1uiio400ok4166huibtklpct5e5vlo4m</string>
                 </array>
             </dict>
         </array>
         <key>CFBundleVersion</key>
         <string>$(FLUTTER_BUILD_NUMBER)</string>
         <key>LSRequiresIPhoneOS</key>
-        <true />
-
-        <!-- ============================================ -->
-        <!-- CAMERA & PHOTO LIBRARY PERMISSIONS -->
-        <!-- ============================================ -->
-
-        <!-- Camera Permission (for capturing photos) -->
-        <key>NSCameraUsageDescription</key>
-        <string>We need camera access to capture and scan documents</string>
-
-        <!-- Photo Library Permission (for selecting images) -->
-        <key>NSPhotoLibraryUsageDescription</key>
-        <string>We need access to your photo library to scan documents from saved images</string>
-
-        <!-- Photo Library Add Permission (for iOS 11+) -->
-        <key>NSPhotoLibraryAddUsageDescription</key>
-        <string>We need permission to save scanned documents to your photo library</string>
-
-        <!-- Local Network Permission (for advanced features) -->
-        <key>NSLocalNetworkUsageDescription</key>
-        <string>This app uses local network to improve scanning performance</string>
-
-        <!-- Bonjour Service Discovery (required for local network) -->
+        <true/>
         <key>NSBonjourServices</key>
         <array>
             <string>_http._tcp</string>
             <string>_services._tcp</string>
         </array>
-
-        <!-- ============================================ -->
-        <!-- UI CONFIGURATION -->
-        <!-- ============================================ -->
-
+        <key>NSCameraUsageDescription</key>
+        <string>We need camera access to capture and scan documents</string>
+        <key>NSLocalNetworkUsageDescription</key>
+        <string>This app uses local network to improve scanning performance</string>
+        <key>NSPhotoLibraryAddUsageDescription</key>
+        <string>We need permission to save scanned documents to your photo library</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>We need access to your photo library to scan documents from saved images</string>
         <key>UIApplicationSupportsIndirectInputEvents</key>
-        <true />
+        <true/>
         <key>UILaunchStoryboardName</key>
         <string>LaunchScreen</string>
         <key>UIMainStoryboardFile</key>
