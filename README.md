@@ -74,7 +74,26 @@ flutter run --flavor uat
 flutter run --flavor prod
 ```
 
+# Supported Versions
 
+## Platform Version Requirements
+
+| OS | Min Supported Version | Max Supported Version | Compile Version |
+|----|----------------------|----------------------|-----------------|
+| **Android** | 23 (Android 6.0) | 34 (Android 14) | 34 |
+| **iOS** | 15.5 | 17.0 | 17.0 |
+
+## Version Details
+
+### Android
+- **Minimum SDK**: 23 (Marshmallow)
+- **Target SDK**: 34 (Android 14)
+- **Compile SDK**: 34
+
+### iOS
+- **Minimum Deployment Target**: 15.5
+- **Maximum Supported**: 17.0
+- **Xcode Compile Version**: 17.0
 
 
 ## 📸 App Screenshots
