@@ -98,20 +98,24 @@ flutter run --flavor prod
 
 ## 📸 App Screenshots
 
-| Signin Screen |
-|------------|
-|<img src="https://github.com/user-attachments/assets/433308c7-6a27-4a59-abef-326e988e51f5" width="360" height="720"/>|
-
-| Home Screen | Scanner Screen | Scan Result Screen |
+| Splash Screen | Auth Screen | Home Screen |
 |------------|---------------|---------------|
-| ![](https://github.com/user-attachments/assets/ae3a04fa-ceca-4524-956b-65210aff1ba0)  | ![](https://github.com/user-attachments/assets/aa4691bc-d8ae-4903-b885-aa4d3ee5fc1d) | ![](https://github.com/user-attachments/assets/13654c40-ffea-4afa-bd6c-282c2c9448e4)|
+| ![](https://github.com/user-attachments/assets/69f5acba-8f60-499f-87f5-791ad97e7dfd)  | ![](https://github.com/user-attachments/assets/0fa1559e-d5e8-4879-a948-4c75ba339b4c) | ![](https://github.com/user-attachments/assets/867e1d24-ac4f-48f2-891a-5043123d675d)|
 
-| Confirmation and sheet selection for save screen | Create new Sheets | QR History |
+| History Screen | Scanner Screen | Scan Result QR Screen |
+|------------|---------------|---------------|
+| ![](https://github.com/user-attachments/assets/6d1c520c-4a21-4614-b57d-219e99f26b40) | ![](https://github.com/user-attachments/assets/e9080c8f-5645-4b8d-836b-ebbde9d53f0b) | ![](https://github.com/user-attachments/assets/6592d89a-9561-48a0-aa39-bb4b7bef954b)|
+
+| Ocr Screen | Scan Result OCR Screen | Scan Result OCR Screen |
 |-------------|-------------|---------|
-| ![](https://github.com/user-attachments/assets/f7c8a066-57e7-4309-9f7f-8c1ac773e1fc) | ![](https://github.com/user-attachments/assets/6bb2be65-8e71-436c-b7f3-0c716a6075da) | ![](https://github.com/user-attachments/assets/00504736-081c-4b86-95a1-a86772301064)  |
+|  ![](https://github.com/user-attachments/assets/5bfcc2c1-e8cf-44b9-8d94-29d03134f9e9) | ![](https://github.com/user-attachments/assets/633ea649-b5f0-4a8d-8d3e-286875f407e7) | ![](https://github.com/user-attachments/assets/d728c5cb-c211-41dd-ac0b-e6c3753a41f1) | 
+
+
+| Sheet Selection Screen | Sheet Selection Screen | Sheet Selection Screen |
+|-------------|-------------|---------|
+| ![](https://github.com/user-attachments/assets/0bfc2b43-63a6-4156-923f-52f41a7d733f)| ![](https://github.com/user-attachments/assets/d9d8bc2f-ca2e-42f3-a036-03763c694946) | ![](https://github.com/user-attachments/assets/6ebc197f-cf68-48ca-90c9-ce3ccb2dfe6f) |
 
 ---
-
 
 ## 🚀 App Flow for saving and local sync when no internet 
 
