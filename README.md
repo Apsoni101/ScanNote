@@ -66,3 +66,59 @@ Can Also create new sheets .
 Google signin for authentication 
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Dependencies 📚
+
+Below is the list of main dependencies used in this project along with their purpose.
+
+- [Flutter Bloc](https://pub.dev/packages/flutter_bloc)  State management solution for Flutter using the BLoC pattern used in app.
+
+- [Auto Route](https://pub.dev/packages/auto_route)  Type-safe and declarative routing for Flutter apps and  Flutter navigation with strongly-typed argument passing used in app.
+
+- [Dio](https://pub.dev/packages/dio)  Powerful HTTP networking package for Dart/Flutter used for making API requests.
+
+- [Dartz](https://pub.dev/packages/dartz)  Functional programming helpers like `Either` for better error handling in app.
+
+- [Equatable](https://pub.dev/packages/equatable)  Simplifies value comparison for Dart objects in apps .
+
+- [Get It](https://pub.dev/packages/get_it)  Dependency injection for managing app-wide services.
+
+- [Firebase Core](https://pub.dev/packages/firebase_core)  Initializes Firebase services in the Flutter app.
+
+- [Firebase Auth](https://pub.dev/packages/firebase_auth)  User authentication using Firebase for google auth in app.
+
+- [Google Sign In](https://pub.dev/packages/google_sign_in)  Enables Google authentication in app provides credentials.
+
+- [Device Info Plus](https://pub.dev/packages/device_info_plus)  Fetches device-related information and used for getting device id in app.
+
+- [Connectivity Plus](https://pub.dev/packages/connectivity_plus)  Checks network connectivity status in Flutter apps.
+
+- [Hive Flutter](https://pub.dev/packages/hive_flutter)  Lightweight and fast local database better than sqlite faster access stores in key value pairs.
+
+- [Flutter SVG](https://pub.dev/packages/flutter_svg)  Renders SVG images in Flutter.
+
+- [Image Picker](https://pub.dev/packages/image_picker)  Picks images from gallery or camera.
+
+- [Mobile Scanner](https://pub.dev/packages/mobile_scanner)  Barcode and QR code scanning in app .
+
+- [Google ML Kit – Text Recognition](https://pub.dev/packages/google_mlkit_text_recognition)  Extracts text from images using ML Kit for ocr feature in app.
+
+- [Home Widget](https://pub.dev/packages/home_widget)  Creates home screen widgets for Android and iOS helps in connection with native to flutter data updating easy (ui are built in native).
+
+
+
+
+
+
