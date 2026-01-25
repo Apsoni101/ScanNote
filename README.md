@@ -67,7 +67,7 @@ Google signin for authentication
 
 ---
 
-# Project Structure source files 
+# Source files 
 ```
 lib/
 ├── core/
