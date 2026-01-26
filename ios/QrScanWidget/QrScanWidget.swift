@@ -99,6 +99,14 @@ struct QrScanWidgetEntryView : View {
                             .foregroundColor(.white)
                     }
                     .padding(.trailing, 6)
+                    
+                    Spacer()
+
+                    Image(.appLogo)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 44, height: 44)
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
                 }
                 .frame(height: 60)
 
@@ -152,7 +160,7 @@ struct QrScanWidget: Widget {
         .supportedFamilies([.systemSmall])
     }
 }
-
+@available(iOS 17.0, *)
 #Preview(as: .systemSmall) {
     QrScanWidget()
 } timeline: {
