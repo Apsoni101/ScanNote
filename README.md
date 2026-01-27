@@ -80,15 +80,15 @@ flutter run --flavor prod
 
 | OS | Min Supported Version | Max Supported Version | Compile Version |
 |----|----------------------|----------------------|-----------------|
-| **Android** | 24 | 34 (Android 14) | 34 |
+| **Android** | 24 | 36 | 36 |
 | **iOS** | 15.5 | 17.0 | 17.0 |
 
 ## Version Details
 
 ### Android
 - **Minimum SDK**: 24 
-- **Target SDK**: 34 (Android 14)
-- **Compile SDK**: 34
+- **Target SDK**: 36
+- **Compile SDK**: 36
 
 ### iOS
 - **Minimum Deployment Target**: 15.5
