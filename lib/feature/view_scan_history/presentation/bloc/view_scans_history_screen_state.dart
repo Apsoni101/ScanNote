@@ -4,31 +4,39 @@ class ViewScansHistoryScreenState extends Equatable {
   const ViewScansHistoryScreenState({
     this.isLoading = false,
     this.allScans = const <PendingSyncEntity>[],
-    this.filteredScans = const <PendingSyncEntity>[],
     this.searchQuery = '',
     this.error,
+    this.isLoadingMoreSheets = false,
+    this.hasMoreSheets = true,
+    this.nextPageToken,
   });
 
   final bool isLoading;
   final List<PendingSyncEntity> allScans;
-  final List<PendingSyncEntity> filteredScans;
   final String searchQuery;
   final String? error;
+  final bool isLoadingMoreSheets;
+  final bool hasMoreSheets;
+  final String? nextPageToken;
 
   ViewScansHistoryScreenState copyWith({
     final bool? isLoading,
     final bool? isRefreshing,
     final List<PendingSyncEntity>? allScans,
-    final List<PendingSyncEntity>? filteredScans,
     final String? searchQuery,
     final String? error,
+    final bool? isLoadingMoreSheets,
+    final bool? hasMoreSheets,
+    final String? nextPageToken,
   }) {
     return ViewScansHistoryScreenState(
       isLoading: isLoading ?? this.isLoading,
       allScans: allScans ?? this.allScans,
-      filteredScans: filteredScans ?? this.filteredScans,
       searchQuery: searchQuery ?? this.searchQuery,
       error: error,
+      isLoadingMoreSheets: isLoadingMoreSheets ?? this.isLoadingMoreSheets,
+      hasMoreSheets: hasMoreSheets ?? this.hasMoreSheets,
+      nextPageToken: nextPageToken ?? this.nextPageToken,
     );
   }
 
@@ -36,9 +44,11 @@ class ViewScansHistoryScreenState extends Equatable {
   List<Object?> get props => <Object?>[
     isLoading,
     allScans,
-    filteredScans,
     searchQuery,
     error,
+    isLoadingMoreSheets,
+    hasMoreSheets,
+    nextPageToken,
   ];
 }
 

@@ -6,12 +6,18 @@ import 'package:qr_scanner_practice/core/network/constants/network_constants.dar
 import 'package:qr_scanner_practice/core/network/failure.dart';
 import 'package:qr_scanner_practice/core/network/http_api_client.dart';
 import 'package:qr_scanner_practice/core/network/http_method.dart';
+import 'package:qr_scanner_practice/feature/sheet_selection/data/model/paged_sheets_model.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/data/model/scan_result_model.dart';
-import 'package:qr_scanner_practice/feature/sheet_selection/data/model/sheet_model.dart';
-import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/pending_sync_entity.dart';
 
 abstract class ViewScansHistoryRemoteDataSource {
-  Future<Either<Failure, List<PendingSyncEntity>>> getAllScansFromAllSheets();
+  Future<Either<Failure, PagedSheetsModel>> getAllSheets({
+    final String? pageToken,
+    final int? pageSize,
+  });
+
+  Future<Either<Failure, List<ScanResultModel>>> getScansFromSheet(
+    final String sheetId,
+  );
 }
 
 class ViewScansHistoryRemoteDataSourceImpl
@@ -40,37 +46,54 @@ class ViewScansHistoryRemoteDataSourceImpl
     );
   }
 
-  Future<Either<Failure, List<SheetModel>>> _getOwnedSheets(
-    final Options options,
+  @override
+  Future<Either<Failure, PagedSheetsModel>> getAllSheets({
+    final String? pageToken,
+    final int? pageSize,
+  }) async {
+    final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
+
+    return authOptions.fold(Left.new, (final Options options) async {
+      const String query =
+          'mimeType="${NetworkConstants.sheetMimeType}" '
+          'and "me" in owners '
+          'and trashed=false '
+          'and (properties has { key="appCreated" and value="${AppConstants.appCreatedLabel}" } '
+          'or fullText contains "${AppConstants.appCreatedLabel}")';
+
+      final Map<String, dynamic> queryParams = <String, dynamic>{
+        'q': query,
+        'fields': '${NetworkConstants.sheetFields}, nextPageToken',
+        'pageSize': pageSize ?? NetworkConstants.pageSize,
+        'orderBy': NetworkConstants.orderBy,
+      };
+
+      if (pageToken != null && pageToken.isNotEmpty) {
+        queryParams['pageToken'] = pageToken;
+      }
+
+      return apiClient.request<PagedSheetsModel>(
+        url: NetworkConstants.driveBaseUrl,
+        method: HttpMethod.get,
+        options: options,
+        queryParameters: queryParams,
+        responseParser: (final Map<String, dynamic> json) {
+          return PagedSheetsModel.fromJson(json);
+        },
+      );
+    });
+  }
+
+  @override
+  Future<Either<Failure, List<ScanResultModel>>> getScansFromSheet(
+    final String sheetId,
   ) async {
-    const String query =
-        'mimeType="${NetworkConstants.sheetMimeType}" '
-        'and "me" in owners '
-        'and trashed=false '
-        'and (properties has { key="appCreated" and value="${AppConstants.appCreatedLabel}" } '
-        'or fullText contains "${AppConstants.appCreatedLabel}")';
+    final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
 
-    final Map<String, dynamic> queryParams = <String, dynamic>{
-      'q': query,
-      'fields': NetworkConstants.sheetFields,
-      'pageSize': NetworkConstants.pageSize,
-      'orderBy': NetworkConstants.orderBy,
-    };
-
-    return apiClient.request<List<SheetModel>>(
-      url: NetworkConstants.driveBaseUrl,
-      method: HttpMethod.get,
-      options: options,
-      queryParameters: queryParams,
-      responseParser: (final Map<String, dynamic> json) {
-        final List<dynamic> files = json['files'] ?? <dynamic>[];
-        return files
-            .map(
-              (final dynamic file) =>
-                  SheetModel.fromJson(Map<String, dynamic>.from(file)),
-            )
-            .toList();
-      },
+    return authOptions.fold(
+      (final Failure failure) async =>
+          Left<Failure, List<ScanResultModel>>(failure),
+      (final Options options) async => _readScansFromSheet(sheetId, options),
     );
   }
 
@@ -89,92 +112,13 @@ class ViewScansHistoryRemoteDataSourceImpl
       options: options,
       responseParser: (final Map<String, dynamic> json) {
         final List values = json['values'] ?? <dynamic>[];
-        return _mapToScanResultModels(values);
+        return values
+            .map(
+              (final dynamic row) =>
+                  ScanResultModel.fromSheetRow(List<dynamic>.from(row)),
+            )
+            .toList();
       },
-    );
-  }
-
-  List<ScanResultModel> _mapToScanResultModels(final List values) {
-    return values
-        .map(
-          (final dynamic row) =>
-              ScanResultModel.fromSheetRow(List<dynamic>.from(row)),
-        )
-        .toList();
-  }
-
-  @override
-  Future<Either<Failure, List<PendingSyncEntity>>>
-  getAllScansFromAllSheets() async {
-    final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
-
-    return authOptions.fold(
-      (final Failure failure) async =>
-          Left<Failure, List<PendingSyncEntity>>(failure),
-      (final Options options) async => _fetchAllScansFromSheets(options),
-    );
-  }
-
-  Future<Either<Failure, List<PendingSyncEntity>>> _fetchAllScansFromSheets(
-    final Options options,
-  ) async {
-    final Either<Failure, List<SheetModel>> sheetsResult =
-        await _getOwnedSheets(options);
-
-    return sheetsResult.fold(
-      (final Failure failure) async =>
-          Left<Failure, List<PendingSyncEntity>>(failure),
-      (final List<SheetModel> sheets) async =>
-          _collectScansFromAllSheets(sheets, options),
-    );
-  }
-
-  Future<Either<Failure, List<PendingSyncEntity>>> _collectScansFromAllSheets(
-    final List<SheetModel> sheets,
-    final Options options,
-  ) async {
-    final List<PendingSyncEntity> allScans = <PendingSyncEntity>[];
-
-    for (final SheetModel sheet in sheets) {
-      final Either<Failure, List<ScanResultModel>> scansResult =
-          await _readScansFromSheet(sheet.id, options);
-
-      scansResult.fold(
-        (final Failure _) {
-          /// Continue even if one sheet fails
-        },
-        (final List<ScanResultModel> scans) {
-          final List<PendingSyncEntity> sheetScans =
-              _convertToPendingSyncEntities(scans, sheet);
-          allScans.addAll(sheetScans);
-        },
-      );
-    }
-
-    _sortScansByTimestamp(allScans);
-
-    return Right<Failure, List<PendingSyncEntity>>(allScans);
-  }
-
-  List<PendingSyncEntity> _convertToPendingSyncEntities(
-    final List<ScanResultModel> scans,
-    final SheetModel sheet,
-  ) {
-    return scans
-        .map(
-          (final ScanResultModel scan) => PendingSyncEntity(
-            scan: scan.toEntity(),
-            sheetId: sheet.id,
-            sheetTitle: sheet.title,
-          ),
-        )
-        .toList();
-  }
-
-  void _sortScansByTimestamp(final List<PendingSyncEntity> scans) {
-    scans.sort(
-      (final PendingSyncEntity a, final PendingSyncEntity b) =>
-          b.scan.timestamp.compareTo(a.scan.timestamp),
     );
   }
 }

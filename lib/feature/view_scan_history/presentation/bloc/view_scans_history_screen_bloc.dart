@@ -3,7 +3,10 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_scanner_practice/core/network/failure.dart';
+import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/paged_sheets_entity.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/pending_sync_entity.dart';
+import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/result_scan_entity.dart';
+import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/sheet_entity.dart';
 import 'package:qr_scanner_practice/feature/view_scan_history/domain/usecase/view_scans_history_remote_use_case.dart';
 
 part 'view_scans_history_screen_event.dart';
@@ -15,7 +18,7 @@ class ViewScansHistoryScreenBloc
   ViewScansHistoryScreenBloc({required this.getScansHistoryUseCase})
     : super(const HistoryScreenInitial()) {
     on<OnHistoryLoadScans>(_onLoadScans);
-    on<OnHistorySearchScans>(_onSearchScans);
+    on<OnHistoryLoadMoreScans>(_onLoadMoreScans);
   }
 
   final ViewScansHistoryRemoteUseCase getScansHistoryUseCase;
@@ -24,50 +27,100 @@ class ViewScansHistoryScreenBloc
     final OnHistoryLoadScans event,
     final Emitter<ViewScansHistoryScreenState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, hasMoreSheets: true));
 
-    final Either<Failure, List<PendingSyncEntity>> result =
-        await getScansHistoryUseCase.getAllScansFromAllSheets();
+    final Either<Failure, PagedSheetsEntity> pagedSheets =
+        await getScansHistoryUseCase.getAllSheets(pageSize: 2);
 
-    await result.fold(
-      (final Failure failure) {
+    await pagedSheets.fold(
+      (final Failure failure) async {
         emit(state.copyWith(isLoading: false, error: failure.message));
       },
-      (final List<PendingSyncEntity> scans) {
+      (final PagedSheetsEntity pagedSheetsEntity) async {
+        final List<PendingSyncEntity> allScans = <PendingSyncEntity>[];
+
+        for (final SheetEntity sheet in pagedSheetsEntity.sheets) {
+          final Either<Failure, List<ScanResultEntity>> scansResult =
+              await getScansHistoryUseCase.getScansFromSheet(sheet.id);
+
+          scansResult.fold((_) {}, (final List<ScanResultEntity> scans) {
+            final List<PendingSyncEntity> sheetScans = scans
+                .map(
+                  (final ScanResultEntity scan) => PendingSyncEntity(
+                    scan: scan,
+                    sheetId: sheet.id,
+                    sheetTitle: sheet.title,
+                  ),
+                )
+                .toList();
+            allScans.addAll(sheetScans);
+          });
+        }
+
         emit(
           state.copyWith(
             isLoading: false,
-            allScans: scans,
-            filteredScans: scans,
+            allScans: allScans,
+            hasMoreSheets: pagedSheetsEntity.nextPageToken != null,
+            nextPageToken: pagedSheetsEntity.nextPageToken,
           ),
         );
       },
     );
   }
 
-  void _onSearchScans(
-    final OnHistorySearchScans event,
+  Future<void> _onLoadMoreScans(
+    final OnHistoryLoadMoreScans event,
     final Emitter<ViewScansHistoryScreenState> emit,
-  ) {
-    final String query = event.query.toLowerCase();
-
-    if (query.isEmpty) {
-      emit(state.copyWith(filteredScans: state.allScans, searchQuery: ''));
+  ) async {
+    if (state.isLoadingMoreSheets || !state.hasMoreSheets) {
       return;
     }
 
-    final List<PendingSyncEntity> filtered = state.allScans.where((
-      final PendingSyncEntity item,
-    ) {
-      final String qrDataLower = item.scan.data.toLowerCase();
-      final String commentLower = item.scan.comment.toLowerCase();
-      final String sheetTitleLower = item.sheetTitle.toLowerCase();
+    emit(state.copyWith(isLoadingMoreSheets: true));
 
-      return qrDataLower.contains(query) ||
-          commentLower.contains(query) ||
-          sheetTitleLower.contains(query);
-    }).toList();
+    final Either<Failure, PagedSheetsEntity> sheetsResult =
+        await getScansHistoryUseCase.getAllSheets(
+          pageSize: 2,
+          pageToken: state.nextPageToken,
+        );
 
-    emit(state.copyWith(filteredScans: filtered, searchQuery: query));
+    await sheetsResult.fold(
+      (final Failure failure) async {
+        emit(
+          state.copyWith(isLoadingMoreSheets: false, error: failure.message),
+        );
+      },
+      (final PagedSheetsEntity pagedSheetsEntity) async {
+        final List<PendingSyncEntity> newScans = <PendingSyncEntity>[];
+
+        for (final SheetEntity sheet in pagedSheetsEntity.sheets) {
+          final Either<Failure, List<ScanResultEntity>> scansResult =
+              await getScansHistoryUseCase.getScansFromSheet(sheet.id);
+
+          scansResult.fold((_) {}, (final List<ScanResultEntity> scans) {
+            newScans.addAll(
+              scans.map(
+                (scan) => PendingSyncEntity(
+                  scan: scan,
+                  sheetId: sheet.id,
+                  sheetTitle: sheet.title,
+                ),
+              ),
+            );
+          });
+        }
+
+        emit(
+          state.copyWith(
+            isLoadingMoreSheets: false,
+            allScans: List<PendingSyncEntity>.of(state.allScans)
+              ..addAll(newScans),
+            hasMoreSheets: pagedSheetsEntity.nextPageToken != null,
+            nextPageToken: pagedSheetsEntity.nextPageToken,
+          ),
+        );
+      },
+    );
   }
 }

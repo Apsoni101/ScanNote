@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/common_loading_view.dart';
+import 'package:qr_scanner_practice/feature/common/presentation/widgets/elevated_icon_button.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/pending_sync_entity.dart';
 import 'package:qr_scanner_practice/feature/view_scan_history/presentation/bloc/view_scans_history_screen_bloc.dart';
 import 'package:qr_scanner_practice/feature/view_scan_history/presentation/widget/history_card_item.dart';
@@ -42,7 +43,7 @@ class _ViewScansHistoryScreenBody extends StatelessWidget {
                   return switch ((
                     isLoading: state.isLoading,
                     hasError: state.error != null && state.error!.isNotEmpty,
-                    isEmpty: state.filteredScans.isEmpty,
+                    isEmpty: state.allScans.isEmpty,
                   )) {
                     (isLoading: true, hasError: _, isEmpty: _) =>
                       const CommonLoadingView(),
@@ -63,16 +64,31 @@ class _ViewScansHistoryScreenBody extends StatelessWidget {
                         backgroundColor: context.appColors.textInversePrimary,
                         child: ListView.builder(
                           padding: const EdgeInsets.all(16),
-                          itemCount: state.filteredScans.length,
+                          itemCount:
+                              state.allScans.length +
+                              (state.hasMoreSheets ? 1 : 0),
                           itemBuilder:
                               (final BuildContext context, final int index) {
-                                final PendingSyncEntity historyScan =
-                                    state.filteredScans[index];
-                                return HistoryCardItem(
-                                  data: historyScan.scan.data,
-                                  sheetTitle: historyScan.sheetTitle,
-                                  timestamp: historyScan.scan.timestamp,
-                                  comment: historyScan.scan.comment,
+                                if (index < state.allScans.length) {
+                                  final PendingSyncEntity historyScan =
+                                      state.allScans[index];
+                                  return HistoryCardItem(
+                                    data: historyScan.scan.data,
+                                    sheetTitle: historyScan.sheetTitle,
+                                    timestamp: historyScan.scan.timestamp,
+                                    comment: historyScan.scan.comment,
+                                  );
+                                }
+
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                  ),
+                                  child: _LoadMoreButton(
+                                    hasMoreSheets: state.hasMoreSheets,
+                                    isLoadingMoreSheets:
+                                        state.isLoadingMoreSheets,
+                                  ),
                                 );
                               },
                         ),
@@ -80,6 +96,43 @@ class _ViewScansHistoryScreenBody extends StatelessWidget {
                   };
                 },
           ),
+    );
+  }
+}
+
+class _LoadMoreButton extends StatelessWidget {
+  const _LoadMoreButton({
+    required this.hasMoreSheets,
+    required this.isLoadingMoreSheets,
+  });
+
+  final bool hasMoreSheets;
+  final bool isLoadingMoreSheets;
+
+  @override
+  Widget build(final BuildContext context) {
+    if (!hasMoreSheets) {
+      return const SizedBox.shrink();
+    }
+
+    if (isLoadingMoreSheets) {
+      return const Padding(
+        padding: EdgeInsets.all(16),
+        child: CommonLoadingView(),
+      );
+    }
+
+    return ElevatedIconButton(
+      icon: Icons.expand_circle_down_outlined,
+      label: context.locale.loadMore,
+      backgroundColor: context.appColors.primaryDefault,
+      iconColor: context.appColors.surfaceL1,
+      labelColor: context.appColors.textInversePrimary,
+      onPressed: () {
+        context.read<ViewScansHistoryScreenBloc>().add(
+          const OnHistoryLoadMoreScans(),
+        );
+      },
     );
   }
 }

@@ -9,12 +9,11 @@ import 'package:qr_scanner_practice/core/network/http_method.dart';
 import 'package:qr_scanner_practice/core/services/device_info_service.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/data/model/paged_sheets_model.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/data/model/scan_result_model.dart';
-import 'package:qr_scanner_practice/feature/sheet_selection/data/model/sheet_model.dart';
 
 abstract class SheetSelectionRemoteDataSource {
   Future<Either<Failure, PagedSheetsModel>> getOwnedSheets({
-    String? pageToken,
-    int? pageSize,
+    final String? pageToken,
+    final int? pageSize,
   });
 
   Future<Either<Failure, String>> createSheet(final String sheetName);
@@ -42,7 +41,7 @@ class SheetSelectionRemoteDataSourceImpl
         .getGoogleAccessToken();
     return tokenResult.fold(
       Left.new,
-      (final String token) => Right(
+      (final String token) => Right<Failure, Options>(
         Options(
           headers: <String, dynamic>{
             'Authorization': 'Bearer $token',
@@ -73,8 +72,8 @@ class SheetSelectionRemoteDataSourceImpl
 
   @override
   Future<Either<Failure, PagedSheetsModel>> getOwnedSheets({
-    String? pageToken,
-    int? pageSize,
+    final String? pageToken,
+    final int? pageSize,
   }) async {
     final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
 
@@ -183,7 +182,7 @@ class SheetSelectionRemoteDataSourceImpl
               },
               responseParser: (_) => unit,
             );
-        return updateResult.fold(Left.new, (_) => Right(id));
+        return updateResult.fold(Left.new, (_) => Right<Failure, String>(id));
       });
     });
   }

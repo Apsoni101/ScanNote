@@ -47,11 +47,7 @@ class SheetSelectionRepositoryImpl implements SheetSelectionRepository {
   }) async {
     final Either<Failure, PagedSheetsModel> result = await remoteDataSource
         .getOwnedSheets(pageToken: pageToken, pageSize: pageSize);
-    return result.fold(
-      Left.new,
-      (final PagedSheetsModel pagedSheets) =>
-          Right<Failure, PagedSheetsEntity>(pagedSheets.toEntity()),
-    );
+    return result.fold(Left.new, Right<Failure, PagedSheetsEntity>.new);
   }
 
   @override
