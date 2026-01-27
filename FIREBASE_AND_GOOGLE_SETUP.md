@@ -151,7 +151,7 @@ Options(
 
 ## 10) API Request Examples (curl + JSON)
 
-These match the requests in your code.
+
 
 ### 1) List Owned Spreadsheets (Drive Query)
 
