@@ -135,6 +135,16 @@ flutter run --flavor prod
 |-------------|-------------|---------|
 | ![](https://github.com/user-attachments/assets/b5b6c779-910a-4ef0-b9e5-8b2d207a1d01)| ![](https://github.com/user-attachments/assets/90a8c5f7-6473-4773-87b8-844c39a17f5d) | ![](https://github.com/user-attachments/assets/ed5122f0-db2e-4035-9b87-1e9f705976bc) |
 
+
+### Home Widget 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4649e40c-c639-434a-9bf0-3ad2d6706a45"
+       width="360"
+       height="780"
+       alt="Sheet Selection Screen" />
+</p>
+
 ---
 
 
