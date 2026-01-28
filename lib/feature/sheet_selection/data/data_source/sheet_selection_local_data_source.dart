@@ -17,7 +17,6 @@ abstract class SheetSelectionLocalDataSource {
     final String sheetTitle,
   );
   Future<Either<Failure, Unit>> clearLocalSheets();
-
 }
 
 class SheetSelectionLocalDataSourceImpl
@@ -97,10 +96,10 @@ class SheetSelectionLocalDataSourceImpl
       existingPendingSyncs,
     );
   }
+
   @override
   Future<Either<Failure, Unit>> clearLocalSheets() async {
     await hiveService.setObjectList(HiveKeyConstants.sheets, <SheetModel>[]);
     return const Right<Failure, Unit>(unit);
   }
-
 }
