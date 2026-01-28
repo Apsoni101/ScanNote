@@ -27,7 +27,7 @@ class PendingSyncModelAdapter extends TypeAdapter<PendingSyncModel> {
   @override
   void write(BinaryWriter writer, PendingSyncModel obj) {
     writer
-      ..writeByte(3) // number of fields
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.scan)
       ..writeByte(1)

@@ -16,4 +16,5 @@ abstract class HomeScreenRepository {
     final ScanResultEntity entity,
     final String sheetId,
   );
+  Future<Either<Failure, String>> createSheet(final String sheetName);
 }

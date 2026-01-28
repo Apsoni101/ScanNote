@@ -46,4 +46,8 @@ class HomeScreenRepositoryImpl implements HomeScreenRepository {
     final ScanResultEntity entity,
     final String sheetId,
   ) => remoteDataSource.saveScan(ScanResultModel.fromEntity(entity), sheetId);
+
+  @override
+  Future<Either<Failure, String>> createSheet(final String sheetName) =>
+      remoteDataSource.createSheet(sheetName);
 }

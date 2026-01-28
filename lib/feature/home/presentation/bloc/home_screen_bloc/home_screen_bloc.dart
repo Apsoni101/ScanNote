@@ -11,6 +11,7 @@ import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/pendin
 import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/result_scan_entity.dart';
 
 part 'home_screen_event.dart';
+
 part 'home_screen_state.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
@@ -120,8 +121,35 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
           );
 
           await result.fold(
-            (final Failure failure) {
-              lastError = failure.message;
+            (final Failure failure) async {
+              final bool isSheetNotFoundError = _isSheetNotFoundError(failure);
+
+              if (isSheetNotFoundError) {
+                final Either<Failure, String> createResult = await useCase
+                    .createSheet(pendingSync.sheetTitle);
+
+                await createResult.fold(
+                  (final Failure createFailure) {
+                    lastError = createFailure.message;
+                  },
+                  (final String newSheetId) async {
+                    final Either<Failure, Unit> retrySaveResult = await useCase
+                        .saveScan(scan, newSheetId);
+
+                    await retrySaveResult.fold(
+                      (final Failure retryFailure) {
+                        lastError = retryFailure.message;
+                      },
+                      (_) async {
+                        syncedCount++;
+                        await useCase.removeSyncedScan(i);
+                      },
+                    );
+                  },
+                );
+              } else {
+                lastError = failure.message;
+              }
             },
             (_) async {
               syncedCount++;
@@ -143,6 +171,18 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         );
       },
     );
+  }
+
+  bool _isSheetNotFoundError(final Failure failure) {
+    if (failure is BadRequestFailure) {
+      return failure.statusCode == '404';
+    }
+
+    final String lowerError = failure.message.toLowerCase();
+    return lowerError.contains('not found') ||
+        lowerError.contains('404') ||
+        lowerError.contains('does not exist') ||
+        (lowerError.contains('spreadsheet') && lowerError.contains('exist'));
   }
 
   Future<void> _onNetworkStatusChanged(

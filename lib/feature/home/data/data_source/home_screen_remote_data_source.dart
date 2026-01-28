@@ -13,6 +13,7 @@ abstract class HomeScreenRemoteDataSource {
     final ScanResultModel model,
     final String sheetId,
   );
+  Future<Either<Failure, String>> createSheet(final String sheetName);
 }
 
 class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
@@ -70,6 +71,85 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
           },
           responseParser: (_) => unit,
         );
+      });
+    });
+  }
+
+  @override
+  Future<Either<Failure, String>> createSheet(final String sheetName) async {
+    final Either<Failure, Options> authOptions = await _getAuthorizedOptions();
+    return authOptions.fold(Left.new, (final Options options) async {
+      final Either<Failure, String> spreadsheetId = await apiClient
+          .request<String>(
+            url: NetworkConstants.sheetsBaseUrl,
+            method: HttpMethod.post,
+            options: options,
+            data: <String, dynamic>{
+              'properties': <String, dynamic>{'title': sheetName},
+              'sheets': <dynamic>[
+                <String, dynamic>{
+                  'properties': <String, dynamic>{
+                    'sheetId': 0,
+                    'title': AppConstants.sheetName,
+                  },
+                  'data': <dynamic>[
+                    <String, dynamic>{
+                      'rowData': <dynamic>[
+                        <String, dynamic>{
+                          'values': <dynamic>[
+                            <String, dynamic>{
+                              'userEnteredValue': <String, dynamic>{
+                                'stringValue': AppConstants.headerTimestamp,
+                              },
+                            },
+                            <String, dynamic>{
+                              'userEnteredValue': <String, dynamic>{
+                                'stringValue': AppConstants.headerQrData,
+                              },
+                            },
+                            <String, dynamic>{
+                              'userEnteredValue': <String, dynamic>{
+                                'stringValue': AppConstants.headerComment,
+                              },
+                            },
+                            <String, dynamic>{
+                              'userEnteredValue': <String, dynamic>{
+                                'stringValue': AppConstants.headerDeviceId,
+                              },
+                            },
+                            <String, dynamic>{
+                              'userEnteredValue': <String, dynamic>{
+                                'stringValue': AppConstants.headerUserId,
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            responseParser: (final Map<String, dynamic> json) =>
+                json['spreadsheetId']?.toString() ?? '',
+          );
+
+      return spreadsheetId.fold(Left.new, (final String id) async {
+        final Either<Failure, Unit> updateResult = await apiClient
+            .request<Unit>(
+              url: '${NetworkConstants.driveBaseUrl}/$id',
+              method: HttpMethod.patch,
+              options: options,
+              queryParameters: <String, dynamic>{'fields': 'properties'},
+              data: <String, dynamic>{
+                'properties': <String, dynamic>{
+                  'appCreated': AppConstants.appCreatedLabel,
+                },
+                'description': 'Created by ${AppConstants.appCreatedLabel}',
+              },
+              responseParser: (_) => unit,
+            );
+        return updateResult.fold(Left.new, (_) => Right<Failure, String>(id));
       });
     });
   }

@@ -71,7 +71,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/fonts/
-    - assets/config/
   fonts:
     - family: AirbnbCereal
       fonts:

@@ -23,4 +23,7 @@ class HomeScreenUseCase {
     final ScanResultEntity entity,
     final String sheetId,
   ) => repository.saveScan(entity, sheetId);
+
+  Future<Either<Failure, String>> createSheet(final String sheetName) =>
+      repository.createSheet(sheetName);
 }
