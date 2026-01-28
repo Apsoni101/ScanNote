@@ -32,6 +32,9 @@ To add a Home Screen widget in Android, open the project's build file in Android
      - Size
      - Source language
 
+<img width="1152" height="977" alt="image" src="https://github.com/user-attachments/assets/36e61e88-25c0-4b5f-9200-0e110bce9366" />
+
+
 #### Files Modified by Android Studio
 
 | Action | Target File | Change |
@@ -259,6 +262,7 @@ Adding an app extension to your Flutter iOS app is similar to adding an app exte
      - **Include Control**
      - **Include Configuration Intent**
 
+<img width="2025" height="1153" alt="Screenshot 2026-01-28 at 10 30 29 AM" src="https://github.com/user-attachments/assets/f4b4c90f-a663-4359-91d4-80ce2a171978" />
 
 
 ## Setting Up QR Scanner Widget (Advanced iOS)
