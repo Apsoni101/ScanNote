@@ -37,6 +37,9 @@ Before running the app, you need to configure Firebase and Google Console servic
 
 📖 **[Firebase & Google Console Setup Guide](https://github.com/Apsoni101/qr_scanner_google_sheets/blob/main/FIREBASE_AND_GOOGLE_CONSOLE_SETUP.md)**
 
+📖 **[Home Widget Setup Guide](https://github.com/Apsoni101/qr_scanner_google_sheets/blob/main/HOME_WIDGET_SETUP.md)**
+
+
 This guide covers:
 - Firebase project setup
 - Google Sheets API configuration
