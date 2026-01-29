@@ -9,7 +9,7 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appName => 'CodiScan';
+  String get appName => 'ScanNote';
 
   @override
   String get scanExtractSave => 'स्कैन करें, निकालें, सहेजें';

@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           ) {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
-              title: 'CodiScan',
+              title: 'ScanNote',
               routerConfig: appRouter.config(),
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,

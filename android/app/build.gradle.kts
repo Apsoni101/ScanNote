@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.qr_scanner_practice"
+    namespace = "com.scannote.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "29.0.14206865"
     flavorDimensions += "default"
@@ -19,7 +19,7 @@ android {
             resValue(
                 type = "string",
                 name = "app_name",
-                value = "CodiScan UAT"
+                value = "ScanNote UAT"
             )
             applicationIdSuffix = ".uat"
         }
@@ -28,7 +28,7 @@ android {
             resValue(
                 type = "string",
                 name = "app_name",
-                value = "CodiScan DEV"
+                value = "ScanNote DEV"
             )
             applicationIdSuffix = ".dev"
         }
@@ -37,7 +37,7 @@ android {
             resValue(
                 type = "string",
                 name = "app_name",
-                value = "CodiScan"
+                value = "ScanNote"
             )
         }
     }
@@ -51,10 +51,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.qr_scanner_practice"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        applicationId = "com.scannote.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
