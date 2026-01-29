@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>597710711272-qp2a7pobos5fs6hf9r147ro4tjehjo66.apps.googleusercontent.com</string>
+	<string>597710711272-bs501ppddi6o1v2d9hdtijf2vaed707m.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.597710711272-qp2a7pobos5fs6hf9r147ro4tjehjo66</string>
+	<string>com.googleusercontent.apps.597710711272-bs501ppddi6o1v2d9hdtijf2vaed707m</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>597710711272-0q657he85v1jakt7igvnj13fjg4f32sc.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.qrScannerPractice</string>
+	<string>com.scannote.app</string>
 	<key>PROJECT_ID</key>
 	<string>untitled-1613f</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:597710711272:ios:015df1364897aa5ae29c5d</string>
+	<string>1:597710711272:ios:c2aeefea1e1e54dbe29c5d</string>
 </dict>
 </plist>

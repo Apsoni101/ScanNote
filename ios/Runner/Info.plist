@@ -30,11 +30,11 @@
                 <key>CFBundleURLSchemes</key>
                 <array>
                     <!-- Dev flavor REVERSED_CLIENT_ID -->
-                    <string>com.googleusercontent.apps.597710711272-pj9obtethb815r4tsc8dhgkfoorrbmi5</string>
+                    <string>com.googleusercontent.apps.597710711272-mslilj7vkikreht7ibp5q0vt7c11imu0</string>
                     <!-- Prod flavor REVERSED_CLIENT_ID -->
-                    <string>com.googleusercontent.apps.597710711272-qp2a7pobos5fs6hf9r147ro4tjehjo66</string>
+                    <string>com.googleusercontent.apps.597710711272-bs501ppddi6o1v2d9hdtijf2vaed707m</string>
                     <!-- UAT flavor REVERSED_CLIENT_ID -->
-                    <string>com.googleusercontent.apps.597710711272-1uiio400ok4166huibtklpct5e5vlo4m</string>
+                    <string>com.googleusercontent.apps.597710711272-7s6pm0i034p5j1337vcga6hid38bjuih</string>
                 </array>
             </dict>
         </array>
