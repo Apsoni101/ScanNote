@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:home_widget/home_widget.dart';
 import 'package:qr_scanner_practice/core/app_theming/app_color_theme_extension.dart';
 import 'package:qr_scanner_practice/core/app_theming/app_dark_theme_colors.dart';
 import 'package:qr_scanner_practice/core/app_theming/app_light_theme_colors.dart';
-import 'package:qr_scanner_practice/core/constants/app_constants.dart';
 import 'package:qr_scanner_practice/core/controller/app_settings_controller.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/enums/language_enum.dart';
@@ -20,9 +16,6 @@ import 'package:qr_scanner_practice/firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isIOS) {
-    await HomeWidget.setAppGroupId(AppConstants.appGroupId);
-  }
   await _initializeFirebase();
   await _initializeHive();
   await AppInjector.setUp();
