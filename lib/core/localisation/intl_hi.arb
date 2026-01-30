@@ -17,6 +17,7 @@
   "yourSavedScansWillAppearHere": "आपके सहेजे गए स्कैन यहां दिखाई देंगे",
   "version1": "संस्करण 1.0.0",
   "signInToSyncYourScansAcrossDevices": "अपने उपकरणों में स्कैन सिंक करने के लिए साइन इन करें",
+  "savedLocallyWillSyncWhenConnectionIsRestored": "लोकल रूप से सेव किया गया है। कनेक्शन वापस आने पर अपने-आप सिंक हो जाएगा।",
   "signingIn": "साइन इन हो रहा है...",
   "continueWithGoogle": "Google के साथ जारी रखें",
   "newUserSameButtonCreatesYourAccountAutomatically": "नए उपयोगकर्ता? यही बटन स्वचालित रूप से आपका खाता बना देता है",
