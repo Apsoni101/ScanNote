@@ -5,6 +5,7 @@ import 'package:qr_scanner_practice/core/constants/asset_constants.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 
 import 'package:qr_scanner_practice/core/extensions/date_time_extension.dart';
+import 'package:qr_scanner_practice/core/utils/toast_utils.dart';
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/decorated_svg_asset_icon_container.dart';
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/rounded_corner_elevated_card.dart';
 
@@ -73,12 +74,10 @@ class _QrDataWithCopyButton extends StatelessWidget {
 
   void _copyToClipboard(final BuildContext context) {
     Clipboard.setData(ClipboardData(text: data));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(context.locale.copiedToClipboard),
-        duration: const Duration(seconds: 1),
-        backgroundColor: context.appColors.semanticsIconSuccess,
-      ),
+    ToastUtils.showToast(
+      context,
+      context.locale.copiedToClipboard,
+      isSuccess: true,
     );
   }
 

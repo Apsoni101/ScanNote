@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_scanner_practice/core/constants/app_textstyles.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/enums/result_type.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
+import 'package:qr_scanner_practice/core/utils/toast_utils.dart';
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/common_app_bar.dart';
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/common_loading_view.dart';
 import 'package:qr_scanner_practice/feature/ocr/presentation/bloc/ocr_bloc.dart';
@@ -35,17 +35,7 @@ class OcrScreenView extends StatelessWidget {
       body: BlocListener<OcrBloc, OcrState>(
         listener: (final BuildContext context, final OcrState state) {
           if (state is OcrErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  state.message,
-                  style: AppTextStyles.airbnbCerealW500S14Lh20Ls0.copyWith(
-                    color: context.appColors.textInversePrimary,
-                  ),
-                ),
-                backgroundColor: context.appColors.semanticsIconError,
-              ),
-            );
+            ToastUtils.showToast(context, state.message, isSuccess: false);
           }
           if (state is OcrSuccessState) {
             final ImageProvider previewImage = FileImage(

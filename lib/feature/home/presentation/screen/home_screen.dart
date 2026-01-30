@@ -6,6 +6,7 @@ import 'package:qr_scanner_practice/core/constants/asset_constants.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
+import 'package:qr_scanner_practice/core/utils/toast_utils.dart';
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/on_screen_option_item_card.dart';
 import 'package:qr_scanner_practice/feature/home/presentation/bloc/home_screen_bloc/home_screen_bloc.dart';
 import 'package:qr_scanner_practice/feature/home/presentation/widgets/sync_status_banner.dart';
@@ -93,29 +94,17 @@ class HomeScreenViewState extends State<HomeScreenView>
     final HomeScreenState state,
   ) {
     if (state.showSyncSuccess && state.pendingSyncCount == 0) {
-      _showSnackBar(
-        context,
-        context.locale.allScansSuccessfullyMessage,
-        context.appColors.semanticsIconSuccess,
-      );
+      _showSnackBar(context, context.locale.allScansSuccessfullyMessage, true);
       context.read<HomeScreenBloc>().add(const OnHomeResetSyncSuccess());
     }
 
     if (state.syncError != null && state.syncError!.isNotEmpty) {
-      _showSnackBar(
-        context,
-        state.syncError!,
-        context.appColors.semanticsIconError,
-      );
+      _showSnackBar(context, state.syncError!, false);
       context.read<HomeScreenBloc>().add(const OnHomeResetSyncError());
     }
 
     if (state.error != null && state.error!.isNotEmpty) {
-      _showSnackBar(
-        context,
-        state.error!,
-        context.appColors.semanticsIconError,
-      );
+      _showSnackBar(context, state.error!, false);
       context.read<HomeScreenBloc>().add(const OnHomeResetError());
     }
   }
@@ -123,14 +112,8 @@ class HomeScreenViewState extends State<HomeScreenView>
   void _showSnackBar(
     final BuildContext context,
     final String message,
-    final Color bgColor,
+    final bool isSuccess,
   ) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: bgColor,
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    ToastUtils.showToast(context, message, isSuccess: isSuccess);
   }
 }

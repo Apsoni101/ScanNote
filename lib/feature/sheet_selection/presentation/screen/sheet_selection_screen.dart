@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/enums/result_type.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
+import 'package:qr_scanner_practice/core/utils/toast_utils.dart';
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/common_app_bar.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/presentation/bloc/sheet_selection_bloc.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/presentation/widget/create_new_sheet_button_and_form.dart';
@@ -80,16 +81,12 @@ class _SheetSelectionContentState extends State<_SheetSelectionContent> {
     return BlocListener<SheetSelectionBloc, SheetSelectionState>(
       listener: (final BuildContext context, final SheetSelectionState state) {
         if (state.scanSaveError != null) {
-          _displayFeedbackMessage(
-            context,
-            state.scanSaveError!,
-            context.appColors.semanticsIconError,
-          );
+          _displayFeedbackMessage(context, state.scanSaveError!, false);
         } else if (state.isScanSaved) {
           _displayFeedbackMessage(
             context,
             context.locale.scanSavedSuccessfully,
-            context.appColors.semanticsIconSuccess,
+            true,
           );
           if (context.mounted) {
             context.router.popUntilRoot();
@@ -111,7 +108,7 @@ class _SheetSelectionContentState extends State<_SheetSelectionContent> {
         body: ListView(
           padding: const EdgeInsets.all(24),
           children: <Widget>[
-            /// create a new sheet button and form with textfield and buttons for creating one
+            /// this create a new sheet button and form with textfield and buttons for creating one
             BlocSelector<
               SheetSelectionBloc,
               SheetSelectionState,
@@ -161,13 +158,8 @@ class _SheetSelectionContentState extends State<_SheetSelectionContent> {
   void _displayFeedbackMessage(
     final BuildContext context,
     final String feedbackMessage,
-    final Color messageBackgroundColor,
+    final bool isSuccess,
   ) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(feedbackMessage),
-        backgroundColor: messageBackgroundColor,
-      ),
-    );
+    ToastUtils.showToast(context, feedbackMessage, isSuccess: isSuccess);
   }
 }

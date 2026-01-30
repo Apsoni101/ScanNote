@@ -5,6 +5,7 @@ import 'package:qr_scanner_practice/core/constants/app_textstyles.dart';
 import 'package:qr_scanner_practice/core/constants/asset_constants.dart';
 import 'package:qr_scanner_practice/core/enums/result_type.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
+import 'package:qr_scanner_practice/core/utils/toast_utils.dart';
 
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/rounded_corner_elevated_card.dart';
 import 'package:qr_scanner_practice/feature/scan_result/presentation/widgets/section_title.dart';
@@ -38,12 +39,10 @@ class ScanResultSection extends StatelessWidget {
               trailing: IconButton(
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: scannedResult));
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(context.locale.copiedToClipboard),
-                      duration: const Duration(seconds: 2),
-                    ),
+                  ToastUtils.showToast(
+                    context,
+                    context.locale.copiedToClipboard,
+                    isSuccess: true,
                   );
                 },
                 iconSize: 20,

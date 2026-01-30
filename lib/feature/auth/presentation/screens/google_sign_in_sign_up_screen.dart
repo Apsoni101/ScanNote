@@ -8,6 +8,7 @@ import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
+import 'package:qr_scanner_practice/core/utils/toast_utils.dart';
 import 'package:qr_scanner_practice/feature/auth/presentation/bloc/google_sign_in_sign_up_bloc/google_sign_in_sign_up_bloc.dart';
 import 'package:qr_scanner_practice/feature/common/presentation/widgets/elevated_svg_icon_button.dart';
 
@@ -33,9 +34,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
               final GoogleSignInSignUpState state,
             ) async {
               if (state is LoginError) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.message)));
+                ToastUtils.showToast(context, state.message, isSuccess: false);
               }
               if (state is LoginSuccess) {
                 await context.router.replace(

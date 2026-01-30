@@ -6,6 +6,7 @@ import 'package:qr_scanner_practice/core/di/app_injector.dart';
 import 'package:qr_scanner_practice/core/enums/result_type.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
+import 'package:qr_scanner_practice/core/utils/toast_utils.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/presentation/bloc/qr_scanning_bloc/qr_scanning_bloc.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/presentation/widgets/qr_image_picker_button.dart';
 import 'package:qr_scanner_practice/feature/qr_scan/presentation/widgets/qr_scan_instruction_text.dart';
@@ -83,11 +84,10 @@ class QrScanningViewState extends State<QrScanningView> {
   }
 
   void _showNoQrFoundMessage() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(context.locale.noQrCodeFound),
-        duration: const Duration(seconds: 2),
-      ),
+    ToastUtils.showToast(
+      context,
+      context.locale.noQrCodeFound,
+      isSuccess: true,
     );
   }
 
@@ -96,12 +96,7 @@ class QrScanningViewState extends State<QrScanningView> {
     return BlocListener<QrScanningBloc, QrScanningState>(
       listener: (final BuildContext context, final QrScanningState state) {
         if (state.error != null && state.imagePath == null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error ?? ''),
-              duration: const Duration(seconds: 2),
-            ),
-          );
+          ToastUtils.showToast(context, state.error ?? '', isSuccess: false);
         }
 
         if (state.imagePath != null) {
