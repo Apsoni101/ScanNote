@@ -46,7 +46,7 @@ class OcrScreenView extends StatelessWidget {
                 .push(
                   ScanResultRoute(
                     scanResult: state.ocrResultEntity.recognizedText,
-                    resultType: ResultType.ocr,
+                    resultType: .ocr,
                     previewImage: previewImage,
                   ),
                 )

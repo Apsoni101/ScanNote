@@ -75,7 +75,7 @@ class _ResultViewState extends State<_ResultView> {
     return Scaffold(
       backgroundColor: context.appColors.scaffoldBackground,
       appBar: CommonAppBar(
-        title: widget.resultType == ResultType.qr
+        title: widget.resultType == .qr
             ? context.locale.qrResult
             : context.locale.extractedText,
         showBottomDivider: true,

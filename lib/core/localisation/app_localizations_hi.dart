@@ -290,7 +290,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get savedLocallyWillSyncWhenConnectionIsRestored =>
-      'Saved locally. Will sync when connection is restored.';
+      'लोकल रूप से सेव किया गया है। कनेक्शन वापस आने पर अपने-आप सिंक हो जाएगा।';
 
   @override
   String modified(String date) {

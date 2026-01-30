@@ -32,7 +32,7 @@ class ScanResultSection extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: SectionTitle(
-                label: resultType == ResultType.qr
+                label: resultType == .qr
                     ? context.locale.scannedContent
                     : context.locale.extractedText,
               ),

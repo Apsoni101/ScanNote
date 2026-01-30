@@ -32,7 +32,7 @@ class ScannedDataPreview extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _ReviewContentItemCard(
-            fieldLabel: scanResultType == ResultType.qr
+            fieldLabel: scanResultType == .qr
                 ? context.locale.scannedContent
                 : context.locale.extractedText,
             fieldValue: scannedData,
