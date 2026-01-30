@@ -26,7 +26,7 @@ class SheetSelectionRepositoryImpl implements SheetSelectionRepository {
 
   @override
   Future<Either<Failure, Unit>> saveSheetLocally(final SheetEntity sheet) =>
-      localDataSource.saveSheetLocally(SheetModel.fromEntity(sheet));
+      localDataSource.saveSheetLocally(.fromEntity(sheet));
 
   @override
   Future<Either<Failure, Unit>> cacheScanResult(
@@ -34,11 +34,12 @@ class SheetSelectionRepositoryImpl implements SheetSelectionRepository {
     final String sheetId,
     final String sheetTitle,
   ) => localDataSource.saveScanResultLocally(
-    ScanResultModel.fromEntity(scan),
+    .fromEntity(scan),
     sheetId,
     sheetTitle,
   );
 
+  @override
   Future<Either<Failure, Unit>> clearLocalSheets() =>
       localDataSource.clearLocalSheets();
 
@@ -61,5 +62,5 @@ class SheetSelectionRepositoryImpl implements SheetSelectionRepository {
   Future<Either<Failure, Unit>> saveScan(
     final ScanResultEntity entity,
     final String sheetId,
-  ) => remoteDataSource.saveScan(ScanResultModel.fromEntity(entity), sheetId);
+  ) => remoteDataSource.saveScan(.fromEntity(entity), sheetId);
 }

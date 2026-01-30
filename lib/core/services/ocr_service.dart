@@ -10,7 +10,7 @@ class OcrService {
 
   Future<Either<Failure, String>> recognizeText(final File imageFile) async {
     try {
-      final InputImage inputImage = InputImage.fromFile(imageFile);
+      final InputImage inputImage = .fromFile(imageFile);
       final RecognizedText recognizedText = await _textRecognizer.processImage(
         inputImage,
       );

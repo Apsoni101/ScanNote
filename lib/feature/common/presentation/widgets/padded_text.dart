@@ -5,7 +5,7 @@ class PaddedText extends StatelessWidget {
     required this.text,
     required this.style,
     super.key,
-    this.padding = EdgeInsets.zero,
+    this.padding = .zero,
     this.color,
     this.textAlign,
     this.maxLines,

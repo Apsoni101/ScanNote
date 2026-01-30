@@ -15,10 +15,7 @@ class SettingsUserInfoTile extends StatelessWidget {
         return switch (state) {
           SettingsLoading() => Image.asset(AppAssets.codeIsArtLoading),
           SettingsError() => ListTile(
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 14,
-            ),
+            contentPadding: const .symmetric(vertical: 12, horizontal: 14),
             leading: CircleAvatar(
               radius: 26,
               backgroundColor: context.appColors.primaryDefault,
@@ -38,10 +35,7 @@ class SettingsUserInfoTile extends StatelessWidget {
             ),
           ),
           SettingsLoaded() => ListTile(
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 14,
-            ),
+            contentPadding: const .symmetric(vertical: 12, horizontal: 14),
             leading: CircleAvatar(
               radius: 26,
               backgroundColor: context.appColors.primaryDefault,
@@ -51,7 +45,7 @@ class SettingsUserInfoTile extends StatelessWidget {
                   ? ClipOval(
                       child: Image.network(
                         state.user.profilePicture!,
-                        fit: BoxFit.cover,
+                        fit: .cover,
                         errorBuilder:
                             (
                               final BuildContext context,
@@ -78,10 +72,7 @@ class SettingsUserInfoTile extends StatelessWidget {
             ),
           ),
           SignOutSuccess() => ListTile(
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 14,
-            ),
+            contentPadding: const .symmetric(vertical: 12, horizontal: 14),
             leading: CircleAvatar(
               radius: 26,
               backgroundColor: context.appColors.primaryDefault,

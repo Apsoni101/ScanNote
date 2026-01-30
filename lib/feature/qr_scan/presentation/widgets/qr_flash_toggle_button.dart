@@ -20,25 +20,17 @@ class QrFlashToggleButton extends StatelessWidget {
           icon: isFlashOn
               ? SvgPicture.asset(
                   AppAssets.flashLightOnIc,
-                  colorFilter: ColorFilter.mode(
-                    context.appColors.surfaceL1,
-                    BlendMode.srcIn,
-                  ),
+                  colorFilter: .mode(context.appColors.surfaceL1, .srcIn),
                 )
               : SvgPicture.asset(
                   AppAssets.flashLightOffIc,
-                  colorFilter: ColorFilter.mode(
-                    context.appColors.surfaceL1,
-                    BlendMode.srcIn,
-                  ),
+                  colorFilter: .mode(context.appColors.surfaceL1, .srcIn),
                 ),
           style: IconButton.styleFrom(
             backgroundColor: isFlashOn
                 ? context.appColors.primaryDefault
                 : context.appColors.cameraOverlay,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: .circular(10)),
           ),
           onPressed: () {
             context.read<QrScanningBloc>().add(const ToggleFlashEvent());

@@ -17,7 +17,7 @@ class HistoryErrorState extends StatelessWidget {
   Widget build(final BuildContext context) {
     return Column(
       spacing: 16,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: .center,
       children: <Widget>[
         Icon(
           Icons.error_outline,
@@ -27,9 +27,9 @@ class HistoryErrorState extends StatelessWidget {
         Text(
           errorMessage,
           style: AppTextStyles.airbnbCerealW400S14Lh20Ls0,
-          textAlign: TextAlign.center,
+          textAlign: .center,
           maxLines: 3,
-          overflow: TextOverflow.ellipsis,
+          overflow: .ellipsis,
         ),
       ],
     );

@@ -8,7 +8,7 @@ class FirebaseAuthService {
   FirebaseAuthService({
     final FirebaseAuth? auth,
     final GoogleSignIn? googleSignIn,
-  }) : auth = auth ?? FirebaseAuth.instance,
+  }) : auth = auth ?? .instance,
        googleSignIn =
            googleSignIn ??
            GoogleSignIn(

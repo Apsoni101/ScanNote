@@ -34,7 +34,7 @@ class _HistorySearchBarState extends State<HistorySearchBar> {
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const .all(16),
       child: TextField(
         controller: _controller,
         onChanged: widget.onSearchChanged,
@@ -57,17 +57,14 @@ class _HistorySearchBarState extends State<HistorySearchBar> {
                 )
               : null,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: .circular(12),
             borderSide: BorderSide(color: context.appColors.surfaceL2),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: .circular(12),
             borderSide: BorderSide(color: context.appColors.surfaceL2),
           ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 12,
-          ),
+          contentPadding: const .symmetric(horizontal: 16, vertical: 12),
         ),
       ),
     );

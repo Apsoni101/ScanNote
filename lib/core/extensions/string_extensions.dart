@@ -5,8 +5,8 @@ extension FriendlyDateTimeExtension on String? {
     }
 
     try {
-      final DateTime dateTime = DateTime.parse(this!);
-      final DateTime now = DateTime.now();
+      final DateTime dateTime = .parse(this!);
+      final DateTime now = .now();
       final Duration difference = now.difference(dateTime);
 
       if (difference.inDays == 0) {

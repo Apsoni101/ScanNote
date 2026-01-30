@@ -32,9 +32,8 @@ class SettingsScreen extends StatelessWidget {
         builder: (final BuildContext context) {
           final AppSettingsController appSettingController =
               AppInjector.getIt<AppSettingsController>();
-          final bool isDark = appSettingController.themeMode == ThemeMode.dark;
+          final bool isDark = appSettingController.themeMode == .dark;
           final LanguageEnum currentLanguage = appSettingController.language;
-
           return Scaffold(
             backgroundColor: context.appColors.scaffoldBackground,
             appBar: CommonAppBar(title: context.locale.settings),
@@ -45,17 +44,14 @@ class SettingsScreen extends StatelessWidget {
                 Divider(height: 2, color: context.appColors.separator),
                 Expanded(
                   child: ListView(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 24,
-                      horizontal: 16,
-                    ),
+                    padding: const .symmetric(vertical: 24, horizontal: 16),
                     children: <Widget>[
                       /// light theme and dark section
                       PaddedText(
                         text: context.locale.appearance,
                         style: AppTextStyles.airbnbCerealW600S14Lh20Ls0
                             .copyWith(color: context.appColors.textSecondary),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const .symmetric(horizontal: 12),
                       ),
                       const SizedBox(height: 12),
                       RoundedCornerElevatedCard(
@@ -87,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
                         text: context.locale.language,
                         style: AppTextStyles.airbnbCerealW600S14Lh20Ls0
                             .copyWith(color: context.appColors.textSecondary),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const .symmetric(horizontal: 12),
                       ),
                       const SizedBox(height: 12),
                       RoundedCornerElevatedCard(
@@ -131,7 +127,7 @@ class SettingsScreen extends StatelessWidget {
                         text: context.locale.account,
                         style: AppTextStyles.airbnbCerealW600S14Lh20Ls0
                             .copyWith(color: context.appColors.textSecondary),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const .symmetric(horizontal: 12),
                       ),
                       const SizedBox(height: 12),
                       const RoundedCornerElevatedCard(
@@ -144,7 +140,7 @@ class SettingsScreen extends StatelessWidget {
                         text: context.locale.about,
                         style: AppTextStyles.airbnbCerealW600S14Lh20Ls0
                             .copyWith(color: context.appColors.textSecondary),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const .symmetric(horizontal: 12),
                       ),
                       const SizedBox(height: 12),
                       RoundedCornerElevatedCard(
@@ -181,7 +177,7 @@ class SettingsScreen extends StatelessWidget {
                         text: context.locale.logOut,
                         style: AppTextStyles.airbnbCerealW600S14Lh20Ls0
                             .copyWith(color: context.appColors.textSecondary),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const .symmetric(horizontal: 12),
                       ),
                       const SizedBox(height: 12),
                       BlocListener<SettingsBloc, SettingsState>(

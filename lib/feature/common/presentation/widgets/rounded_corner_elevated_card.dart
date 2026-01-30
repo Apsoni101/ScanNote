@@ -14,7 +14,7 @@ class RoundedCornerElevatedCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      shape: RoundedRectangleBorder(borderRadius: .circular(14)),
       color: context.appColors.cardBackground,
       elevation: elevation ?? 1,
       child: child,

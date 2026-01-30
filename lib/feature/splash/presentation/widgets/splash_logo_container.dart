@@ -8,11 +8,11 @@ class SplashLogoContainer extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(30),
-      margin: const EdgeInsets.symmetric(horizontal: 120),
+      padding: const .all(30),
+      margin: const .symmetric(horizontal: 120),
       decoration: BoxDecoration(
         color: context.appColors.surfaceL1,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: .circular(24),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.14),

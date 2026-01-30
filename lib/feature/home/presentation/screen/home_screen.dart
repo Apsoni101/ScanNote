@@ -43,7 +43,7 @@ class HomeScreenViewState extends State<HomeScreenView>
   @override
   void didChangeAppLifecycleState(final AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
+    if (state == .resumed) {
       context.read<HomeScreenBloc>().add(const OnHomeUpdatePendingCount());
     }
   }
@@ -61,7 +61,7 @@ class HomeScreenViewState extends State<HomeScreenView>
       child: Scaffold(
         backgroundColor: context.appColors.scaffoldBackground,
         body: ListView(
-          padding: const EdgeInsets.all(24),
+          padding: const .all(24),
           children: <Widget>[
             const SyncStatusBanner(),
             const SizedBox(height: 12),

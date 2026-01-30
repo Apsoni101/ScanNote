@@ -45,10 +45,10 @@ class ElevatedIconButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: resolvedBgColor,
         elevation: 0,
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        padding: const .symmetric(horizontal: 32, vertical: 16),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: borderSide ?? BorderSide.none,
+          borderRadius: .circular(12),
+          side: borderSide ?? .none,
         ),
       ),
     );

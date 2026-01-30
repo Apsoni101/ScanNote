@@ -23,12 +23,12 @@ class DashboardScreen extends StatelessWidget {
       },
       bottomNavigationBuilder: (_, final TabsRouter tabsRouter) {
         return Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: <Widget>[
             Divider(height: 1, color: context.appColors.separator),
             BottomNavigationBar(
               onTap: tabsRouter.setActiveIndex,
-              type: BottomNavigationBarType.fixed,
+              type: .fixed,
               currentIndex: tabsRouter.activeIndex,
               selectedFontSize: 12,
               backgroundColor: context.appColors.bottomNavBackground,

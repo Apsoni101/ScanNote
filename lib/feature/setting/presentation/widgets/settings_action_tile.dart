@@ -23,7 +23,7 @@ class SettingsActionTile extends StatelessWidget {
   Widget build(final BuildContext context) {
     return ListTile(
       onTap: onPressed,
-      contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+      contentPadding: const .symmetric(vertical: 6, horizontal: 16),
       title: Text(
         title,
         style: AppTextStyles.airbnbCerealW500S16Lh24Ls0.copyWith(
@@ -33,21 +33,18 @@ class SettingsActionTile extends StatelessWidget {
       leading: Container(
         width: 30,
         height: 30,
-        padding: const EdgeInsets.all(6),
+        padding: const .all(6),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: .circular(6),
           color: context.appColors.surfaceL3,
         ),
         child: SvgPicture.asset(
           iconAsset,
-          colorFilter: ColorFilter.mode(
-            context.appColors.primaryDefault,
-            BlendMode.srcIn,
-          ),
+          colorFilter: .mode(context.appColors.primaryDefault, .srcIn),
         ),
       ),
       trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: <Widget>[
           if (trailingTitle != null)
             Text(

@@ -30,14 +30,14 @@ class HistoryCardItem extends StatelessWidget {
       elevation: 2,
       child: ListTile(
         title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           spacing: 4,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: <Widget>[
             Text(
               data,
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              overflow: .ellipsis,
               style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
                 color: context.appColors.textPrimary,
               ),
@@ -45,7 +45,7 @@ class HistoryCardItem extends StatelessWidget {
             Text(
               '${context.locale.savedTo}$sheetTitle',
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              overflow: .ellipsis,
               style: AppTextStyles.airbnbCerealW400S12Lh16.copyWith(
                 color: context.appColors.textTertiary,
               ),
@@ -86,7 +86,7 @@ class _QrDataWithCopyButton extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.copy, color: context.appColors.iconPrimary, size: 20),
       onPressed: () => _copyToClipboard(context),
-      padding: EdgeInsets.zero,
+      padding: .zero,
     );
   }
 }

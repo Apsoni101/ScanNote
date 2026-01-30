@@ -4,9 +4,9 @@ import 'package:qr_scanner_practice/core/enums/language_enum.dart';
 typedef AppSettings = (ThemeMode, LanguageEnum);
 
 class AppSettingsController extends ValueNotifier<AppSettings> {
-  AppSettingsController() : super((ThemeMode.system, LanguageEnum.english));
+  AppSettingsController() : super((.system, .english));
 
-  /// 🚀 Initialize from storage
+  /// Initializing from storage
   void initialize({
     required final ThemeMode themeMode,
     required final LanguageEnum language,
@@ -15,6 +15,7 @@ class AppSettingsController extends ValueNotifier<AppSettings> {
   }
 
   ThemeMode get themeMode => value.$1;
+
   LanguageEnum get language => value.$2;
 
   void setTheme(final ThemeMode mode) {
@@ -28,9 +29,7 @@ class AppSettingsController extends ValueNotifier<AppSettings> {
   void toggleTheme() {
     final ThemeMode current = value.$1;
 
-    final ThemeMode nextTheme = current == ThemeMode.dark
-        ? ThemeMode.light
-        : ThemeMode.dark;
+    final ThemeMode nextTheme = current == .dark ? .light : .dark;
 
     value = (nextTheme, value.$2);
   }

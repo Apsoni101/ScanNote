@@ -108,7 +108,7 @@ class OfflineBanner extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: <Widget>[
                 Text(
                   context.locale.offlineMode,
@@ -149,11 +149,11 @@ class ReadyToSyncBanner extends StatelessWidget {
       backgroundColor: context.appColors.semanticsIconSuccess.withAlpha(26),
       borderColor: context.appColors.semanticsIconSuccess.withAlpha(77),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: .spaceBetween,
         children: <Widget>[
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: <Widget>[
                 Text(
                   _getScanToSyncMessage(context, pendingCount),

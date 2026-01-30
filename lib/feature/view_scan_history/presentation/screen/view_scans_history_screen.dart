@@ -63,7 +63,7 @@ class _ViewScansHistoryScreenBody extends StatelessWidget {
                         color: context.appColors.iconPrimary,
                         backgroundColor: context.appColors.textInversePrimary,
                         child: ListView.builder(
-                          padding: const EdgeInsets.all(16),
+                          padding: const .all(16),
                           itemCount:
                               state.allScans.length +
                               (state.hasMoreSheets ? 1 : 0),
@@ -81,9 +81,7 @@ class _ViewScansHistoryScreenBody extends StatelessWidget {
                                 }
 
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                  ),
+                                  padding: const .symmetric(vertical: 12),
                                   child: _LoadMoreButton(
                                     hasMoreSheets: state.hasMoreSheets,
                                     isLoadingMoreSheets:
@@ -116,10 +114,7 @@ class _LoadMoreButton extends StatelessWidget {
     }
 
     if (isLoadingMoreSheets) {
-      return const Padding(
-        padding: EdgeInsets.all(16),
-        child: CommonLoadingView(),
-      );
+      return const Padding(padding: .all(16), child: CommonLoadingView());
     }
 
     return ElevatedIconButton(

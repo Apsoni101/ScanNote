@@ -30,8 +30,8 @@ class ScanResultModel extends ScanResultEntity {
       data: json['data']?.toString() ?? '',
       comment: json['comment']?.toString() ?? '',
       timestamp: json['timestamp'] != null
-          ? DateTime.parse(json['timestamp'].toString())
-          : DateTime.now(),
+          ? .parse(json['timestamp'].toString())
+          : .now(),
       deviceId: json['deviceId']?.toString(),
       userId: json['userId']?.toString(),
     );
@@ -41,8 +41,8 @@ class ScanResultModel extends ScanResultEntity {
   factory ScanResultModel.fromSheetRow(final List<dynamic> row) {
     return ScanResultModel(
       timestamp: row.isNotEmpty && row[0] != null
-          ? DateTime.parse(row[0].toString())
-          : DateTime.now(),
+          ? .parse(row[0].toString())
+          : .now(),
       data: row.length > 1 ? row[1]?.toString() ?? '' : '',
       comment: row.length > 2 ? row[2]?.toString() ?? '' : '',
       deviceId: row.length > 3 ? row[3]?.toString() : null,

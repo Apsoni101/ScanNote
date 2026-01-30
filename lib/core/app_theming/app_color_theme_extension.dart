@@ -244,167 +244,135 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
       return this;
     }
     return AppColorThemeExtension(
-      primaryDefault: Color.lerp(primaryDefault, other.primaryDefault, t)!,
-      primaryPressed: Color.lerp(primaryPressed, other.primaryPressed, t)!,
-      primaryDisabled: Color.lerp(primaryDisabled, other.primaryDisabled, t)!,
-      secondaryDefaultTextBorder: Color.lerp(
+      primaryDefault: .lerp(primaryDefault, other.primaryDefault, t)!,
+      primaryPressed: .lerp(primaryPressed, other.primaryPressed, t)!,
+      primaryDisabled: .lerp(primaryDisabled, other.primaryDisabled, t)!,
+      secondaryDefaultTextBorder: .lerp(
         secondaryDefaultTextBorder,
         other.secondaryDefaultTextBorder,
         t,
       )!,
-      secondaryPressedTextBorder: Color.lerp(
+      secondaryPressedTextBorder: .lerp(
         secondaryPressedTextBorder,
         other.secondaryPressedTextBorder,
         t,
       )!,
-      secondaryPressedBackground: Color.lerp(
+      secondaryPressedBackground: .lerp(
         secondaryPressedBackground,
         other.secondaryPressedBackground,
         t,
       )!,
-      secondaryDisabledTextBorder: Color.lerp(
+      secondaryDisabledTextBorder: .lerp(
         secondaryDisabledTextBorder,
         other.secondaryDisabledTextBorder,
         t,
       )!,
-      accentDefault: Color.lerp(accentDefault, other.accentDefault, t)!,
-      accentPressed: Color.lerp(accentPressed, other.accentPressed, t)!,
-      semanticsTextError: Color.lerp(
+      accentDefault: .lerp(accentDefault, other.accentDefault, t)!,
+      accentPressed: .lerp(accentPressed, other.accentPressed, t)!,
+      semanticsTextError: .lerp(
         semanticsTextError,
         other.semanticsTextError,
         t,
       )!,
-      semanticsIconError: Color.lerp(
+      semanticsIconError: .lerp(
         semanticsIconError,
         other.semanticsIconError,
         t,
       )!,
-      semanticsTextSuccess: Color.lerp(
+      semanticsTextSuccess: .lerp(
         semanticsTextSuccess,
         other.semanticsTextSuccess,
         t,
       )!,
-      semanticsIconSuccess: Color.lerp(
+      semanticsIconSuccess: .lerp(
         semanticsIconSuccess,
         other.semanticsIconSuccess,
         t,
       )!,
-      textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
-      textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
-      textTertiary: Color.lerp(textTertiary, other.textTertiary, t)!,
-      textDisabled: Color.lerp(textDisabled, other.textDisabled, t)!,
-      textInversePrimary: Color.lerp(
+      textPrimary: .lerp(textPrimary, other.textPrimary, t)!,
+      textSecondary: .lerp(textSecondary, other.textSecondary, t)!,
+      textTertiary: .lerp(textTertiary, other.textTertiary, t)!,
+      textDisabled: .lerp(textDisabled, other.textDisabled, t)!,
+      textInversePrimary: .lerp(
         textInversePrimary,
         other.textInversePrimary,
         t,
       )!,
-      textInverseSecondary: Color.lerp(
+      textInverseSecondary: .lerp(
         textInverseSecondary,
         other.textInverseSecondary,
         t,
       )!,
-      surfaceL1: Color.lerp(surfaceL1, other.surfaceL1, t)!,
-      surfaceL2: Color.lerp(surfaceL2, other.surfaceL2, t)!,
-      surfaceL3: Color.lerp(surfaceL3, other.surfaceL3, t)!,
-      separator: Color.lerp(separator, other.separator, t)!,
-      borderInputDefault: Color.lerp(
+      surfaceL1: .lerp(surfaceL1, other.surfaceL1, t)!,
+      surfaceL2: .lerp(surfaceL2, other.surfaceL2, t)!,
+      surfaceL3: .lerp(surfaceL3, other.surfaceL3, t)!,
+      separator: .lerp(separator, other.separator, t)!,
+      borderInputDefault: .lerp(
         borderInputDefault,
         other.borderInputDefault,
         t,
       )!,
-      borderInputFocused: Color.lerp(
+      borderInputFocused: .lerp(
         borderInputFocused,
         other.borderInputFocused,
         t,
       )!,
-      iconPrimary: Color.lerp(iconPrimary, other.iconPrimary, t)!,
-      iconSecondary: Color.lerp(iconSecondary, other.iconSecondary, t)!,
-      iconTertiary: Color.lerp(iconTertiary, other.iconTertiary, t)!,
-      scanFrameCorner: Color.lerp(scanFrameCorner, other.scanFrameCorner, t)!,
-      scanLineGradient: Color.lerp(
-        scanLineGradient,
-        other.scanLineGradient,
-        t,
-      )!,
-      cameraOverlay: Color.lerp(cameraOverlay, other.cameraOverlay, t)!,
-      flashActive: Color.lerp(flashActive, other.flashActive, t)!,
-      sheetCardSelected: Color.lerp(
-        sheetCardSelected,
-        other.sheetCardSelected,
-        t,
-      )!,
-      qrBadgeBackground: Color.lerp(
-        qrBadgeBackground,
-        other.qrBadgeBackground,
-        t,
-      )!,
-      qrBadgeText: Color.lerp(qrBadgeText, other.qrBadgeText, t)!,
-      ocrBadgeBackground: Color.lerp(
+      iconPrimary: .lerp(iconPrimary, other.iconPrimary, t)!,
+      iconSecondary: .lerp(iconSecondary, other.iconSecondary, t)!,
+      iconTertiary: .lerp(iconTertiary, other.iconTertiary, t)!,
+      scanFrameCorner: .lerp(scanFrameCorner, other.scanFrameCorner, t)!,
+      scanLineGradient: .lerp(scanLineGradient, other.scanLineGradient, t)!,
+      cameraOverlay: .lerp(cameraOverlay, other.cameraOverlay, t)!,
+      flashActive: .lerp(flashActive, other.flashActive, t)!,
+      sheetCardSelected: .lerp(sheetCardSelected, other.sheetCardSelected, t)!,
+      qrBadgeBackground: .lerp(qrBadgeBackground, other.qrBadgeBackground, t)!,
+      qrBadgeText: .lerp(qrBadgeText, other.qrBadgeText, t)!,
+      ocrBadgeBackground: .lerp(
         ocrBadgeBackground,
         other.ocrBadgeBackground,
         t,
       )!,
-      ocrBadgeText: Color.lerp(ocrBadgeText, other.ocrBadgeText, t)!,
-      scaffoldBackground: Color.lerp(
+      ocrBadgeText: .lerp(ocrBadgeText, other.ocrBadgeText, t)!,
+      scaffoldBackground: .lerp(
         scaffoldBackground,
         other.scaffoldBackground,
         t,
       )!,
-      appBarBackground: Color.lerp(
-        appBarBackground,
-        other.appBarBackground,
-        t,
-      )!,
-      buttonPrimaryBackground: Color.lerp(
+      appBarBackground: .lerp(appBarBackground, other.appBarBackground, t)!,
+      buttonPrimaryBackground: .lerp(
         buttonPrimaryBackground,
         other.buttonPrimaryBackground,
         t,
       )!,
-      buttonSecondaryBackground: Color.lerp(
+      buttonSecondaryBackground: .lerp(
         buttonSecondaryBackground,
         other.buttonSecondaryBackground,
         t,
       )!,
-      bottomNavBackground: Color.lerp(
+      bottomNavBackground: .lerp(
         bottomNavBackground,
         other.bottomNavBackground,
         t,
       )!,
-      cardBackground: Color.lerp(cardBackground, other.cardBackground, t)!,
-      dialogBackground: Color.lerp(
-        dialogBackground,
-        other.dialogBackground,
-        t,
-      )!,
-      snackbarBackground: Color.lerp(
+      cardBackground: .lerp(cardBackground, other.cardBackground, t)!,
+      dialogBackground: .lerp(dialogBackground, other.dialogBackground, t)!,
+      snackbarBackground: .lerp(
         snackbarBackground,
         other.snackbarBackground,
         t,
       )!,
-      splashBackground: Color.lerp(
-        splashBackground,
-        other.splashBackground,
-        t,
-      )!,
-      splashLogoTint: Color.lerp(splashLogoTint, other.splashLogoTint, t)!,
-      splashText: Color.lerp(splashText, other.splashText, t)!,
-      splashIndicator: Color.lerp(splashIndicator, other.splashIndicator, t)!,
-      switchActiveTrack: Color.lerp(
-        switchActiveTrack,
-        other.switchActiveTrack,
-        t,
-      )!,
-      switchActiveThumb: Color.lerp(
-        switchActiveThumb,
-        other.switchActiveThumb,
-        t,
-      )!,
-      switchInactiveTrack: Color.lerp(
+      splashBackground: .lerp(splashBackground, other.splashBackground, t)!,
+      splashLogoTint: .lerp(splashLogoTint, other.splashLogoTint, t)!,
+      splashText: .lerp(splashText, other.splashText, t)!,
+      splashIndicator: .lerp(splashIndicator, other.splashIndicator, t)!,
+      switchActiveTrack: .lerp(switchActiveTrack, other.switchActiveTrack, t)!,
+      switchActiveThumb: .lerp(switchActiveThumb, other.switchActiveThumb, t)!,
+      switchInactiveTrack: .lerp(
         switchInactiveTrack,
         other.switchInactiveTrack,
         t,
       )!,
-      switchInactiveThumb: Color.lerp(
+      switchInactiveThumb: .lerp(
         switchInactiveThumb,
         other.switchInactiveThumb,
         t,

@@ -44,8 +44,8 @@ class ElevatedSvgIconButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         disabledBackgroundColor: backgroundColor.withValues(alpha: 0.8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        shape: RoundedRectangleBorder(borderRadius: .circular(12)),
+        padding: const .symmetric(horizontal: 32, vertical: 16),
       ),
     );
   }

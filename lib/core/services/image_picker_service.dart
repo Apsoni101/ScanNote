@@ -10,7 +10,7 @@ class ImagePickerService {
   Future<Either<Failure, String>> pickImageFromGallery() async {
     try {
       final XFile? image = await _picker.pickImage(
-        source: ImageSource.gallery,
+        source: .gallery,
         maxWidth: 1920,
         maxHeight: 1920,
         imageQuality: 85,
@@ -30,7 +30,7 @@ class ImagePickerService {
   Future<Either<Failure, String>> pickImageFromCamera() async {
     try {
       final XFile? image = await _picker.pickImage(
-        source: ImageSource.camera,
+        source: .camera,
         maxWidth: 1920,
         maxHeight: 1920,
         imageQuality: 85,

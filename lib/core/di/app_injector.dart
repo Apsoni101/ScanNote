@@ -47,7 +47,7 @@ import 'package:qr_scanner_practice/feature/view_scan_history/presentation/bloc/
 class AppInjector {
   AppInjector._();
 
-  static final GetIt getIt = GetIt.instance;
+  static final GetIt getIt = .instance;
 
   static Future<void> setUp() async {
     getIt

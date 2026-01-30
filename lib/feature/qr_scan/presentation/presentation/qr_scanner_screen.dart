@@ -131,7 +131,7 @@ class QrScanningViewState extends State<QrScanningView> {
             ),
             Positioned.fill(
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const .all(12),
                 child: Column(
                   children: <Widget>[
                     const Spacer(),
@@ -140,8 +140,8 @@ class QrScanningViewState extends State<QrScanningView> {
                     const QrScanInstructionText(),
                     const Spacer(),
                     Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: .min,
+                      mainAxisAlignment: .spaceEvenly,
                       spacing: 16,
                       children: <Widget>[
                         QrImagePickerButton(
@@ -178,13 +178,13 @@ class QrScanningViewState extends State<QrScanningView> {
     final BuildContext context,
     final MobileScannerException error,
   ) {
-    if (error.errorCode == MobileScannerErrorCode.permissionDenied) {
+    if (error.errorCode == .permissionDenied) {
       return context.locale.cameraPermissionDenied;
     }
-    if (error.errorCode == MobileScannerErrorCode.unsupported) {
+    if (error.errorCode == .unsupported) {
       return context.locale.scanningNotSupported;
     }
-    if (error.errorCode == MobileScannerErrorCode.controllerDisposed) {
+    if (error.errorCode == .controllerDisposed) {
       return context.locale.scannerControllerDisposed;
     }
     return context.locale.scannerError(error.errorCode.name);

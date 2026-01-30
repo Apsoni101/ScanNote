@@ -18,7 +18,7 @@ class SettingsAboutTextButtonTile extends StatelessWidget {
       onPressed: onPressed,
       style: TextButton.styleFrom(
         alignment: AlignmentDirectional.centerStart,
-        padding: const EdgeInsets.all(16),
+        padding: const .all(16),
       ),
       child: Text(
         title,

@@ -28,7 +28,7 @@ class GoogleSignInSignUpRemoteDataSourceImpl
       },
       (final User user) {
         try {
-          final UserModel userModel = UserModel.fromFirebaseUser(user);
+          final UserModel userModel = .fromFirebaseUser(user);
           return Right<Failure, UserModel>(userModel);
         } catch (e) {
           return Left<Failure, UserModel>(

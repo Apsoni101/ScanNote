@@ -21,7 +21,7 @@ class ScannedDataPreview extends StatelessWidget {
     return RoundedCornerElevatedCard(
       child: ListView(
         shrinkWrap: true,
-        padding: const EdgeInsets.all(16),
+        padding: const .all(16),
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           Text(
@@ -64,14 +64,14 @@ class _ReviewContentItemCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(12),
+      width: .infinity,
+      padding: const .all(12),
       decoration: BoxDecoration(
         color: context.appColors.surfaceL3,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: .circular(12),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: <Widget>[
           Text(
             fieldLabel,

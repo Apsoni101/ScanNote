@@ -25,12 +25,12 @@ class ScanResultSection extends StatelessWidget {
     return RoundedCornerElevatedCard(
       elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const .all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: <Widget>[
             ListTile(
-              contentPadding: EdgeInsets.zero,
+              contentPadding: .zero,
               title: SectionTitle(
                 label: resultType == .qr
                     ? context.locale.scannedContent
@@ -46,7 +46,7 @@ class ScanResultSection extends StatelessWidget {
                   );
                 },
                 iconSize: 20,
-                style: IconButton.styleFrom(padding: EdgeInsets.zero),
+                style: IconButton.styleFrom(padding: .zero),
                 icon: SvgPicture.asset(AppAssets.copyIc, width: 20, height: 20),
               ),
             ),
@@ -74,11 +74,11 @@ class _ScannedDataBox extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      width: .infinity,
+      padding: const .all(16),
       decoration: BoxDecoration(
         color: context.appColors.surfaceL3,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: .circular(16),
       ),
       child: child,
     );

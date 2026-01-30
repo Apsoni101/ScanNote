@@ -47,10 +47,10 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
         child: Scaffold(
           backgroundColor: context.appColors.scaffoldBackground,
           body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+            padding: const .symmetric(vertical: 32, horizontal: 24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: .center,
+              crossAxisAlignment: .stretch,
               children: <Widget>[
                 const Spacer(),
                 Image.asset(
@@ -63,7 +63,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
                   style: AppTextStyles.interW600S36Lh48Ls0.copyWith(
                     color: context.appColors.textPrimary,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: .center,
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -71,7 +71,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
                   style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
                     color: context.appColors.textSecondary,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: .center,
                 ),
                 const SizedBox(height: 32),
                 Text(
@@ -79,7 +79,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
                   style: AppTextStyles.airbnbCerealW600S20Lh28Ls0.copyWith(
                     color: context.appColors.textPrimary,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: .center,
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -87,7 +87,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
                   style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
                     color: context.appColors.textSecondary,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: .center,
                 ),
                 const SizedBox(height: 16),
                 BlocSelector<
@@ -119,7 +119,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
                   style: AppTextStyles.airbnbCerealW400S12Lh16Ls0.copyWith(
                     color: context.appColors.textSecondary,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: .center,
                 ),
                 const Spacer(),
                 Text(
@@ -129,7 +129,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
                   style: AppTextStyles.interW400S12Lh16Ls0.copyWith(
                     color: context.appColors.textSecondary,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: .center,
                 ),
               ],
             ),

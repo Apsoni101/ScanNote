@@ -11,7 +11,7 @@ extension DateTimeFormatting on DateTime {
   /// - Less than 7 days: "2d ago"
   /// - Otherwise: "DD/MM/YYYY HH:mm"
   String toRelativeFormat(final BuildContext context) {
-    final DateTime now = DateTime.now();
+    final DateTime now = .now();
     final Duration difference = now.difference(this);
 
     if (difference.inSeconds < 60) {

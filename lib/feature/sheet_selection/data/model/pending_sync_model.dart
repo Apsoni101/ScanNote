@@ -14,7 +14,7 @@ class PendingSyncModel extends HiveObject {
 
   factory PendingSyncModel.fromEntity(final PendingSyncEntity entity) {
     return PendingSyncModel(
-      scan: ScanResultModel.fromEntity(entity.scan),
+      scan: .fromEntity(entity.scan),
       sheetId: entity.sheetId,
       sheetTitle: entity.sheetTitle,
     );
@@ -22,7 +22,7 @@ class PendingSyncModel extends HiveObject {
 
   factory PendingSyncModel.fromJson(final Map<String, dynamic> json) {
     return PendingSyncModel(
-      scan: ScanResultModel.fromJson(json['scan'] ?? <String, dynamic>{}),
+      scan: .fromJson(json['scan'] ?? <String, dynamic>{}),
       sheetId: json['sheetId'] ?? '',
       sheetTitle: json['sheetTitle'] ?? '',
     );

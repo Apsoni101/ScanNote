@@ -11,9 +11,9 @@ class OcrScreenContentView extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const .all(24),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: .center,
         spacing: 12,
         children: <Widget>[
           OnScreenOptionItemCard(

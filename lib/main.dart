@@ -26,11 +26,11 @@ Future<void> main() async {
   final String? modeName = hiveService.getString(HiveKeyConstants.themeMode);
   final String? languageName = hiveService.getString(HiveKeyConstants.language);
   final ThemeMode savedTheme = modeName != null
-      ? ThemeMode.values.byName(modeName)
-      : ThemeMode.system;
+      ? .values.byName(modeName)
+      : .system;
   final LanguageEnum savedLanguage = languageName != null
-      ? LanguageEnum.fromCode(languageName)
-      : LanguageEnum.english;
+      ? .fromCode(languageName)
+      : .english;
 
   final AppSettingsController appSettingsController =
       AppInjector.getIt<AppSettingsController>()
@@ -69,13 +69,13 @@ class MyApp extends StatelessWidget {
               locale: setting.$2.locale,
 
               theme: ThemeData(
-                brightness: Brightness.light,
+                brightness: .light,
                 extensions: <ThemeExtension<AppColorThemeExtension>>[
                   AppLightThemeColors(),
                 ],
               ),
               darkTheme: ThemeData(
-                brightness: Brightness.dark,
+                brightness: .dark,
                 extensions: <ThemeExtension<AppColorThemeExtension>>[
                   AppDarkThemeColors(),
                 ],

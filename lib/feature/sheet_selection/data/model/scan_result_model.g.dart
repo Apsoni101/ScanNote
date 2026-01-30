@@ -29,7 +29,7 @@ class ScanResultModelAdapter extends TypeAdapter<ScanResultModel> {
   @override
   void write(BinaryWriter writer, ScanResultModel obj) {
     writer
-      ..writeByte(5) // number of fields
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.data)
       ..writeByte(1)

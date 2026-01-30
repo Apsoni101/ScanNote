@@ -30,9 +30,9 @@ class QrImagePickerButton extends StatelessWidget {
         ),
       ),
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const .symmetric(horizontal: 24),
         backgroundColor: context.appColors.cameraOverlay,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: .circular(12)),
       ),
     );
   }

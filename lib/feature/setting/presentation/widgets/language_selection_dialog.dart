@@ -20,13 +20,13 @@ class LanguageSelectionDialog extends StatelessWidget {
 
     return Dialog(
       backgroundColor: context.appColors.cardBackground,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      insetPadding: const EdgeInsets.all(20),
+      shape: RoundedRectangleBorder(borderRadius: .circular(16)),
+      insetPadding: const .all(20),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const .all(20),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: .min,
+          crossAxisAlignment: .start,
           children: <Widget>[
             const _DialogTitle(),
             const SizedBox(height: 20),
@@ -100,7 +100,7 @@ class _LanguageList extends StatelessWidget {
                       ),
                     ),
                     activeColor: context.appColors.primaryDefault,
-                    contentPadding: EdgeInsets.zero,
+                    contentPadding: .zero,
                   );
                 }).toList(),
               );
@@ -121,7 +121,7 @@ class _DialogActions extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: .end,
       children: <Widget>[
         /// Cancel
         TextButton(
@@ -150,9 +150,7 @@ class _DialogActions extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: context.appColors.primaryDefault,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                    shape: RoundedRectangleBorder(borderRadius: .circular(8)),
                   ),
                   child: Text(
                     context.locale.confirm,

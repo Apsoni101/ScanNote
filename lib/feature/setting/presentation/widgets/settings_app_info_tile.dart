@@ -11,7 +11,7 @@ class SettingsAppInfoTile extends StatelessWidget {
     return ListTile(
       tileColor: context.appColors.appBarBackground,
       leading: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: .circular(12),
         child: Image.asset(AppAssets.appLogoSmallIcon, width: 40, height: 40),
       ),
       title: Text(

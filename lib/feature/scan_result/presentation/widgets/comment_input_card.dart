@@ -17,10 +17,10 @@ class CommentInputCard extends StatelessWidget {
     return RoundedCornerElevatedCard(
       elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const .all(16),
         child: Column(
           spacing: 8,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: <Widget>[
             SectionTitle(label: context.locale.addCommentTitle),
             CommentInputField(controller: commentController),
@@ -52,7 +52,7 @@ class CommentInputField extends StatelessWidget {
   }
 
   InputDecoration _buildInputDecoration(final BuildContext context) {
-    final BorderRadius borderRadius = BorderRadius.circular(12);
+    final BorderRadius borderRadius = .circular(12);
     final BorderSide normalBorder = BorderSide(
       color: context.appColors.textInverseSecondary,
     );

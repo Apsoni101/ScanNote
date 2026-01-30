@@ -89,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen>
       child: SplashAppearAnimation(
         animation: _animation,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: <Widget>[
             const SplashLogoContainer(),
             const SizedBox(height: 24),

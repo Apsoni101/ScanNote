@@ -5,7 +5,7 @@ import 'package:qr_scanner_practice/core/localisation/app_localizations.dart';
 
 /// extension for strings to access app strings  like this context.locale.appName
 extension AppLocaleExtension on BuildContext {
-  AppLocalizations get locale => AppLocalizations.of(this);
+  AppLocalizations get locale => .of(this);
 }
 
 extension AppColorsContextExtension on BuildContext {

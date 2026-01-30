@@ -17,13 +17,13 @@ class HistoryEmptyState extends StatelessWidget {
   Widget build(final BuildContext context) {
     return Column(
       spacing: 16,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: .center,
+      crossAxisAlignment: .stretch,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.all(24),
+          padding: const .all(24),
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
+            shape: .circle,
             color: context.appColors.surfaceL3,
           ),
           child: Icon(
@@ -37,14 +37,14 @@ class HistoryEmptyState extends StatelessWidget {
           style: AppTextStyles.airbnbCerealW400S16Lh24Ls0.copyWith(
             color: context.appColors.textSecondary,
           ),
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
         Text(
           context.locale.yourSavedScansWillAppearHere,
           style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
             color: context.appColors.textTertiary,
           ),
-          textAlign: TextAlign.center,
+          textAlign: .center,
         ),
       ],
     );

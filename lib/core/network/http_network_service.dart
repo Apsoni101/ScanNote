@@ -46,7 +46,7 @@ class HttpNetworkService {
       final CancelToken cancelToken = CancelToken();
       cancelTokens.add(cancelToken);
       switch (method) {
-        case HttpMethod.post:
+        case .post:
           response = await dio.post(
             url,
             data: data,
@@ -54,7 +54,7 @@ class HttpNetworkService {
             queryParameters: queryParameters,
             cancelToken: cancelToken,
           );
-        case HttpMethod.delete:
+        case .delete:
           response = await dio.delete(
             url,
             data: data,
@@ -62,7 +62,7 @@ class HttpNetworkService {
             queryParameters: queryParameters,
             cancelToken: cancelToken,
           );
-        case HttpMethod.patch:
+        case .patch:
           response = await dio.patch(
             url,
             data: data,
@@ -70,14 +70,14 @@ class HttpNetworkService {
             cancelToken: cancelToken,
             queryParameters: queryParameters,
           );
-        case HttpMethod.get:
+        case .get:
           response = await dio.get(
             url,
             queryParameters: queryParameters,
             options: options,
             cancelToken: cancelToken,
           );
-        case HttpMethod.put:
+        case .put:
           response = await dio.put(
             url,
             data: data,

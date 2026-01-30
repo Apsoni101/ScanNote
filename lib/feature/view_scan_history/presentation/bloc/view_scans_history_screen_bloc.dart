@@ -101,7 +101,7 @@ class ViewScansHistoryScreenBloc
           scansResult.fold((_) {}, (final List<ScanResultEntity> scans) {
             newScans.addAll(
               scans.map(
-                (scan) => PendingSyncEntity(
+                (final ScanResultEntity scan) => PendingSyncEntity(
                   scan: scan,
                   sheetId: sheet.id,
                   sheetTitle: sheet.title,
@@ -114,8 +114,7 @@ class ViewScansHistoryScreenBloc
         emit(
           state.copyWith(
             isLoadingMoreSheets: false,
-            allScans: List<PendingSyncEntity>.of(state.allScans)
-              ..addAll(newScans),
+            allScans: .of(state.allScans)..addAll(newScans),
             hasMoreSheets: pagedSheetsEntity.nextPageToken != null,
             nextPageToken: pagedSheetsEntity.nextPageToken,
           ),

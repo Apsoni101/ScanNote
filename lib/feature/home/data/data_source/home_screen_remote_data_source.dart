@@ -63,7 +63,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
         return apiClient.request<Unit>(
           url:
               '${NetworkConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${NetworkConstants.appendRange}',
-          method: HttpMethod.post,
+          method: .post,
           options: options,
           queryParameters: <String, String>{'valueInputOption': 'RAW'},
           data: <String, dynamic>{
@@ -82,7 +82,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
       final Either<Failure, String> spreadsheetId = await apiClient
           .request<String>(
             url: NetworkConstants.sheetsBaseUrl,
-            method: HttpMethod.post,
+            method: .post,
             options: options,
             data: <String, dynamic>{
               'properties': <String, dynamic>{'title': sheetName},
@@ -138,7 +138,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource {
         final Either<Failure, Unit> updateResult = await apiClient
             .request<Unit>(
               url: '${NetworkConstants.driveBaseUrl}/$id',
-              method: HttpMethod.patch,
+              method: .patch,
               options: options,
               queryParameters: <String, dynamic>{'fields': 'properties'},
               data: <String, dynamic>{

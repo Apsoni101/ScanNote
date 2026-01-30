@@ -115,7 +115,7 @@ class _SheetSelectionContentState extends State<_SheetSelectionContent> {
           ),
         ),
         body: ListView(
-          padding: const EdgeInsets.all(24),
+          padding: const .all(24),
           children: <Widget>[
             /// this create a new sheet button and form with textfield and buttons for creating one
             BlocSelector<

@@ -61,10 +61,10 @@ class SaveToSheetButton extends StatelessWidget {
             buttonState,
           ) {
             return Container(
-              padding: const EdgeInsets.all(16),
+              padding: const .all(16),
               decoration: BoxDecoration(
                 color: context.appColors.surfaceL1,
-                border: Border.symmetric(
+                border: .symmetric(
                   horizontal: BorderSide(color: context.appColors.separator),
                 ),
               ),
@@ -74,7 +74,7 @@ class SaveToSheetButton extends StatelessWidget {
                         final ScanResultEntity scanResult = ScanResultEntity(
                           data: scannedData,
                           comment: userComment,
-                          timestamp: DateTime.now(),
+                          timestamp: .now(),
                         );
 
                         context.read<SheetSelectionBloc>().add(
@@ -88,10 +88,8 @@ class SaveToSheetButton extends StatelessWidget {
                     : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: context.appColors.primaryDefault,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: const EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(borderRadius: .circular(16)),
+                  padding: const .all(16),
                 ),
                 child: buttonState.isSaving
                     ? const SizedBox(

@@ -100,11 +100,11 @@ class SheetSelectionRemoteDataSourceImpl
 
       return apiClient.request<PagedSheetsModel>(
         url: NetworkConstants.driveBaseUrl,
-        method: HttpMethod.get,
+        method: .get,
         options: options,
         queryParameters: queryParams,
         responseParser: (final Map<String, dynamic> json) {
-          return PagedSheetsModel.fromJson(json);
+          return .fromJson(json);
         },
       );
     });
@@ -117,7 +117,7 @@ class SheetSelectionRemoteDataSourceImpl
       final Either<Failure, String> spreadsheetId = await apiClient
           .request<String>(
             url: NetworkConstants.sheetsBaseUrl,
-            method: HttpMethod.post,
+            method: .post,
             options: options,
             data: <String, dynamic>{
               'properties': <String, dynamic>{'title': sheetName},
@@ -173,7 +173,7 @@ class SheetSelectionRemoteDataSourceImpl
         final Either<Failure, Unit> updateResult = await apiClient
             .request<Unit>(
               url: '${NetworkConstants.driveBaseUrl}/$id',
-              method: HttpMethod.patch,
+              method: .patch,
               options: options,
               queryParameters: <String, dynamic>{'fields': 'properties'},
               data: <String, dynamic>{
@@ -207,7 +207,7 @@ class SheetSelectionRemoteDataSourceImpl
           return apiClient.request<Unit>(
             url:
                 '${NetworkConstants.sheetsBaseUrl}/$sheetId/values/${AppConstants.sheetName}!${NetworkConstants.appendRange}',
-            method: HttpMethod.post,
+            method: .post,
             options: options,
             queryParameters: <String, dynamic>{'valueInputOption': 'RAW'},
             data: <String, dynamic>{

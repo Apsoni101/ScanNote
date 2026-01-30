@@ -80,7 +80,7 @@ class _ScannerOverlayPainter extends CustomPainter {
   void _drawScannerLine(final Canvas canvas, final Rect rect) {
     final double y = rect.top + rect.height * scanProgress;
 
-    final Rect lineRect = Rect.fromLTWH(rect.left, y, rect.width, 2);
+    final Rect lineRect = .fromLTWH(rect.left, y, rect.width, 2);
 
     final Paint paint = Paint()
       ..shader = LinearGradient(
@@ -105,7 +105,7 @@ class _ScannerOverlayPainter extends CustomPainter {
     // ─── Top Left
     canvas
       ..drawArc(
-        Rect.fromLTWH(rect.left, rect.top, cornerRadius * 2, cornerRadius * 2),
+        .fromLTWH(rect.left, rect.top, cornerRadius * 2, cornerRadius * 2),
         3.14,
         1.57,
         false,
@@ -123,7 +123,7 @@ class _ScannerOverlayPainter extends CustomPainter {
       )
       // ─── Top Right
       ..drawArc(
-        Rect.fromLTWH(
+        .fromLTWH(
           rect.right - cornerRadius * 2,
           rect.top,
           cornerRadius * 2,
@@ -146,7 +146,7 @@ class _ScannerOverlayPainter extends CustomPainter {
       )
       // ─── Bottom Right
       ..drawArc(
-        Rect.fromLTWH(
+        .fromLTWH(
           rect.right - cornerRadius * 2,
           rect.bottom - cornerRadius * 2,
           cornerRadius * 2,
@@ -169,7 +169,7 @@ class _ScannerOverlayPainter extends CustomPainter {
       )
       // ─── Bottom Left
       ..drawArc(
-        Rect.fromLTWH(
+        .fromLTWH(
           rect.left,
           rect.bottom - cornerRadius * 2,
           cornerRadius * 2,

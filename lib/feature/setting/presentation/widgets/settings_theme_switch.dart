@@ -10,7 +10,7 @@ class SettingsThemeSwitch extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final bool isDark = Theme.of(context).brightness == .dark;
 
     return Transform.scale(
       scale: 0.8,

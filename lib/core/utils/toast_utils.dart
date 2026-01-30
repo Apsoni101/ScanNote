@@ -15,14 +15,14 @@ class ToastUtils {
     final FToast fToast = FToast()..init(context);
 
     final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      padding: const .symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: context.appColors.surfaceL1,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: .circular(12),
       ),
       child: Row(
         spacing: 10,
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: <Widget>[
           if (isSuccess)
             Image.asset(AppAssets.appLogoRoundedCorners, width: 24, height: 24)
@@ -35,8 +35,8 @@ class ToastUtils {
             child: Text(
               message,
               maxLines: 2,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.fade,
+              textAlign: .center,
+              overflow: .fade,
               style: AppTextStyles.interW400S14Lh21Ls0.copyWith(
                 color: context.appColors.textPrimary,
               ),
@@ -48,7 +48,7 @@ class ToastUtils {
 
     fToast.showToast(
       child: toast,
-      gravity: ToastGravity.BOTTOM,
+      gravity: .BOTTOM,
       toastDuration: const Duration(milliseconds: 3000),
     );
   }

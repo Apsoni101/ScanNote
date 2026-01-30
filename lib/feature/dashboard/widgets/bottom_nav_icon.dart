@@ -18,15 +18,12 @@ class BottomNavIcon extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: const .symmetric(vertical: 2),
       child: SvgPicture.asset(
         iconPath,
         width: 24,
         height: 24,
-        colorFilter: ColorFilter.mode(
-          isActive ? activeColor : inactiveColor,
-          BlendMode.srcIn,
-        ),
+        colorFilter: .mode(isActive ? activeColor : inactiveColor, .srcIn),
       ),
     );
   }

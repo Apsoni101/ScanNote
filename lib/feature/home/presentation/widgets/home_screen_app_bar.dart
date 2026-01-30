@@ -16,12 +16,12 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 1,
       shadowColor: context.appColors.separator,
       leading: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+        margin: const .symmetric(vertical: 8, horizontal: 14),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: .circular(14),
           image: const DecorationImage(
             image: AssetImage(AppAssets.appLogoSmallIcon),
-            fit: BoxFit.cover,
+            fit: .cover,
           ),
         ),
       ),
@@ -39,10 +39,7 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
             AppAssets.settingsIc,
             width: 26,
             height: 26,
-            colorFilter: ColorFilter.mode(
-              context.appColors.iconPrimary,
-              BlendMode.srcIn,
-            ),
+            colorFilter: .mode(context.appColors.iconPrimary, .srcIn),
           ),
           onPressed: () => context.router.push(const SettingsRoute()),
         ),
@@ -51,5 +48,5 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const .fromHeight(kToolbarHeight);
 }

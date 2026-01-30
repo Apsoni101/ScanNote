@@ -6,7 +6,7 @@ class DecoratedSvgAssetIconContainer extends StatelessWidget {
     required this.assetPath,
     required this.backgroundColor,
     required this.iconColor,
-    this.padding = const EdgeInsets.all(8),
+    this.padding = const .all(8),
     this.borderRadius = 12,
     super.key,
   });
@@ -23,12 +23,9 @@ class DecoratedSvgAssetIconContainer extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: .circular(borderRadius),
       ),
-      child: SvgPicture.asset(
-        assetPath,
-        colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-      ),
+      child: SvgPicture.asset(assetPath, colorFilter: .mode(iconColor, .srcIn)),
     );
   }
 }

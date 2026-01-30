@@ -77,11 +77,11 @@ class ViewScansHistoryRemoteDataSourceImpl
 
       return apiClient.request<PagedSheetsModel>(
         url: NetworkConstants.driveBaseUrl,
-        method: HttpMethod.get,
+        method: .get,
         options: options,
         queryParameters: queryParams,
         responseParser: (final Map<String, dynamic> json) {
-          return PagedSheetsModel.fromJson(json);
+          return .fromJson(json);
         },
       );
     });
@@ -111,7 +111,7 @@ class ViewScansHistoryRemoteDataSourceImpl
 
     return apiClient.request<List<ScanResultModel>>(
       url: url,
-      method: HttpMethod.get,
+      method: .get,
       options: options,
       responseParser: (final Map<String, dynamic> json) {
         final List<dynamic> values = json['values'] ?? <dynamic>[];

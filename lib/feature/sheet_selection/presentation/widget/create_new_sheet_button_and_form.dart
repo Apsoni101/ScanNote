@@ -164,7 +164,7 @@ class _CreateSheetForm extends StatelessWidget {
       elevation: 2,
       child: ListView(
         shrinkWrap: true,
-        padding: const EdgeInsets.all(16),
+        padding: const .all(16),
         children: <Widget>[
           _SheetNameTextField(
             controller: controller,
@@ -220,16 +220,16 @@ class _SheetNameTextField extends StatelessWidget {
         filled: true,
         fillColor: context.appColors.surfaceL1,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: .circular(12),
           borderSide: BorderSide(color: context.appColors.borderInputDefault),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: .circular(12),
           borderSide: BorderSide(color: context.appColors.borderInputDefault),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+        contentPadding: const .symmetric(horizontal: 12),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: .circular(12),
           borderSide: BorderSide(
             color: context.appColors.primaryDefault,
             width: 2,
@@ -312,10 +312,8 @@ class _CommonButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         disabledBackgroundColor: backgroundColor.withValues(alpha: 0.5),
-        padding: EdgeInsets.symmetric(vertical: verticalPadding),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
+        padding: .symmetric(vertical: verticalPadding),
+        shape: RoundedRectangleBorder(borderRadius: .circular(borderRadius)),
       ),
       child: isLoading
           ? SizedBox(

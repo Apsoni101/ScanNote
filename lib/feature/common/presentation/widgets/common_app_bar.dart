@@ -26,7 +26,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       bottom: showBottomDivider
           ? PreferredSize(
-              preferredSize: const Size.fromHeight(2),
+              preferredSize: const .fromHeight(2),
               child: Divider(height: 2, color: context.appColors.separator),
             )
           : null,
@@ -35,5 +35,5 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      Size.fromHeight(kToolbarHeight + (showBottomDivider ? 2 : 0));
+      .fromHeight(kToolbarHeight + (showBottomDivider ? 2 : 0));
 }

@@ -24,8 +24,7 @@ class SettingsRemoteDataSourceImpl implements SettingsRemoteDataSource {
 
     return result.fold(
       Left.new,
-      (final User user) =>
-          Right<Failure, UserModel>(UserModel.fromFirebaseUser(user)),
+      (final User user) => Right<Failure, UserModel>(.fromFirebaseUser(user)),
     );
   }
 

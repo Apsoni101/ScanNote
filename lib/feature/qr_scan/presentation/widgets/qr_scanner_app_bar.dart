@@ -20,9 +20,7 @@ class QrScannerAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         style: IconButton.styleFrom(
           backgroundColor: context.appColors.cameraOverlay,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(10)),
         ),
         onPressed: () => context.router.maybePop(),
       ),
@@ -31,5 +29,5 @@ class QrScannerAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const .fromHeight(kToolbarHeight);
 }

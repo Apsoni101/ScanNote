@@ -50,7 +50,7 @@ class ExistingSheetsViewBuilderAndSelector extends StatelessWidget {
             sheetData,
           ) {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: <Widget>[
                 if (sheetData.isFetchingSheets)
                   const CommonLoadingView()
@@ -69,7 +69,7 @@ class ExistingSheetsViewBuilderAndSelector extends StatelessWidget {
                   )
                 else
                   Column(
-                    children: [
+                    children: <Widget>[
                       _SheetListView(
                         availableSheets: sheetData.availableSheets,
                       ),
@@ -138,14 +138,10 @@ class _SelectableSheetItem extends StatelessWidget {
           color: isSelected
               ? context.appColors.primaryDefault
               : context.appColors.surfaceL1,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(16)),
 
           child: ListTile(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: .circular(16)),
             onTap: () {
               context.read<SheetSelectionBloc>().add(
                 OnConfirmationSheetSelected(sheetData.id),
@@ -164,7 +160,7 @@ class _SelectableSheetItem extends StatelessWidget {
             title: Text(
               sheetData.title,
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              overflow: .ellipsis,
               style: AppTextStyles.airbnbCerealW600S14Lh20Ls0.copyWith(
                 color: isSelected
                     ? context.appColors.textInversePrimary

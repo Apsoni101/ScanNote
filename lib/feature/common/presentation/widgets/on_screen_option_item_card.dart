@@ -60,37 +60,34 @@ class _OnScreenOptionItemCardState extends State<OnScreenOptionItemCard>
       },
       child: Card(
         elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(borderRadius: .circular(20)),
         color: context.appColors.cardBackground,
         child: InkWell(
           onTap: widget.onPressed,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: .circular(20),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 26),
+            padding: const .symmetric(horizontal: 20, vertical: 26),
             child: Row(
               spacing: 16,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: <Widget>[
                 Container(
                   width: 56,
                   height: 56,
-                  padding: const EdgeInsets.all(12),
+                  padding: const .all(12),
                   decoration: BoxDecoration(
                     color: context.appColors.primaryDefault,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: .circular(12),
                   ),
                   child: SvgPicture.asset(
                     widget.iconPath,
-                    colorFilter: ColorFilter.mode(
-                      context.appColors.surfaceL1,
-                      BlendMode.srcIn,
-                    ),
+                    colorFilter: .mode(context.appColors.surfaceL1, .srcIn),
                   ),
                 ),
                 Expanded(
                   child: ListView(
                     shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    padding: const .symmetric(vertical: 4),
                     children: <Widget>[
                       Text(
                         widget.title,

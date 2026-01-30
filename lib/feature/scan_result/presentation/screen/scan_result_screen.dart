@@ -81,10 +81,10 @@ class _ResultViewState extends State<_ResultView> {
         showBottomDivider: true,
       ),
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const .all(16),
         decoration: BoxDecoration(
           color: context.appColors.surfaceL1,
-          border: Border.symmetric(
+          border: .symmetric(
             horizontal: BorderSide(color: context.appColors.separator),
           ),
         ),
@@ -95,7 +95,7 @@ class _ResultViewState extends State<_ResultView> {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        padding: const .symmetric(horizontal: 16, vertical: 24),
         children: <Widget>[
           if (imagePreview != null) ...<Widget>[
             OcrImagePreview(image: imagePreview),
@@ -142,10 +142,8 @@ class _SelectGoogleSheetButton extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: context.appColors.primaryDefault,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            padding: const EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(borderRadius: .circular(16)),
+            padding: const .all(16),
           ),
           child: Text(
             context.locale.selectGoogleSheet,
