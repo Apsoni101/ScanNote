@@ -34,7 +34,8 @@ class ToastUtils {
           Flexible(
             child: Text(
               message,
-              maxLines: 1,
+              maxLines: 2,
+              textAlign: TextAlign.center,
               overflow: TextOverflow.fade,
               style: AppTextStyles.interW400S14Lh21Ls0.copyWith(
                 color: context.appColors.textPrimary,
