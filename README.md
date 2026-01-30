@@ -1,6 +1,6 @@
 # 📑 Index
 
-- [📱 CodiScan](#-codiscan)
+- [📱 ScanNote](#-ScanNote)
 - [Project Info 📱](#project-info-)
   - [Environments](#environments)
   - [Platform Support](#platform-support)
@@ -23,7 +23,7 @@
 - [Dependencies 📚](#dependencies-)
 
 
-# 📱 CodiScan
+# 📱 ScanNote
 
 A Flutter QR Scanner application that allows users to scan QR codes, view results, handle errors, and store scanned data in google sheets with scan data , device id , timestamp , userid .  
 The app follows **Clean Architecture**, uses **BLoC** for state management, and supports **offline storage**. 
@@ -535,8 +535,6 @@ Below is the list of main dependencies used in this project along with their pur
 - [Mobile Scanner](https://pub.dev/packages/mobile_scanner)  Barcode and QR code scanning in app .
 
 - [Google ML Kit – Text Recognition](https://pub.dev/packages/google_mlkit_text_recognition)  Extracts text from images using ML Kit for ocr feature in app.
-
-- [Home Widget](https://pub.dev/packages/home_widget)  Creates home screen widgets for Android and iOS helps in connection with native to flutter data updating easy (ui are built in native).
 
 
 
