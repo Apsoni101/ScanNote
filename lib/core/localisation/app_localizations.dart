@@ -632,6 +632,12 @@ abstract class AppLocalizations {
   /// **'Scan saved successfully!'**
   String get scanSavedSuccessfully;
 
+  /// No description provided for @savedLocallyWillSyncWhenConnectionIsRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved locally. Will sync when connection is restored.'**
+  String get savedLocallyWillSyncWhenConnectionIsRestored;
+
   /// Shows the modified date of a sheet
   ///
   /// In en, this message translates to:

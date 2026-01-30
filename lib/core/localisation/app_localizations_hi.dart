@@ -289,6 +289,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get scanSavedSuccessfully => 'स्कैन सफलतापूर्वक सहेजा गया!';
 
   @override
+  String get savedLocallyWillSyncWhenConnectionIsRestored =>
+      'Saved locally. Will sync when connection is restored.';
+
+  @override
   String modified(String date) {
     return 'संशोधित: $date';
   }

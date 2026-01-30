@@ -107,6 +107,7 @@
   "createNewSheet": "Create New Sheet",
   "noSheetsAvailable": "No sheets available. Create a new one!",
   "scanSavedSuccessfully": "Scan saved successfully!",
+  "savedLocallyWillSyncWhenConnectionIsRestored": "Saved locally. Will sync when connection is restored.",
   "modified": "Modified: {date}",
   "@modified": {
     "description": "Shows the modified date of a sheet",

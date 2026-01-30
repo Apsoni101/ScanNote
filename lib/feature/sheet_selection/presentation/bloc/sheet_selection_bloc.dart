@@ -302,8 +302,7 @@ class SheetSelectionBloc
               state.copyWith(
                 isSavingScan: false,
                 isScanSaved: true,
-                scanSaveError:
-                    'Saved locally. Will sync when connection is restored.',
+                scanSaveError: failure.message,
               ),
             );
           },

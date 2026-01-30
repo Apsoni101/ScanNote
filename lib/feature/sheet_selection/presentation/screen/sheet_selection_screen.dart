@@ -80,8 +80,17 @@ class _SheetSelectionContentState extends State<_SheetSelectionContent> {
   Widget build(final BuildContext context) {
     return BlocListener<SheetSelectionBloc, SheetSelectionState>(
       listener: (final BuildContext context, final SheetSelectionState state) {
-        if (state.scanSaveError != null) {
+        if (state.scanSaveError != null && !state.isScanSaved) {
           _displayFeedbackMessage(context, state.scanSaveError!, false);
+        } else if (state.scanSaveError != null && state.isScanSaved) {
+          _displayFeedbackMessage(
+            context,
+            context.locale.savedLocallyWillSyncWhenConnectionIsRestored,
+            true,
+          );
+          if (context.mounted) {
+            context.router.popUntilRoot();
+          }
         } else if (state.isScanSaved) {
           _displayFeedbackMessage(
             context,
