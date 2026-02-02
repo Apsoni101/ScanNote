@@ -55,6 +55,7 @@ dependencies:
   hive_flutter: ^1.1.0
   mobile_scanner: ^7.1.4
   fluttertoast: ^9.0.0
+  quick_actions: ^1.1.0
 
 
 

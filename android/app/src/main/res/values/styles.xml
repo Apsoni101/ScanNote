@@ -16,6 +16,10 @@
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
 
+    <style name="QuickActions">
+        <item name="android:windowBackground">@drawable/quick_actions</item>
+    </style>
+
     <style name="Widget.Android.AppWidget.Container" parent="android:Widget">
         <item name="android:id">@android:id/background</item>
         <item name="android:background">?android:attr/colorBackground</item>

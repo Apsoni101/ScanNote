@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_scanner_practice/core/constants/app_textstyles.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
@@ -6,16 +7,26 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({
     required this.title,
     this.showBottomDivider = false,
+    this.onPressed,
     super.key,
   });
 
   final String title;
   final bool showBottomDivider;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(final BuildContext context) {
     return AppBar(
       titleSpacing: 0,
+      leading: IconButton(
+        onPressed:
+            onPressed ??
+            () {
+              context.router.pop();
+            },
+        icon: Icon(Icons.arrow_back, color: context.appColors.textPrimary),
+      ),
       backgroundColor: context.appColors.appBarBackground,
       title: Text(
         title,

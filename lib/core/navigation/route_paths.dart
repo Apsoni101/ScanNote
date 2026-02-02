@@ -8,7 +8,7 @@ class RoutePaths {
   static const String home = 'home';
   static const String qrScan = 'qrscan';
   static const String result = 'result';
-  static const String ocr = 'pcr';
+  static const String ocr = 'ocr';
   static const String resultConfirm = 'resultConfirm';
   static const String history = 'history';
   static const String settings = 'settings';

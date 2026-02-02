@@ -28,44 +28,66 @@ class OcrScreenView extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(title: context.locale.extractTextOcr),
-      backgroundColor: context.appColors.scaffoldBackground,
-      body: BlocListener<OcrBloc, OcrState>(
-        listener: (final BuildContext context, final OcrState state) {
-          if (state is OcrErrorState) {
-            ToastUtils.showToast(context, state.message, isSuccess: false);
-          }
-          if (state is OcrSuccessState) {
-            final ImageProvider previewImage = FileImage(
-              state.ocrResultEntity.imageFile,
-            );
-
-            context.router
-                .push(
-                  ScanResultRoute(
-                    scanResult: state.ocrResultEntity.recognizedText,
-                    resultType: .ocr,
-                    previewImage: previewImage,
-                  ),
-                )
-                .then((_) {
-                  if (context.mounted) {
-                    context.read<OcrBloc>().add(const ClearOcrResultEvent());
-                  }
-                });
-          }
-        },
-        child: BlocBuilder<OcrBloc, OcrState>(
-          builder: (final BuildContext context, final OcrState state) {
-            return switch (state) {
-              OcrLoadingState() => const CommonLoadingView(),
-              OcrImagePickedState() ||
-              OcrSuccessState() ||
-              OcrErrorState() ||
-              OcrInitialState() => const OcrScreenContentView(),
-            };
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (final bool didPop, final Object? result) {
+        if (didPop) {
+          return;
+        }
+        if (context.router.canPop()) {
+          context.router.pop();
+        } else {
+          context.router.replace(const DashboardRoute());
+        }
+      },
+      child: Scaffold(
+        appBar: CommonAppBar(
+          title: context.locale.extractTextOcr,
+          onPressed: () {
+            if (context.router.canPop()) {
+              context.router.pop();
+            } else {
+              context.router.replace(const DashboardRoute());
+            }
           },
+        ),
+        backgroundColor: context.appColors.scaffoldBackground,
+        body: BlocListener<OcrBloc, OcrState>(
+          listener: (final BuildContext context, final OcrState state) {
+            if (state is OcrErrorState) {
+              ToastUtils.showToast(context, state.message, isSuccess: false);
+            }
+            if (state is OcrSuccessState) {
+              final ImageProvider previewImage = FileImage(
+                state.ocrResultEntity.imageFile,
+              );
+
+              context.router
+                  .push(
+                    ScanResultRoute(
+                      scanResult: state.ocrResultEntity.recognizedText,
+                      resultType: .ocr,
+                      previewImage: previewImage,
+                    ),
+                  )
+                  .then((_) {
+                    if (context.mounted) {
+                      context.read<OcrBloc>().add(const ClearOcrResultEvent());
+                    }
+                  });
+            }
+          },
+          child: BlocBuilder<OcrBloc, OcrState>(
+            builder: (final BuildContext context, final OcrState state) {
+              return switch (state) {
+                OcrLoadingState() => const CommonLoadingView(),
+                OcrImagePickedState() ||
+                OcrSuccessState() ||
+                OcrErrorState() ||
+                OcrInitialState() => const OcrScreenContentView(),
+              };
+            },
+          ),
         ),
       ),
     );

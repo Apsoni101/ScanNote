@@ -24,7 +24,7 @@ import 'package:qr_scanner_practice/feature/home/presentation/screen/home_screen
     as _i5;
 import 'package:qr_scanner_practice/feature/ocr/presentation/screen/ocr_screen.dart'
     as _i6;
-import 'package:qr_scanner_practice/feature/qr_scan/presentation/presentation/qr_scanner_screen.dart'
+import 'package:qr_scanner_practice/feature/qr_scan/presentation/screen/qr_scanner_screen.dart'
     as _i7;
 import 'package:qr_scanner_practice/feature/scan_result/presentation/screen/scan_result_screen.dart'
     as _i8;
