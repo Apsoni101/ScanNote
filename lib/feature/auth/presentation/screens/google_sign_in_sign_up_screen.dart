@@ -33,8 +33,27 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
               final BuildContext context,
               final GoogleSignInSignUpState state,
             ) async {
-              if (state is LoginError) {
-                ToastUtils.showToast(context, state.message, isSuccess: false);
+              if (state is LoginNetworkError) {
+                _show(context, context.locale.noInternetConnection);
+              }
+
+              if (state is LoginUserDisabledError) {
+                _show(context, context.locale.yourAccountHasBeenDisabled);
+              }
+
+              if (state is LoginAccountExistsError) {
+                _show(
+                  context,
+                  context.locale.emailAlreadyLinkedToAnotherAccount,
+                );
+              }
+
+              if (state is LoginCancelled) {
+                _show(context, context.locale.signInCancelled);
+              }
+
+              if (state is LoginUnknownError) {
+                _show(context, context.locale.loginFailedPleaseTryAgain);
               }
               if (state is LoginSuccess) {
                 await context.router.replace(
@@ -137,5 +156,9 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
         ),
       ),
     );
+  }
+
+  void _show(final BuildContext context, final String text) {
+    ToastUtils.showToast(context, text, isSuccess: false);
   }
 }

@@ -31,7 +31,31 @@ class GoogleSignInSignUpBloc
 
     await result.fold(
       (final Failure failure) async {
-        emit(LoginError(message: failure.message));
+        if (failure is AuthenticationFailure) {
+          switch (failure.message) {
+            case 'auth.network':
+              emit(const LoginNetworkError());
+              break;
+
+            case 'auth.userDisabled':
+              emit(const LoginUserDisabledError());
+              break;
+
+            case 'auth.accountExists':
+              emit(const LoginAccountExistsError());
+              break;
+
+            case 'auth.cancelled':
+              emit(const LoginCancelled());
+              break;
+
+            default:
+              emit(const LoginUnknownError());
+          }
+        } else {
+          emit(const LoginUnknownError());
+        }
+
         emit(const LoginInitial());
       },
       (final UserEntity user) async {

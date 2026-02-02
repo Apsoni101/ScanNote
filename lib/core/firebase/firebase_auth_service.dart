@@ -31,11 +31,7 @@ class FirebaseAuthService {
       await auth.signOut();
       return const Right<Failure, Unit>(unit);
     } on FirebaseAuthException catch (e) {
-      return Left<Failure, Unit>(
-        Failure(
-          message: 'Firebase error: ${e.message} \n errorCode: ${e.code}',
-        ),
-      );
+      return Left<Failure, Unit>(_mapAuthException(e, isLogin: false));
     } on FirebaseException catch (e) {
       return Left<Failure, Unit>(
         Failure(
@@ -67,11 +63,7 @@ class FirebaseAuthService {
       final UserCredential result = await auth.signInWithCredential(credential);
       return Right<Failure, User>(result.user!);
     } on FirebaseAuthException catch (e) {
-      return Left<Failure, User>(
-        Failure(
-          message: 'Firebase error: ${e.message} \n errorCode: ${e.code}',
-        ),
-      );
+      return Left<Failure, User>(_mapAuthException(e, isLogin: true));
     } on FirebaseException catch (e) {
       return Left<Failure, User>(
         Failure(
@@ -202,6 +194,41 @@ class FirebaseAuthService {
       );
     } on Exception catch (e) {
       return Left<Failure, String>(Failure(message: 'Unexpected error: $e'));
+    }
+  }
+
+  Failure _mapAuthException(FirebaseAuthException e, {required bool isLogin}) {
+    switch (e.code) {
+      case 'network-request-failed':
+        return AuthenticationFailure(
+          statusCode: isLogin ? 'AUTH-001' : 'LOGOUT-001',
+          message: isLogin ? 'auth.network' : 'logout.network',
+        );
+
+      case 'account-exists-with-different-credential':
+        return const AuthenticationFailure(
+          statusCode: 'AUTH-002',
+          message: 'auth.accountExists',
+        );
+
+      case 'user-disabled':
+        return const AuthenticationFailure(
+          statusCode: 'AUTH-003',
+          message: 'auth.userDisabled',
+        );
+
+      case 'invalid-credential':
+        return const AuthenticationFailure(
+          statusCode: 'AUTH-004',
+          message: 'auth.invalidCredential',
+        );
+
+      default:
+        return AuthenticationFailure(
+          statusCode: isLogin ? 'AUTH-999' : 'LOGOUT-999',
+          message: isLogin ? 'auth.unknown' : 'logout.failed',
+          data: e.code,
+        );
     }
   }
 }

@@ -4,7 +4,6 @@ import 'package:qr_scanner_practice/feature/home/data/data_source/home_screen_lo
 import 'package:qr_scanner_practice/feature/home/data/data_source/home_screen_remote_data_source.dart';
 import 'package:qr_scanner_practice/feature/home/domain/repo/home_screen_repository.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/data/model/pending_sync_model.dart';
-import 'package:qr_scanner_practice/feature/sheet_selection/data/model/scan_result_model.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/pending_sync_entity.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/domain/entity/result_scan_entity.dart';
 

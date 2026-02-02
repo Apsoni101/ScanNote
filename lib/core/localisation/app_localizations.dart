@@ -266,6 +266,30 @@ abstract class AppLocalizations {
   /// **'Upload Image'**
   String get uploadImage;
 
+  /// No description provided for @yourAccountHasBeenDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account has been disabled.'**
+  String get yourAccountHasBeenDisabled;
+
+  /// No description provided for @emailAlreadyLinkedToAnotherAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already linked to another account.'**
+  String get emailAlreadyLinkedToAnotherAccount;
+
+  /// No description provided for @signInCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in cancelled.'**
+  String get signInCancelled;
+
+  /// No description provided for @loginFailedPleaseTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Login failed. Please try again.'**
+  String get loginFailedPleaseTryAgain;
+
   /// No description provided for @language.
   ///
   /// In en, this message translates to:

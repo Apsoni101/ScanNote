@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_scanner_practice/core/di/app_injector.dart';
-import 'package:qr_scanner_practice/core/enums/result_type.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 import 'package:qr_scanner_practice/core/navigation/app_router.gr.dart';
 import 'package:qr_scanner_practice/core/utils/toast_utils.dart';
@@ -103,72 +102,85 @@ class QrScanningViewState extends State<QrScanningView> {
           _analyzeImageForQr(state.imagePath!);
         }
       },
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        extendBodyBehindAppBar: true,
-        appBar: QrScannerAppBar(controller: _controller),
-        body: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: MobileScanner(
-                controller: _controller,
-                onDetect: (final BarcodeCapture capture) {
-                  final String? code = capture.barcodes.firstOrNull?.rawValue;
-                  if (code != null && code.isNotEmpty) {
-                    _handleQrDetected(code);
-                  }
-                },
-                errorBuilder:
-                    (
-                      final BuildContext context,
-                      final MobileScannerException error,
-                    ) {
-                      return Center(
-                        child: Text(_getErrorMessage(context, error)),
-                      );
-                    },
-              ),
-            ),
-            Positioned.fill(
-              child: Padding(
-                padding: const .all(12),
-                child: Column(
-                  children: <Widget>[
-                    const Spacer(),
-                    const QrScannerOverlay(),
-                    const SizedBox(height: 32),
-                    const QrScanInstructionText(),
-                    const Spacer(),
-                    Row(
-                      mainAxisSize: .min,
-                      mainAxisAlignment: .spaceEvenly,
-                      spacing: 16,
-                      children: <Widget>[
-                        QrImagePickerButton(
-                          icon: Icons.file_upload_outlined,
-                          label: context.locale.uploadImage,
-                          onPressed: () {
-                            context.read<QrScanningBloc>().add(
-                              const ScanQrFromGalleryEvent(),
-                            );
-                          },
-                        ),
-                        QrImagePickerButton(
-                          icon: Icons.camera,
-                          label: context.locale.captureImage,
-                          onPressed: () {
-                            context.read<QrScanningBloc>().add(
-                              const ScanQrFromCameraEvent(),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (final bool didPop, final Object? result) {
+          if (didPop) {
+            return;
+          }
+          if (context.router.canPop()) {
+            context.router.pop();
+          } else {
+            context.router.replace(const DashboardRoute());
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          extendBodyBehindAppBar: true,
+          appBar: QrScannerAppBar(controller: _controller),
+          body: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: MobileScanner(
+                  controller: _controller,
+                  onDetect: (final BarcodeCapture capture) {
+                    final String? code = capture.barcodes.firstOrNull?.rawValue;
+                    if (code != null && code.isNotEmpty) {
+                      _handleQrDetected(code);
+                    }
+                  },
+                  errorBuilder:
+                      (
+                        final BuildContext context,
+                        final MobileScannerException error,
+                      ) {
+                        return Center(
+                          child: Text(_getErrorMessage(context, error)),
+                        );
+                      },
                 ),
               ),
-            ),
-          ],
+              Positioned.fill(
+                child: Padding(
+                  padding: const .all(12),
+                  child: Column(
+                    children: <Widget>[
+                      const Spacer(),
+                      const QrScannerOverlay(),
+                      const SizedBox(height: 32),
+                      const QrScanInstructionText(),
+                      const Spacer(),
+                      Row(
+                        mainAxisSize: .min,
+                        mainAxisAlignment: .spaceEvenly,
+                        spacing: 16,
+                        children: <Widget>[
+                          QrImagePickerButton(
+                            icon: Icons.file_upload_outlined,
+                            label: context.locale.uploadImage,
+                            onPressed: () {
+                              context.read<QrScanningBloc>().add(
+                                const ScanQrFromGalleryEvent(),
+                              );
+                            },
+                          ),
+                          QrImagePickerButton(
+                            icon: Icons.camera,
+                            label: context.locale.captureImage,
+                            onPressed: () {
+                              context.read<QrScanningBloc>().add(
+                                const ScanQrFromCameraEvent(),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -5,7 +5,6 @@ import 'package:qr_scanner_practice/core/firebase/firebase_auth_service.dart';
 import 'package:qr_scanner_practice/core/network/constants/network_constants.dart';
 import 'package:qr_scanner_practice/core/network/failure.dart';
 import 'package:qr_scanner_practice/core/network/http_api_client.dart';
-import 'package:qr_scanner_practice/core/network/http_method.dart';
 import 'package:qr_scanner_practice/core/services/device_info_service.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/data/model/paged_sheets_model.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/data/model/scan_result_model.dart';

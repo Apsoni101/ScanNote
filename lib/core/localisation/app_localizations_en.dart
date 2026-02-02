@@ -100,6 +100,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get uploadImage => 'Upload Image';
 
   @override
+  String get yourAccountHasBeenDisabled => 'Your account has been disabled.';
+
+  @override
+  String get emailAlreadyLinkedToAnotherAccount =>
+      'This email is already linked to another account.';
+
+  @override
+  String get signInCancelled => 'Sign-in cancelled.';
+
+  @override
+  String get loginFailedPleaseTryAgain => 'Login failed. Please try again.';
+
+  @override
   String get language => 'Language';
 
   @override

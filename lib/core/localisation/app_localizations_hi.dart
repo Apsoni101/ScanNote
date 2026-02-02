@@ -100,6 +100,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get uploadImage => 'छवि अपलोड करें';
 
   @override
+  String get yourAccountHasBeenDisabled => 'आपका अकाउंट बंद कर दिया गया है।';
+
+  @override
+  String get emailAlreadyLinkedToAnotherAccount =>
+      'यह ईमेल पहले से किसी और अकाउंट से जुड़ा है।';
+
+  @override
+  String get signInCancelled => 'लॉगिन रद्द किया गया।';
+
+  @override
+  String get loginFailedPleaseTryAgain => 'लॉगिन असफल रहा।';
+
+  @override
   String get language => 'भाषा';
 
   @override

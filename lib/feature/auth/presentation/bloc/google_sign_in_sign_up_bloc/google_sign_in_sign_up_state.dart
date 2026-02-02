@@ -23,11 +23,26 @@ final class LoginSuccess extends GoogleSignInSignUpState {
   List<Object?> get props => <Object?>[];
 }
 
-final class LoginError extends GoogleSignInSignUpState {
-  const LoginError({required this.message});
+class LoginUnknownError extends GoogleSignInSignUpState {
+  const LoginUnknownError();
+}
 
-  final String message;
+/// 🌐 No internet
+class LoginNetworkError extends GoogleSignInSignUpState {
+  const LoginNetworkError();
+}
 
-  @override
-  List<Object?> get props => <Object?>[message];
+/// 👤 Account disabled
+class LoginUserDisabledError extends GoogleSignInSignUpState {
+  const LoginUserDisabledError();
+}
+
+/// 🔐 Account exists with different credential
+class LoginAccountExistsError extends GoogleSignInSignUpState {
+  const LoginAccountExistsError();
+}
+
+/// ❌ User cancelled login
+class LoginCancelled extends GoogleSignInSignUpState {
+  const LoginCancelled();
 }
