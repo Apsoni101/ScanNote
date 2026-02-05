@@ -28,11 +28,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 3️⃣ Flutter - FIXED VERSION
+      # 3️⃣ Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.7'  # Use a valid Flutter version
+          flutter-version: '3.38.7'
           channel: 'stable'
           cache: true
 
@@ -105,24 +105,22 @@ jobs:
       # 1️⃣1️⃣ Build IPA
       - name: Build IPA
         run: |
-          # Determine the correct scheme name
-          if [ "${{ matrix.flavor }}" = "prod" ]; then
-          SCHEME="Runner"
-          else
-          SCHEME="${{ matrix.flavor }}"
-          fi
-          
           flutter build ipa \
-          --flavor ${{ matrix.flavor }} \
-          --release \
-          --no-codesign \
-          --export-options-plist=ios/ExportOptions.plist
+            --flavor ${{ matrix.flavor }} \
+            --release \
+            --no-codesign
 
       # 1️⃣2️⃣ Compress iOS
       - name: Compress iOS
         run: |
           cd build
-          tar -czf ios_${{ matrix.flavor }}.tar.gz ios/iphoneos
+          if [ -d "ios/archive" ]; then
+            tar -czf ios_${{ matrix.flavor }}.tar.gz ios/archive
+          elif [ -d "ios/iphoneos" ]; then
+            tar -czf ios_${{ matrix.flavor }}.tar.gz ios/iphoneos
+          else
+            tar -czf ios_${{ matrix.flavor }}.tar.gz ios
+          fi
 
       # 1️⃣3️⃣ Upload artifacts
       - name: Upload Artifacts
@@ -133,3 +131,4 @@ jobs:
             build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk
             build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab
             build/ios_${{ matrix.flavor }}.tar.gz
+          if-no-files-found: warn
