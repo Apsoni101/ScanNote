@@ -1,0 +1,135 @@
+name: Flavor Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build All Flavors
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        flavor: [ dev, uat, prod ]
+
+    steps:
+
+      # 1️⃣ Checkout
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2️⃣ Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # 3️⃣ Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.2'
+          channel: stable
+          cache: true
+
+      # 4️⃣ Dependencies
+      - name: Pub Get
+        run: flutter pub get
+
+      # 5️⃣ Restore Android Firebase per flavor
+      - name: Restore Android Firebase
+        run: |
+          mkdir -p android/app/src/${{ matrix.flavor }}
+
+          if [ "${{ matrix.flavor }}" = "dev" ]; then
+            echo "${{ secrets.ANDROID_GSERVICES_DEV }}" | base64 --decode > android/app/src/dev/google-services.json
+          fi
+
+          if [ "${{ matrix.flavor }}" = "uat" ]; then
+            echo "${{ secrets.ANDROID_GSERVICES_UAT }}" | base64 --decode > android/app/src/uat/google-services.json
+          fi
+
+          if [ "${{ matrix.flavor }}" = "prod" ]; then
+            echo "${{ secrets.ANDROID_GSERVICES_PROD }}" | base64 --decode > android/app/src/prod/google-services.json
+          fi
+
+      # 6️⃣ Restore iOS Firebase per flavor
+      - name: Restore iOS Firebase
+        run: |
+          mkdir -p ios/config/${{ matrix.flavor }}
+
+          if [ "${{ matrix.flavor }}" = "dev" ]; then
+            echo "${{ secrets.IOS_GSERVICES_DEV }}" | base64 --decode > ios/config/dev/GoogleService-Info.plist
+          fi
+
+          if [ "${{ matrix.flavor }}" = "uat" ]; then
+            echo "${{ secrets.IOS_GSERVICES_UAT }}" | base64 --decode > ios/config/uat/GoogleService-Info.plist
+          fi
+
+          if [ "${{ matrix.flavor }}" = "prod" ]; then
+            echo "${{ secrets.IOS_GSERVICES_PROD }}" | base64 --decode > ios/config/prod/GoogleService-Info.plist
+          fi
+
+      # 7️⃣ iOS Pods
+      - name: Install iOS Pods
+        run: |
+          cd ios
+          pod repo update
+          pod install
+          cd ..
+
+      # 8️⃣ Android Keystore
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=keystore.jks" >> android/key.properties
+
+      # 9️⃣ Build APK
+      - name: Build APK
+        run: |
+          flutter build apk \
+            --flavor ${{ matrix.flavor }} \
+            --release \
+            -t lib/main.dart
+
+      # 🔟 Build AAB
+      - name: Build AAB
+        run: |
+          flutter build appbundle \
+            --flavor ${{ matrix.flavor }} \
+            --release \
+            -t lib/main.dart
+
+      # 1️⃣1️⃣ Build IPA
+      - name: Build IPA
+        run: |
+          flutter build ipa \
+            --flavor ${{ matrix.flavor }} \
+            --no-codesign \
+            -t lib/main.dart
+
+      # 1️⃣2️⃣ Compress iOS
+      - name: Compress iOS
+        run: |
+          cd build
+          tar -czf ios_${{ matrix.flavor }}.tar.gz ios
+
+      # 1️⃣3️⃣ Upload artifacts
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.flavor }}-release
+          path: |
+            build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk
+            build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab
+            build/ios_${{ matrix.flavor }}.tar.gz
