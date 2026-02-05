@@ -66,7 +66,13 @@ jobs:
             echo "${{ secrets.IOS_GSERVICES_PROD }}" | base64 --decode > ios/config/prod/GoogleService-Info.plist
           fi
 
-      # 7️⃣ iOS Pods
+      # 7️⃣ Update CocoaPods and Xcodeproj to match local environment
+      - name: Update CocoaPods and Xcodeproj
+        run: |
+          sudo gem install cocoapods -v 1.16.2
+          sudo gem install xcodeproj -v 1.27.0
+
+      # 8️⃣ iOS Pods
       - name: Install iOS Pods
         run: |
           cd ios
@@ -74,7 +80,7 @@ jobs:
           pod install
           cd ..
 
-      # 8️⃣ Android Keystore
+      # 9️⃣ Android Keystore
       - name: Decode Keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
@@ -88,21 +94,21 @@ jobs:
           storeFile=keystore.jks
           EOF
 
-      # 9️⃣ Build APK
+      # 🔟 Build APK
       - name: Build APK
         run: |
           flutter build apk \
             --flavor ${{ matrix.flavor }} \
             --release
 
-      # 🔟 Build AAB
+      # 1️⃣1️⃣ Build AAB
       - name: Build AAB
         run: |
           flutter build appbundle \
             --flavor ${{ matrix.flavor }} \
             --release
 
-      # 1️⃣1️⃣ Build IPA
+      # 1️⃣2️⃣ Build IPA
       - name: Build IPA
         run: |
           flutter build ipa \
@@ -110,7 +116,7 @@ jobs:
             --release \
             --no-codesign
 
-      # 1️⃣2️⃣ Compress iOS
+      # 1️⃣3️⃣ Compress iOS
       - name: Compress iOS
         run: |
           cd build
@@ -122,7 +128,7 @@ jobs:
             tar -czf ios_${{ matrix.flavor }}.tar.gz ios
           fi
 
-      # 1️⃣3️⃣ Upload artifacts
+      # 1️⃣4️⃣ Upload artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
