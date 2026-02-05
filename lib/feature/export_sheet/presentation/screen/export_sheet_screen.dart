@@ -62,30 +62,45 @@ class ExportSheetScreen extends StatelessWidget {
               BlocSelector<
                 ExportSheetBloc,
                 ExportSheetState,
-                ({bool isEnabled, bool isDownloading})
+                ({bool isEnabled, bool isDownloading, bool isSharing})
               >(
                 selector: (final ExportSheetState state) {
                   if (state is ExportSheetLoaded) {
                     return (
                       isEnabled: state.selectedSheetId != null,
                       isDownloading: state.isDownloading,
+                      isSharing: state.isSharing,
                     );
                   }
 
                   if (state is ExportSheetLoading) {
-                    return (isEnabled: false, isDownloading: false);
+                    return (
+                      isEnabled: false,
+                      isDownloading: false,
+                      isSharing: false,
+                    );
                   }
 
-                  return (isEnabled: false, isDownloading: false);
+                  return (
+                    isEnabled: false,
+                    isDownloading: false,
+                    isSharing: false,
+                  );
                 },
                 builder:
                     (
                       final BuildContext context,
-                      final ({bool isEnabled, bool isDownloading}) stateData,
+                      final ({
+                        bool isEnabled,
+                        bool isDownloading,
+                        bool isSharing,
+                      })
+                      stateData,
                     ) {
                       return ExportSheetBottomNavBar(
                         isEnabled: stateData.isEnabled,
                         isDownloading: stateData.isDownloading,
+                        isSharing: stateData.isSharing,
                       );
                     },
               ),

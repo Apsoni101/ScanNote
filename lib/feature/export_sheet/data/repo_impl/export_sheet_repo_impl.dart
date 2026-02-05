@@ -31,6 +31,11 @@ class ExportSheetRepoImpl extends ExportSheetRepo {
   );
 
   @override
+  Future<Either<Failure, Unit>> shareSheetFile({
+    required final String filePath,
+  }) => exportSheetDataSource.shareSheetFile(filePath: filePath);
+
+  @override
   void dispose() {
     exportSheetDataSource.dispose();
   }

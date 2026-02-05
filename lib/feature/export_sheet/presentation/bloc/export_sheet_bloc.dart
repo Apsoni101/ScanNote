@@ -20,7 +20,9 @@ class ExportSheetBloc extends Bloc<ExportSheetEvent, ExportSheetState> {
     on<SelectSheetEvent>(_onSelectSheet);
     on<LoadMoreSheetsEvent>(_onLoadMoreSheets);
     on<DownloadSheetEvent>(_onDownloadSheet);
+    on<ShareSheetEvent>(_onShareSheet);
     on<ClearDownloadStateEvent>(_onClearDownloadState);
+    on<ClearShareStateEvent>(_onClearShareState);
   }
 
   final ExportSheetUseCase exportSheetUseCase;
@@ -30,7 +32,6 @@ class ExportSheetBloc extends Bloc<ExportSheetEvent, ExportSheetState> {
     final Emitter<ExportSheetState> emit,
   ) async {
     final ExportSheetState currentState = state;
-
     if (currentState is ExportSheetLoaded) {
       emit(currentState.copyWith(selectedFormat: event.format));
     } else {
@@ -74,7 +75,6 @@ class ExportSheetBloc extends Bloc<ExportSheetEvent, ExportSheetState> {
     final Emitter<ExportSheetState> emit,
   ) async {
     final ExportSheetState currentState = state;
-
     if (currentState is ExportSheetLoaded) {
       emit(
         currentState.copyWith(
@@ -90,10 +90,10 @@ class ExportSheetBloc extends Bloc<ExportSheetEvent, ExportSheetState> {
     final Emitter<ExportSheetState> emit,
   ) async {
     final ExportSheetState currentState = state;
-
     if (currentState is! ExportSheetLoaded) {
       return;
     }
+
     if (!currentState.pagedSheets.hasMore) {
       return;
     }
@@ -134,21 +134,11 @@ class ExportSheetBloc extends Bloc<ExportSheetEvent, ExportSheetState> {
     final Emitter<ExportSheetState> emit,
   ) async {
     final ExportSheetState currentState = state;
-
     if (currentState is! ExportSheetLoaded) {
       return;
     }
 
-    if (currentState.selectedSheetId == null) {
-      emit(
-        currentState.copyWith(
-          downloadError: 'Please select a sheet to download',
-        ),
-      );
-      return;
-    }
-
-    emit(currentState.copyWith(isDownloading: true, downloadError: null));
+    emit(currentState.copyWith(isDownloading: true));
 
     final Either<Failure, String> result = await exportSheetUseCase
         .downloadSheetFile(
@@ -168,9 +158,58 @@ class ExportSheetBloc extends Bloc<ExportSheetEvent, ExportSheetState> {
         currentState.copyWith(
           isDownloading: false,
           downloadedFilePath: downloadedFilePath,
-          downloadError: null,
         ),
       ),
+    );
+  }
+
+  Future<void> _onShareSheet(
+    final ShareSheetEvent event,
+    final Emitter<ExportSheetState> emit,
+  ) async {
+    final ExportSheetState currentState = state;
+    if (currentState is! ExportSheetLoaded) {
+      return;
+    }
+
+    emit(currentState.copyWith(isSharing: true));
+
+    final Either<Failure, String> downloadResult = await exportSheetUseCase
+        .downloadSheetFile(
+          fileId: currentState.selectedSheetId ?? '',
+          format: currentState.selectedFormat,
+          sheetName: currentState.selectedSheetName ?? '',
+        );
+
+    await downloadResult.fold(
+      (final Failure failure) async {
+        emit(
+          currentState.copyWith(isSharing: false, shareError: failure.message),
+        );
+      },
+      (final String downloadedFilePath) async {
+        final Either<Failure, Unit> shareResult = await exportSheetUseCase
+            .shareSheetFile(filePath: downloadedFilePath);
+
+        shareResult.fold(
+          (final Failure failure) {
+            emit(
+              currentState.copyWith(
+                isSharing: false,
+                shareError: failure.message,
+              ),
+            );
+          },
+          (final Unit _) {
+            emit(
+              currentState.copyWith(
+                isSharing: false,
+                sharedFilePath: downloadedFilePath,
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -179,11 +218,18 @@ class ExportSheetBloc extends Bloc<ExportSheetEvent, ExportSheetState> {
     final Emitter<ExportSheetState> emit,
   ) async {
     final ExportSheetState currentState = state;
-
     if (currentState is ExportSheetLoaded) {
-      emit(
-        currentState.copyWith(downloadedFilePath: null, downloadError: null),
-      );
+      emit(currentState.copyWith());
+    }
+  }
+
+  Future<void> _onClearShareState(
+    final ClearShareStateEvent event,
+    final Emitter<ExportSheetState> emit,
+  ) async {
+    final ExportSheetState currentState = state;
+    if (currentState is ExportSheetLoaded) {
+      emit(currentState.copyWith());
     }
   }
 

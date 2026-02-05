@@ -54,7 +54,7 @@ class SelectableSheetItem extends StatelessWidget {
     return Card(
       color: isSelected
           ? context.appColors.primaryDefault
-          : context.appColors.surfaceL1,
+          : context.appColors.cardBackground,
       shape: RoundedRectangleBorder(borderRadius: .circular(16)),
 
       child: ListTile(

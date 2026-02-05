@@ -25,5 +25,9 @@ class ExportSheetUseCase {
     format: format,
   );
 
+  Future<Either<Failure, Unit>> shareSheetFile({
+    required final String filePath,
+  }) => exportSheetRepo.shareSheetFile(filePath: filePath);
+
   void dispose() => exportSheetRepo.dispose();
 }

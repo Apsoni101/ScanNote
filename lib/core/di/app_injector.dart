@@ -10,6 +10,7 @@ import 'package:qr_scanner_practice/core/services/download_service.dart';
 import 'package:qr_scanner_practice/core/services/image_picker_service.dart';
 import 'package:qr_scanner_practice/core/services/ocr_service.dart';
 import 'package:qr_scanner_practice/core/services/permission_service.dart';
+import 'package:qr_scanner_practice/core/services/share_service.dart';
 import 'package:qr_scanner_practice/feature/auth/data/data_sources/google_sign_in_sign_up_remote_datasource.dart';
 import 'package:qr_scanner_practice/feature/auth/data/repositories/google_sign_in_sign_up_remote_repo_impl.dart';
 import 'package:qr_scanner_practice/feature/auth/domain/repositories/google_sign_in_sign_up_remote_repo.dart';
@@ -68,6 +69,7 @@ class AppInjector {
       ..registerLazySingleton<PermissionService>(PermissionService.new)
       ..registerLazySingleton<DownloadService>(DownloadService.new)
       ..registerLazySingleton<OcrService>(OcrService.new)
+      ..registerLazySingleton<ShareService>(ShareService.new)
       ..registerLazySingleton<AppSettingsController>(AppSettingsController.new)
       ..registerLazySingleton<AuthGuard>(
         () => AuthGuard(firebaseAuthService: getIt<FirebaseAuthService>()),
@@ -125,6 +127,7 @@ class AppInjector {
           authService: getIt<FirebaseAuthService>(),
           permissionService: getIt<PermissionService>(),
           downloadService: getIt<DownloadService>(),
+          shareService: getIt<ShareService>(),
         ),
       )
       ///Repo

@@ -14,6 +14,9 @@ abstract class ExportSheetRepo {
     required final ExportFormat format,
     required final String sheetName,
   });
+  Future<Either<Failure, Unit>> shareSheetFile({
+    required final String filePath,
+  });
 
   void dispose();
 }

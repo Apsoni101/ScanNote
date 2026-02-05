@@ -45,6 +45,14 @@ final class DownloadSheetEvent extends ExportSheetEvent {
   const DownloadSheetEvent();
 }
 
+final class ShareSheetEvent extends ExportSheetEvent {
+  const ShareSheetEvent();
+}
+
+final class ClearShareStateEvent extends ExportSheetEvent {
+  const ClearShareStateEvent();
+}
+
 class ClearDownloadStateEvent extends ExportSheetEvent {
   const ClearDownloadStateEvent();
 }

@@ -9,6 +9,7 @@ import 'package:qr_scanner_practice/core/network/http_api_client.dart';
 import 'package:qr_scanner_practice/core/network/http_method.dart';
 import 'package:qr_scanner_practice/core/services/download_service.dart';
 import 'package:qr_scanner_practice/core/services/permission_service.dart';
+import 'package:qr_scanner_practice/core/services/share_service.dart';
 import 'package:qr_scanner_practice/feature/sheet_selection/data/model/paged_sheets_model.dart';
 
 abstract class ExportSheetDataSource {
@@ -23,6 +24,10 @@ abstract class ExportSheetDataSource {
     required final ExportFormat format,
   });
 
+  Future<Either<Failure, Unit>> shareSheetFile({
+    required final String filePath,
+  });
+
   void dispose();
 }
 
@@ -32,12 +37,14 @@ class ExportSheetDataSourceImpl extends ExportSheetDataSource {
     required this.authService,
     required this.downloadService,
     required this.permissionService,
+    required this.shareService,
   });
 
   final HttpApiClient apiClient;
   final FirebaseAuthService authService;
   final DownloadService downloadService;
   final PermissionService permissionService;
+  final ShareService shareService;
 
   /// Get Google access token
   Future<Either<Failure, String>> _getAccessToken() async {
@@ -125,6 +132,11 @@ class ExportSheetDataSourceImpl extends ExportSheetDataSource {
       );
     });
   }
+
+  @override
+  Future<Either<Failure, Unit>> shareSheetFile({
+    required final String filePath,
+  }) => shareService.shareFile(filePath);
 
   @override
   void dispose() {

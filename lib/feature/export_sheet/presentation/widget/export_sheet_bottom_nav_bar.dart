@@ -10,14 +10,16 @@ class ExportSheetBottomNavBar extends StatelessWidget {
   const ExportSheetBottomNavBar({
     required this.isEnabled,
     required this.isDownloading,
+    required this.isSharing,
     super.key,
   });
 
   final bool isEnabled;
   final bool isDownloading;
+  final bool isSharing;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -34,7 +36,10 @@ class ExportSheetBottomNavBar extends StatelessWidget {
             icon: AppAssets.shareIc,
             label: context.locale.share,
             isEnabled: isEnabled,
-            onPressed: () {},
+            isLoading: isSharing,
+            onPressed: () {
+              context.read<ExportSheetBloc>().add(const ShareSheetEvent());
+            },
             outlineColor: context.appColors.primaryDefault,
             iconColor: context.appColors.primaryDefault,
           ),

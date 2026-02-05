@@ -35,8 +35,11 @@ final class ExportSheetLoaded extends ExportSheetState {
     this.selectedSheetName,
     this.isLoadingMore = false,
     this.isDownloading = false,
+    this.isSharing = false,
     this.downloadedFilePath,
     this.downloadError,
+    this.sharedFilePath,
+    this.shareError,
   });
 
   final PagedSheetsEntity pagedSheets;
@@ -45,8 +48,11 @@ final class ExportSheetLoaded extends ExportSheetState {
   final String? selectedSheetName;
   final bool isLoadingMore;
   final bool isDownloading;
+  final bool isSharing;
   final String? downloadedFilePath;
   final String? downloadError;
+  final String? sharedFilePath;
+  final String? shareError;
 
   ExportSheetLoaded copyWith({
     final PagedSheetsEntity? pagedSheets,
@@ -55,8 +61,11 @@ final class ExportSheetLoaded extends ExportSheetState {
     final String? selectedSheetName,
     final bool? isLoadingMore,
     final bool? isDownloading,
+    final bool? isSharing,
     final String? downloadedFilePath,
     final String? downloadError,
+    final String? sharedFilePath,
+    final String? shareError,
   }) {
     return ExportSheetLoaded(
       pagedSheets: pagedSheets ?? this.pagedSheets,
@@ -65,8 +74,11 @@ final class ExportSheetLoaded extends ExportSheetState {
       selectedSheetName: selectedSheetName ?? this.selectedSheetName,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       isDownloading: isDownloading ?? this.isDownloading,
+      isSharing: isSharing ?? this.isSharing,
       downloadedFilePath: downloadedFilePath,
       downloadError: downloadError,
+      sharedFilePath: sharedFilePath,
+      shareError: shareError,
     );
   }
 
@@ -78,8 +90,11 @@ final class ExportSheetLoaded extends ExportSheetState {
     selectedSheetName,
     isLoadingMore,
     isDownloading,
+    isSharing,
     downloadedFilePath,
     downloadError,
+    sharedFilePath,
+    shareError,
   ];
 }
 
