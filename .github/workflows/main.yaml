@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build All Flavors
+    name: Build All Flavors (${{ matrix.flavor }})
     runs-on: macos-latest
 
     strategy:
@@ -25,16 +25,16 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: 'temurin'
           java-version: '17'
 
-      # 3️⃣ Flutter
+      # 3️⃣ Flutter - FIXED VERSION
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.7'
+          flutter-version: '3.38.7'  # Use a valid Flutter version
+          channel: 'stable'
           cache: true
-
 
       # 4️⃣ Dependencies
       - name: Pub Get
@@ -47,13 +47,9 @@ jobs:
 
           if [ "${{ matrix.flavor }}" = "dev" ]; then
             echo "${{ secrets.ANDROID_GSERVICES_DEV }}" | base64 --decode > android/app/src/dev/google-services.json
-          fi
-
-          if [ "${{ matrix.flavor }}" = "uat" ]; then
+          elif [ "${{ matrix.flavor }}" = "uat" ]; then
             echo "${{ secrets.ANDROID_GSERVICES_UAT }}" | base64 --decode > android/app/src/uat/google-services.json
-          fi
-
-          if [ "${{ matrix.flavor }}" = "prod" ]; then
+          elif [ "${{ matrix.flavor }}" = "prod" ]; then
             echo "${{ secrets.ANDROID_GSERVICES_PROD }}" | base64 --decode > android/app/src/prod/google-services.json
           fi
 
@@ -64,13 +60,9 @@ jobs:
 
           if [ "${{ matrix.flavor }}" = "dev" ]; then
             echo "${{ secrets.IOS_GSERVICES_DEV }}" | base64 --decode > ios/config/dev/GoogleService-Info.plist
-          fi
-
-          if [ "${{ matrix.flavor }}" = "uat" ]; then
+          elif [ "${{ matrix.flavor }}" = "uat" ]; then
             echo "${{ secrets.IOS_GSERVICES_UAT }}" | base64 --decode > ios/config/uat/GoogleService-Info.plist
-          fi
-
-          if [ "${{ matrix.flavor }}" = "prod" ]; then
+          elif [ "${{ matrix.flavor }}" = "prod" ]; then
             echo "${{ secrets.IOS_GSERVICES_PROD }}" | base64 --decode > ios/config/prod/GoogleService-Info.plist
           fi
 
@@ -89,40 +81,48 @@ jobs:
 
       - name: Create key.properties
         run: |
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=keystore.jks" >> android/key.properties
+          cat > android/key.properties << EOF
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=keystore.jks
+          EOF
 
       # 9️⃣ Build APK
       - name: Build APK
         run: |
           flutter build apk \
             --flavor ${{ matrix.flavor }} \
-            --release \
-            -t lib/main.dart
+            --release
 
       # 🔟 Build AAB
       - name: Build AAB
         run: |
           flutter build appbundle \
             --flavor ${{ matrix.flavor }} \
-            --release \
-            -t lib/main.dart
+            --release
 
       # 1️⃣1️⃣ Build IPA
       - name: Build IPA
         run: |
+          # Determine the correct scheme name
+          if [ "${{ matrix.flavor }}" = "prod" ]; then
+          SCHEME="Runner"
+          else
+          SCHEME="${{ matrix.flavor }}"
+          fi
+          
           flutter build ipa \
-            --flavor ${{ matrix.flavor }} \
-            --no-codesign \
-            -t lib/main.dart
+          --flavor ${{ matrix.flavor }} \
+          --release \
+          --no-codesign \
+          --export-options-plist=ios/ExportOptions.plist
 
       # 1️⃣2️⃣ Compress iOS
       - name: Compress iOS
         run: |
           cd build
-          tar -czf ios_${{ matrix.flavor }}.tar.gz ios
+          tar -czf ios_${{ matrix.flavor }}.tar.gz ios/iphoneos
 
       # 1️⃣3️⃣ Upload artifacts
       - name: Upload Artifacts
