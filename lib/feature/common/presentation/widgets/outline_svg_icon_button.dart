@@ -3,12 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:qr_scanner_practice/core/constants/app_textstyles.dart';
 import 'package:qr_scanner_practice/core/extensions/context_extensions.dart';
 
-class ElevatedSvgIconButton extends StatelessWidget {
-  const ElevatedSvgIconButton({
+class OutlineSvgIconButton extends StatelessWidget {
+  const OutlineSvgIconButton({
     required this.icon,
     required this.label,
     required this.onPressed,
-    required this.backgroundColor,
+    required this.outlineColor,
     this.iconSize = 24,
     this.isLoading = false,
     this.isEnabled = true,
@@ -19,7 +19,7 @@ class ElevatedSvgIconButton extends StatelessWidget {
   final String icon;
   final double iconSize;
   final String label;
-  final Color backgroundColor;
+  final Color outlineColor;
   final VoidCallback onPressed;
   final bool isLoading;
   final bool isEnabled;
@@ -29,7 +29,7 @@ class ElevatedSvgIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isButtonDisabled = !isEnabled || isLoading;
 
-    return ElevatedButton.icon(
+    return OutlinedButton.icon(
       onPressed: isButtonDisabled ? null : onPressed,
       icon: isLoading
           ? SizedBox(
@@ -47,7 +47,7 @@ class ElevatedSvgIconButton extends StatelessWidget {
               colorFilter: ColorFilter.mode(
                 isButtonDisabled
                     ? context.appColors.textDisabled
-                    : (iconColor ?? context.appColors.textInversePrimary),
+                    : (iconColor ?? context.appColors.primaryDefault),
                 BlendMode.srcIn,
               ),
             ),
@@ -56,13 +56,17 @@ class ElevatedSvgIconButton extends StatelessWidget {
         style: AppTextStyles.airbnbCerealW500S16Lh24Ls0.copyWith(
           color: isButtonDisabled
               ? context.appColors.textDisabled
-              : context.appColors.textInversePrimary,
+              : context.appColors.primaryDefault,
         ),
       ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
-        disabledBackgroundColor: backgroundColor.withValues(alpha: 0.6),
+      style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: .circular(12)),
+        side: BorderSide(
+          color: isButtonDisabled
+              ? context.appColors.primaryDisabled
+              : outlineColor,
+          width: 2,
+        ),
         padding: const .symmetric(horizontal: 32, vertical: 16),
       ),
     );

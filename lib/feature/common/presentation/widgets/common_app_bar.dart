@@ -7,13 +7,13 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({
     required this.title,
     this.showBottomDivider = false,
-    this.onPressed,
+    this.onBackPressed,
     super.key,
   });
 
   final String title;
   final bool showBottomDivider;
-  final VoidCallback? onPressed;
+  final VoidCallback? onBackPressed;
 
   @override
   Widget build(final BuildContext context) {
@@ -21,7 +21,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleSpacing: 0,
       leading: IconButton(
         onPressed:
-            onPressed ??
+            onBackPressed ??
             () {
               context.router.pop();
             },

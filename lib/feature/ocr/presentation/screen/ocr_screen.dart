@@ -43,7 +43,7 @@ class OcrScreenView extends StatelessWidget {
       child: Scaffold(
         appBar: CommonAppBar(
           title: context.locale.extractTextOcr,
-          onPressed: () {
+          onBackPressed: () {
             if (context.router.canPop()) {
               context.router.pop();
             } else {

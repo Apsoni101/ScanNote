@@ -883,6 +883,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancelButtonLabel;
+
+  /// No description provided for @exportData.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Data'**
+  String get exportData;
+
+  /// No description provided for @downloadOrShareSheetsInMultipleFormats.
+  ///
+  /// In en, this message translates to:
+  /// **'Download or share sheets in multiple formats'**
+  String get downloadOrShareSheetsInMultipleFormats;
+
+  /// No description provided for @chooseExportFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Export Format'**
+  String get chooseExportFormat;
+
+  /// No description provided for @ocrExtracts.
+  ///
+  /// In en, this message translates to:
+  /// **'OCR Extracts'**
+  String get ocrExtracts;
+
+  /// No description provided for @pdfDocument.
+  ///
+  /// In en, this message translates to:
+  /// **'PDF Document'**
+  String get pdfDocument;
+
+  /// No description provided for @formattedAndPrintablePdfFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Formatted and printable PDF file'**
+  String get formattedAndPrintablePdfFile;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @excelSpreadsheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Excel Spreadsheet'**
+  String get excelSpreadsheet;
+
+  /// No description provided for @editableXlsxFileWithFormulas.
+  ///
+  /// In en, this message translates to:
+  /// **'Editable .xlsx file with formulas'**
+  String get editableXlsxFileWithFormulas;
+
+  /// No description provided for @csvFile.
+  ///
+  /// In en, this message translates to:
+  /// **'CSV File'**
+  String get csvFile;
+
+  /// No description provided for @commaSeparatedValuesForDataTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Comma-separated values for data transfer'**
+  String get commaSeparatedValuesForDataTransfer;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No description provided for @fileDownloadedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'File downloaded successfully'**
+  String get fileDownloadedSuccessfully;
+
+  /// No description provided for @downloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed'**
+  String get downloadFailed;
 }
 
 class _AppLocalizationsDelegate

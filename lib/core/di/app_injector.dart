@@ -6,13 +6,20 @@ import 'package:qr_scanner_practice/core/navigation/auth_guard.dart';
 import 'package:qr_scanner_practice/core/network/http_api_client.dart';
 import 'package:qr_scanner_practice/core/services/connectivity_service.dart';
 import 'package:qr_scanner_practice/core/services/device_info_service.dart';
+import 'package:qr_scanner_practice/core/services/download_service.dart';
 import 'package:qr_scanner_practice/core/services/image_picker_service.dart';
 import 'package:qr_scanner_practice/core/services/ocr_service.dart';
+import 'package:qr_scanner_practice/core/services/permission_service.dart';
 import 'package:qr_scanner_practice/feature/auth/data/data_sources/google_sign_in_sign_up_remote_datasource.dart';
 import 'package:qr_scanner_practice/feature/auth/data/repositories/google_sign_in_sign_up_remote_repo_impl.dart';
 import 'package:qr_scanner_practice/feature/auth/domain/repositories/google_sign_in_sign_up_remote_repo.dart';
 import 'package:qr_scanner_practice/feature/auth/domain/use_cases/google_sign_in_sign_up_remote_usecase.dart';
 import 'package:qr_scanner_practice/feature/auth/presentation/bloc/google_sign_in_sign_up_bloc/google_sign_in_sign_up_bloc.dart';
+import 'package:qr_scanner_practice/feature/export_sheet/data/data_source/export_sheet_data_source.dart';
+import 'package:qr_scanner_practice/feature/export_sheet/data/repo_impl/export_sheet_repo_impl.dart';
+import 'package:qr_scanner_practice/feature/export_sheet/domain/repo/export_sheet_repo.dart';
+import 'package:qr_scanner_practice/feature/export_sheet/domain/use_case/export_sheet_use_case.dart';
+import 'package:qr_scanner_practice/feature/export_sheet/presentation/bloc/export_sheet_bloc.dart';
 import 'package:qr_scanner_practice/feature/home/data/data_source/home_screen_local_data_source.dart';
 import 'package:qr_scanner_practice/feature/home/data/data_source/home_screen_remote_data_source.dart';
 import 'package:qr_scanner_practice/feature/home/data/repo_impl/home_screen_repository_impl.dart';
@@ -58,6 +65,8 @@ class AppInjector {
       ..registerLazySingleton<ConnectivityService>(ConnectivityService.new)
       ..registerLazySingleton<DeviceInfoService>(DeviceInfoService.new)
       ..registerLazySingleton<ImagePickerService>(ImagePickerService.new)
+      ..registerLazySingleton<PermissionService>(PermissionService.new)
+      ..registerLazySingleton<DownloadService>(DownloadService.new)
       ..registerLazySingleton<OcrService>(OcrService.new)
       ..registerLazySingleton<AppSettingsController>(AppSettingsController.new)
       ..registerLazySingleton<AuthGuard>(
@@ -110,6 +119,14 @@ class AppInjector {
       ..registerSingleton<SettingsLocalDataSource>(
         SettingsLocalDataSourceImpl(getIt<HiveService>()),
       )
+      ..registerSingleton<ExportSheetDataSource>(
+        ExportSheetDataSourceImpl(
+          apiClient: getIt<HttpApiClient>(),
+          authService: getIt<FirebaseAuthService>(),
+          permissionService: getIt<PermissionService>(),
+          downloadService: getIt<DownloadService>(),
+        ),
+      )
       ///Repo
       ..registerLazySingleton<GoogleSignInSignUpRemoteRepo>(
         () => GoogleSignInSignUpRemoteRepoImpl(
@@ -135,6 +152,11 @@ class AppInjector {
       )
       ..registerSingleton<OcrRepository>(
         OcrRepositoryImpl(ocrDataSource: getIt<OcrDataSource>()),
+      )
+      ..registerSingleton<ExportSheetRepo>(
+        ExportSheetRepoImpl(
+          exportSheetDataSource: getIt<ExportSheetDataSource>(),
+        ),
       )
       ..registerSingleton<SettingsRepository>(
         SettingsRepositoryImpl(
@@ -165,6 +187,9 @@ class AppInjector {
       ..registerSingleton<SettingsUseCase>(
         SettingsUseCase(repository: getIt<SettingsRepository>()),
       )
+      ..registerSingleton<ExportSheetUseCase>(
+        ExportSheetUseCase(exportSheetRepo: getIt<ExportSheetRepo>()),
+      )
       ///BLOCS
       ..registerFactory(
         () => GoogleSignInSignUpBloc(
@@ -188,6 +213,9 @@ class AppInjector {
       )
       ..registerFactory<SettingsBloc>(
         () => SettingsBloc(settingsUseCase: getIt<SettingsUseCase>()),
+      )
+      ..registerFactory<ExportSheetBloc>(
+        () => ExportSheetBloc(exportSheetUseCase: getIt<ExportSheetUseCase>()),
       )
       ..registerFactory<OcrBloc>(() => OcrBloc(ocrUseCase: getIt<OcrUseCase>()))
       ..registerFactory<SheetSelectionBloc>(

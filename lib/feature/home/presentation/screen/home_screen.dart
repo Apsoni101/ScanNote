@@ -75,12 +75,22 @@ class HomeScreenViewState extends State<HomeScreenView>
             ),
             const SizedBox(height: 12),
             OnScreenOptionItemCard(
-              animationDuration: const Duration(milliseconds: 2500),
+              animationDuration: const Duration(milliseconds: 1700),
               iconPath: AppAssets.sheetIc,
               title: context.locale.extractTextOcr,
               subtitle: context.locale.extractTextFromImagesOrCamera,
               onPressed: () {
                 context.router.push(const OcrRoute());
+              },
+            ),
+            const SizedBox(height: 12),
+            OnScreenOptionItemCard(
+              animationDuration: const Duration(milliseconds: 1900),
+              iconPath: AppAssets.exportIc,
+              title: context.locale.exportData,
+              subtitle: context.locale.downloadOrShareSheetsInMultipleFormats,
+              onPressed: () {
+                context.router.push(const ExportSheetRoute());
               },
             ),
           ],

@@ -9,43 +9,45 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i13;
-import 'package:flutter/material.dart' as _i15;
-import 'package:qr_scanner_practice/core/enums/result_type.dart' as _i14;
+import 'package:auto_route/auto_route.dart' as _i14;
+import 'package:flutter/material.dart' as _i16;
+import 'package:qr_scanner_practice/core/enums/result_type.dart' as _i15;
 import 'package:qr_scanner_practice/core/navigation/router/auth_router.dart'
     as _i1;
 import 'package:qr_scanner_practice/core/navigation/router/dashboard_router.dart'
     as _i2;
 import 'package:qr_scanner_practice/feature/auth/presentation/screens/google_sign_in_sign_up_screen.dart'
-    as _i4;
+    as _i5;
 import 'package:qr_scanner_practice/feature/dashboard/presentation/dashboard_screen.dart'
     as _i3;
+import 'package:qr_scanner_practice/feature/export_sheet/presentation/screen/export_sheet_screen.dart'
+    as _i4;
 import 'package:qr_scanner_practice/feature/home/presentation/screen/home_screen.dart'
-    as _i5;
-import 'package:qr_scanner_practice/feature/ocr/presentation/screen/ocr_screen.dart'
     as _i6;
-import 'package:qr_scanner_practice/feature/qr_scan/presentation/screen/qr_scanner_screen.dart'
+import 'package:qr_scanner_practice/feature/ocr/presentation/screen/ocr_screen.dart'
     as _i7;
-import 'package:qr_scanner_practice/feature/scan_result/presentation/screen/scan_result_screen.dart'
+import 'package:qr_scanner_practice/feature/qr_scan/presentation/screen/qr_scanner_screen.dart'
     as _i8;
-import 'package:qr_scanner_practice/feature/setting/presentation/screen/settings_screen.dart'
+import 'package:qr_scanner_practice/feature/scan_result/presentation/screen/scan_result_screen.dart'
     as _i9;
-import 'package:qr_scanner_practice/feature/sheet_selection/presentation/screen/sheet_selection_screen.dart'
+import 'package:qr_scanner_practice/feature/setting/presentation/screen/settings_screen.dart'
     as _i10;
-import 'package:qr_scanner_practice/feature/splash/presentation/screens/splash_screen.dart'
+import 'package:qr_scanner_practice/feature/sheet_selection/presentation/screen/sheet_selection_screen.dart'
     as _i11;
-import 'package:qr_scanner_practice/feature/view_scan_history/presentation/screen/view_scans_history_screen.dart'
+import 'package:qr_scanner_practice/feature/splash/presentation/screens/splash_screen.dart'
     as _i12;
+import 'package:qr_scanner_practice/feature/view_scan_history/presentation/screen/view_scans_history_screen.dart'
+    as _i13;
 
 /// generated route for
 /// [_i1.AuthRouterPage]
-class AuthRouter extends _i13.PageRouteInfo<void> {
-  const AuthRouter({List<_i13.PageRouteInfo>? children})
+class AuthRouter extends _i14.PageRouteInfo<void> {
+  const AuthRouter({List<_i14.PageRouteInfo>? children})
     : super(AuthRouter.name, initialChildren: children);
 
   static const String name = 'AuthRouter';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       return const _i1.AuthRouterPage();
@@ -55,13 +57,13 @@ class AuthRouter extends _i13.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.DashboardRouterPage]
-class DashboardRouter extends _i13.PageRouteInfo<void> {
-  const DashboardRouter({List<_i13.PageRouteInfo>? children})
+class DashboardRouter extends _i14.PageRouteInfo<void> {
+  const DashboardRouter({List<_i14.PageRouteInfo>? children})
     : super(DashboardRouter.name, initialChildren: children);
 
   static const String name = 'DashboardRouter';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       return const _i2.DashboardRouterPage();
@@ -71,13 +73,13 @@ class DashboardRouter extends _i13.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.DashboardScreen]
-class DashboardRoute extends _i13.PageRouteInfo<void> {
-  const DashboardRoute({List<_i13.PageRouteInfo>? children})
+class DashboardRoute extends _i14.PageRouteInfo<void> {
+  const DashboardRoute({List<_i14.PageRouteInfo>? children})
     : super(DashboardRoute.name, initialChildren: children);
 
   static const String name = 'DashboardRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       return const _i3.DashboardScreen();
@@ -86,78 +88,94 @@ class DashboardRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.GoogleSignInSignUpScreen]
-class GoogleSignInSignUpRoute extends _i13.PageRouteInfo<void> {
-  const GoogleSignInSignUpRoute({List<_i13.PageRouteInfo>? children})
+/// [_i4.ExportSheetScreen]
+class ExportSheetRoute extends _i14.PageRouteInfo<void> {
+  const ExportSheetRoute({List<_i14.PageRouteInfo>? children})
+    : super(ExportSheetRoute.name, initialChildren: children);
+
+  static const String name = 'ExportSheetRoute';
+
+  static _i14.PageInfo page = _i14.PageInfo(
+    name,
+    builder: (data) {
+      return const _i4.ExportSheetScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i5.GoogleSignInSignUpScreen]
+class GoogleSignInSignUpRoute extends _i14.PageRouteInfo<void> {
+  const GoogleSignInSignUpRoute({List<_i14.PageRouteInfo>? children})
     : super(GoogleSignInSignUpRoute.name, initialChildren: children);
 
   static const String name = 'GoogleSignInSignUpRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i4.GoogleSignInSignUpScreen();
+      return const _i5.GoogleSignInSignUpScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i5.HomeScreen]
-class HomeRoute extends _i13.PageRouteInfo<void> {
-  const HomeRoute({List<_i13.PageRouteInfo>? children})
+/// [_i6.HomeScreen]
+class HomeRoute extends _i14.PageRouteInfo<void> {
+  const HomeRoute({List<_i14.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i5.HomeScreen();
+      return const _i6.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i6.OcrScreen]
-class OcrRoute extends _i13.PageRouteInfo<void> {
-  const OcrRoute({List<_i13.PageRouteInfo>? children})
+/// [_i7.OcrScreen]
+class OcrRoute extends _i14.PageRouteInfo<void> {
+  const OcrRoute({List<_i14.PageRouteInfo>? children})
     : super(OcrRoute.name, initialChildren: children);
 
   static const String name = 'OcrRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i6.OcrScreen();
+      return const _i7.OcrScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i7.QrScanningScreen]
-class QrScanningRoute extends _i13.PageRouteInfo<void> {
-  const QrScanningRoute({List<_i13.PageRouteInfo>? children})
+/// [_i8.QrScanningScreen]
+class QrScanningRoute extends _i14.PageRouteInfo<void> {
+  const QrScanningRoute({List<_i14.PageRouteInfo>? children})
     : super(QrScanningRoute.name, initialChildren: children);
 
   static const String name = 'QrScanningRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i7.QrScanningScreen();
+      return const _i8.QrScanningScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i8.ScanResultScreen]
-class ScanResultRoute extends _i13.PageRouteInfo<ScanResultRouteArgs> {
+/// [_i9.ScanResultScreen]
+class ScanResultRoute extends _i14.PageRouteInfo<ScanResultRouteArgs> {
   ScanResultRoute({
     required String scanResult,
-    required _i14.ResultType resultType,
-    _i15.ImageProvider<Object>? previewImage,
-    _i15.Key? key,
-    List<_i13.PageRouteInfo>? children,
+    required _i15.ResultType resultType,
+    _i16.ImageProvider<Object>? previewImage,
+    _i16.Key? key,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
          ScanResultRoute.name,
          args: ScanResultRouteArgs(
@@ -171,11 +189,11 @@ class ScanResultRoute extends _i13.PageRouteInfo<ScanResultRouteArgs> {
 
   static const String name = 'ScanResultRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ScanResultRouteArgs>();
-      return _i8.ScanResultScreen(
+      return _i9.ScanResultScreen(
         scanResult: args.scanResult,
         resultType: args.resultType,
         previewImage: args.previewImage,
@@ -195,11 +213,11 @@ class ScanResultRouteArgs {
 
   final String scanResult;
 
-  final _i14.ResultType resultType;
+  final _i15.ResultType resultType;
 
-  final _i15.ImageProvider<Object>? previewImage;
+  final _i16.ImageProvider<Object>? previewImage;
 
-  final _i15.Key? key;
+  final _i16.Key? key;
 
   @override
   String toString() {
@@ -225,30 +243,30 @@ class ScanResultRouteArgs {
 }
 
 /// generated route for
-/// [_i9.SettingsScreen]
-class SettingsRoute extends _i13.PageRouteInfo<void> {
-  const SettingsRoute({List<_i13.PageRouteInfo>? children})
+/// [_i10.SettingsScreen]
+class SettingsRoute extends _i14.PageRouteInfo<void> {
+  const SettingsRoute({List<_i14.PageRouteInfo>? children})
     : super(SettingsRoute.name, initialChildren: children);
 
   static const String name = 'SettingsRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i9.SettingsScreen();
+      return const _i10.SettingsScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i10.SheetSelectionScreen]
-class SheetSelectionRoute extends _i13.PageRouteInfo<SheetSelectionRouteArgs> {
+/// [_i11.SheetSelectionScreen]
+class SheetSelectionRoute extends _i14.PageRouteInfo<SheetSelectionRouteArgs> {
   SheetSelectionRoute({
     required String scannedData,
     required String userComment,
-    required _i14.ResultType scanResultType,
-    _i15.Key? key,
-    List<_i13.PageRouteInfo>? children,
+    required _i15.ResultType scanResultType,
+    _i16.Key? key,
+    List<_i14.PageRouteInfo>? children,
   }) : super(
          SheetSelectionRoute.name,
          args: SheetSelectionRouteArgs(
@@ -262,11 +280,11 @@ class SheetSelectionRoute extends _i13.PageRouteInfo<SheetSelectionRouteArgs> {
 
   static const String name = 'SheetSelectionRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<SheetSelectionRouteArgs>();
-      return _i10.SheetSelectionScreen(
+      return _i11.SheetSelectionScreen(
         scannedData: args.scannedData,
         userComment: args.userComment,
         scanResultType: args.scanResultType,
@@ -288,9 +306,9 @@ class SheetSelectionRouteArgs {
 
   final String userComment;
 
-  final _i14.ResultType scanResultType;
+  final _i15.ResultType scanResultType;
 
-  final _i15.Key? key;
+  final _i16.Key? key;
 
   @override
   String toString() {
@@ -316,33 +334,33 @@ class SheetSelectionRouteArgs {
 }
 
 /// generated route for
-/// [_i11.SplashScreen]
-class SplashRoute extends _i13.PageRouteInfo<void> {
-  const SplashRoute({List<_i13.PageRouteInfo>? children})
+/// [_i12.SplashScreen]
+class SplashRoute extends _i14.PageRouteInfo<void> {
+  const SplashRoute({List<_i14.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i11.SplashScreen();
+      return const _i12.SplashScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i12.ViewScansHistoryScreen]
-class ViewScansHistoryRoute extends _i13.PageRouteInfo<void> {
-  const ViewScansHistoryRoute({List<_i13.PageRouteInfo>? children})
+/// [_i13.ViewScansHistoryScreen]
+class ViewScansHistoryRoute extends _i14.PageRouteInfo<void> {
+  const ViewScansHistoryRoute({List<_i14.PageRouteInfo>? children})
     : super(ViewScansHistoryRoute.name, initialChildren: children);
 
   static const String name = 'ViewScansHistoryRoute';
 
-  static _i13.PageInfo page = _i13.PageInfo(
+  static _i14.PageInfo page = _i14.PageInfo(
     name,
     builder: (data) {
-      return const _i12.ViewScansHistoryScreen();
+      return const _i13.ViewScansHistoryScreen();
     },
   );
 }

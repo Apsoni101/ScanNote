@@ -12,6 +12,8 @@ class AppAssets {
   static const String imageIc = 'assets/icons/image_icon.svg';
   static const String timeIc = 'assets/icons/time_icon.svg';
   static const String sheetIc = 'assets/icons/sheet_icon.svg';
+  static const String exportIc = 'assets/icons/export_icon.svg';
+  static const String shareIc = 'assets/icons/share_icon.svg';
   static const String lightThemeIc = 'assets/icons/light_theme_icon.svg';
   static const String flashLightOffIc = 'assets/icons/flash_light_off_icon.svg';
   static const String flashLightOnIc = 'assets/icons/flash_light_on_icon.svg';

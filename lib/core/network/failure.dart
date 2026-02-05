@@ -79,3 +79,11 @@ class UnimplementedFailure extends Failure {
   const UnimplementedFailure({super.data})
     : super(message: 'Feature Not Implemented Yet!', statusCode: '000');
 }
+
+class PermissionDeniedFailure extends Failure {
+  const PermissionDeniedFailure({
+    super.statusCode = 'PERMISSION_DENIED',
+    super.message = 'Required permission was denied',
+    super.data,
+  });
+}

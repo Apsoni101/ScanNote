@@ -56,5 +56,11 @@ class AppDarkThemeColors extends AppColorThemeExtension {
     super.switchActiveThumb = const Color(0xFFF9FAFB),
     super.switchInactiveTrack = const Color(0xFF4B5563),
     super.switchInactiveThumb = const Color(0xFFF9FAFB),
+    super.pdfIconBackground = const Color(0xFFFFEEEE),
+    super.excelIconBackground = const Color(0xFFE8F5E9),
+    super.csvIconBackground = const Color(0xFFFFF3E0),
+    super.pdfTextBackground = const Color(0xFFE53935),
+    super.excelTextBackground = const Color(0xFF43A047),
+    super.csvTextBackground = const Color(0xFFFB8C00),
   });
 }

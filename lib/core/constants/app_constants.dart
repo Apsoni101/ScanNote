@@ -11,4 +11,7 @@ class AppConstants {
 
   /// Range constants
   static const String readRange = 'A2:Z1000';
+
+  ///download directory location for android
+  static const String downloadLocation = '/storage/emulated/0/Download';
 }

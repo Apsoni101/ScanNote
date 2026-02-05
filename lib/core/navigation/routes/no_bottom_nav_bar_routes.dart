@@ -8,4 +8,5 @@ final List<AutoRoute> noBottomNavBarRoutes = <AutoRoute>[
   AutoRoute(page: ScanResultRoute.page, path: RoutePaths.result),
   AutoRoute(page: OcrRoute.page, path: RoutePaths.ocr),
   AutoRoute(page: SheetSelectionRoute.page, path: RoutePaths.resultConfirm),
+  AutoRoute(page: ExportSheetRoute.page, path: RoutePaths.exportSheet),
 ];

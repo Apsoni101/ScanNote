@@ -453,4 +453,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancelButtonLabel => 'Cancel';
+
+  @override
+  String get exportData => 'Export Data';
+
+  @override
+  String get downloadOrShareSheetsInMultipleFormats =>
+      'Download or share sheets in multiple formats';
+
+  @override
+  String get chooseExportFormat => 'Choose Export Format';
+
+  @override
+  String get ocrExtracts => 'OCR Extracts';
+
+  @override
+  String get pdfDocument => 'PDF Document';
+
+  @override
+  String get formattedAndPrintablePdfFile => 'Formatted and printable PDF file';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get excelSpreadsheet => 'Excel Spreadsheet';
+
+  @override
+  String get editableXlsxFileWithFormulas =>
+      'Editable .xlsx file with formulas';
+
+  @override
+  String get csvFile => 'CSV File';
+
+  @override
+  String get commaSeparatedValuesForDataTransfer =>
+      'Comma-separated values for data transfer';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get fileDownloadedSuccessfully => 'File downloaded successfully';
+
+  @override
+  String get downloadFailed => 'Download failed';
 }

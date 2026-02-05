@@ -454,4 +454,53 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get cancelButtonLabel => 'रद्द करें';
+
+  @override
+  String get exportData => 'डेटा एक्सपोर्ट करें';
+
+  @override
+  String get downloadOrShareSheetsInMultipleFormats =>
+      'कई फॉर्मेट में शीट डाउनलोड या शेयर करें';
+
+  @override
+  String get chooseExportFormat => 'एक्सपोर्ट फॉर्मेट चुनें';
+
+  @override
+  String get ocrExtracts => 'OCR एक्सट्रैक्ट्स';
+
+  @override
+  String get pdfDocument => 'पीडीएफ दस्तावेज़';
+
+  @override
+  String get formattedAndPrintablePdfFile =>
+      'फॉर्मेटेड और प्रिंट करने योग्य पीडीएफ फ़ाइल';
+
+  @override
+  String get share => 'शेयर करें';
+
+  @override
+  String get download => 'डाउनलोड करें';
+
+  @override
+  String get excelSpreadsheet => 'एक्सेल स्प्रेडशीट';
+
+  @override
+  String get editableXlsxFileWithFormulas =>
+      'फ़ॉर्मूला के साथ संपादन योग्य .xlsx फ़ाइल';
+
+  @override
+  String get csvFile => 'CSV फ़ाइल';
+
+  @override
+  String get commaSeparatedValuesForDataTransfer =>
+      'डेटा ट्रांसफर के लिए कॉमा से अलग किए गए मान';
+
+  @override
+  String get loading => 'लोड हो रहा है...';
+
+  @override
+  String get fileDownloadedSuccessfully => 'फ़ाइल सफलतापूर्वक डाउनलोड हुई';
+
+  @override
+  String get downloadFailed => 'डाउनलोड असफल रहा';
 }

@@ -58,6 +58,12 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
     required this.switchActiveThumb,
     required this.switchInactiveTrack,
     required this.switchInactiveThumb,
+    required this.pdfIconBackground,
+    required this.excelIconBackground,
+    required this.csvIconBackground,
+    required this.pdfTextBackground,
+    required this.excelTextBackground,
+    required this.csvTextBackground,
   });
 
   final Color primaryDefault;
@@ -113,6 +119,12 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
   final Color switchActiveThumb;
   final Color switchInactiveTrack;
   final Color switchInactiveThumb;
+  final Color pdfIconBackground;
+  final Color excelIconBackground;
+  final Color csvIconBackground;
+  final Color pdfTextBackground;
+  final Color excelTextBackground;
+  final Color csvTextBackground;
 
   @override
   ThemeExtension<AppColorThemeExtension> copyWith({
@@ -169,6 +181,12 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
     final Color? switchActiveThumb,
     final Color? switchInactiveTrack,
     final Color? switchInactiveThumb,
+    final Color? pdfIconBackground,
+    final Color? excelIconBackground,
+    final Color? csvIconBackground,
+    final Color? pdfTextBackground,
+    final Color? excelTextBackground,
+    final Color? csvTextBackground,
   }) {
     return AppColorThemeExtension(
       primaryDefault: primaryDefault ?? this.primaryDefault,
@@ -230,6 +248,12 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
       switchActiveThumb: switchActiveThumb ?? this.switchActiveThumb,
       switchInactiveTrack: switchInactiveTrack ?? this.switchInactiveTrack,
       switchInactiveThumb: switchInactiveThumb ?? this.switchInactiveThumb,
+      pdfIconBackground: pdfIconBackground ?? this.pdfIconBackground,
+      excelIconBackground: excelIconBackground ?? this.excelIconBackground,
+      csvIconBackground: csvIconBackground ?? this.csvIconBackground,
+      pdfTextBackground: pdfTextBackground ?? this.pdfTextBackground,
+      excelTextBackground: excelTextBackground ?? this.excelTextBackground,
+      csvTextBackground: csvTextBackground ?? this.csvTextBackground,
     );
   }
 
@@ -377,6 +401,20 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
         other.switchInactiveThumb,
         t,
       )!,
+      pdfIconBackground: .lerp(pdfIconBackground, other.pdfIconBackground, t)!,
+      excelIconBackground: .lerp(
+        excelIconBackground,
+        other.excelIconBackground,
+        t,
+      )!,
+      csvIconBackground: .lerp(csvIconBackground, other.csvIconBackground, t)!,
+      pdfTextBackground: .lerp(pdfTextBackground, other.pdfTextBackground, t)!,
+      excelTextBackground: .lerp(
+        excelTextBackground,
+        other.excelTextBackground,
+        t,
+      )!,
+      csvTextBackground: .lerp(csvTextBackground, other.csvTextBackground, t)!,
     );
   }
 }

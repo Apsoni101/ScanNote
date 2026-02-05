@@ -267,5 +267,20 @@
   "openSettings": "Open Settings",
   "retry": "Retry",
   "loadMore": "Load More",
-  "cancelButtonLabel": "Cancel"
+  "cancelButtonLabel": "Cancel",
+  "exportData": "Export Data",
+  "downloadOrShareSheetsInMultipleFormats": "Download or share sheets in multiple formats",
+  "chooseExportFormat": "Choose Export Format",
+  "ocrExtracts": "OCR Extracts",
+  "pdfDocument": "PDF Document",
+  "formattedAndPrintablePdfFile": "Formatted and printable PDF file",
+  "share": "Share",
+  "download": "Download",
+  "excelSpreadsheet": "Excel Spreadsheet",
+  "editableXlsxFileWithFormulas": "Editable .xlsx file with formulas",
+  "csvFile": "CSV File",
+  "commaSeparatedValuesForDataTransfer": "Comma-separated values for data transfer",
+  "loading": "Loading...",
+  "fileDownloadedSuccessfully": "File downloaded successfully",
+  "downloadFailed": "Download failed"
 }
