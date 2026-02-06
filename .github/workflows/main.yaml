@@ -128,15 +128,35 @@ jobs:
             tar -czf ios_${{ matrix.flavor }}.tar.gz ios
           fi
 
-      # 1️⃣4️⃣ Upload artifacts
+      # 1️⃣4️⃣ Prepare artifacts with friendly names
+      - name: Prepare Artifacts
+        run: |
+          mkdir -p release-artifacts
+          
+          # Copy and rename APK
+          if [ -f "build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk" ]; then
+            cp "build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk" "release-artifacts/${{ matrix.flavor }}-android.apk"
+          fi
+          
+          # Copy and rename AAB
+          if [ -f "build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab" ]; then
+            cp "build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab" "release-artifacts/${{ matrix.flavor }}-playstore.aab"
+          fi
+          
+          # Copy iOS archive
+          if [ -f "build/ios_${{ matrix.flavor }}.tar.gz" ]; then
+            cp "build/ios_${{ matrix.flavor }}.tar.gz" "release-artifacts/${{ matrix.flavor }}-ios.tar.gz"
+          fi
+          
+          # List files for verification
+          ls -lh release-artifacts/
+
+      # 1️⃣5️⃣ Upload artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.flavor }}-builds
-          path: |
-            build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk
-            build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab
-            build/ios_${{ matrix.flavor }}.tar.gz
+          path: release-artifacts/
           if-no-files-found: warn
 
   release:
@@ -161,22 +181,10 @@ jobs:
           name: ${{ matrix.flavor }}-builds
           path: ./artifacts
 
-      - name: Rename Artifacts
+      - name: List downloaded files
         run: |
-          cd artifacts
-          # Rename APK with descriptive name
-          if [ -f "build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk" ]; then
-            mv "build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk" "${{ matrix.flavor }}-android.apk"
-          fi
-          # Rename AAB with descriptive name
-          if [ -f "build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab" ]; then
-            mv "build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab" "${{ matrix.flavor }}-playstore.aab"
-          fi
-          # Rename iOS archive with descriptive name
-          if [ -f "build/ios_${{ matrix.flavor }}.tar.gz" ]; then
-            mv "build/ios_${{ matrix.flavor }}.tar.gz" "${{ matrix.flavor }}-ios.tar.gz"
-          fi
-          cd ..
+          echo "Downloaded artifacts:"
+          ls -lhR ./artifacts
 
       - name: Get short commit hash
         id: commit
@@ -199,6 +207,11 @@ jobs:
             **Full SHA:** ${{ github.sha }}
             
             Auto-generated release from push to main branch.
+            
+            **Files:**
+            - `${{ matrix.flavor }}-android.apk` - Android APK (sideload)
+            - `${{ matrix.flavor }}-playstore.aab` - Android App Bundle (Play Store)
+            - `${{ matrix.flavor }}-ios.tar.gz` - iOS Archive
           draft: false
           prerelease: ${{ matrix.flavor != 'prod' }}
         env:
