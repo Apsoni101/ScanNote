@@ -3,8 +3,6 @@ name: UAT Build
 on:
   push:
     branches: [ uat ]
-  pull_request:
-    branches: [ uat ]
 
 jobs:
   build:
