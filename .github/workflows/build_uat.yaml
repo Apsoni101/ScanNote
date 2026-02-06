@@ -1,0 +1,181 @@
+name: UAT Build
+
+on:
+  push:
+    branches: [ uat ]
+  pull_request:
+    branches: [ uat ]
+
+jobs:
+  build:
+    name: Build UAT
+    runs-on: macos-latest
+
+    steps:
+      # 1️⃣ Checkout
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2️⃣ Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 3️⃣ Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.38.7'
+          channel: 'stable'
+          cache: true
+
+      # 4️⃣ Dependencies
+      - name: Pub Get
+        run: flutter pub get
+
+      # 5️⃣ Restore Android Firebase
+      - name: Restore Android Firebase
+        run: |
+          mkdir -p android/app/src/uat
+          echo "${{ secrets.ANDROID_GSERVICES_UAT }}" | base64 --decode > android/app/src/uat/google-services.json
+
+      # 6️⃣ Restore iOS Firebase
+      - name: Restore iOS Firebase
+        run: |
+          mkdir -p ios/config/uat
+          echo "${{ secrets.IOS_GSERVICES_UAT }}" | base64 --decode > ios/config/uat/GoogleService-Info.plist
+
+      # 7️⃣ Update CocoaPods and Xcodeproj
+      - name: Update CocoaPods and Xcodeproj
+        run: |
+          sudo gem install cocoapods -v 1.16.2
+          sudo gem install xcodeproj -v 1.27.0
+
+      # 8️⃣ iOS Pods
+      - name: Install iOS Pods
+        run: |
+          cd ios
+          pod repo update
+          pod install
+          cd ..
+
+      # 9️⃣ Android Keystore
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
+
+      - name: Create key.properties
+        run: |
+          cat > android/key.properties << EOF
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=keystore.jks
+          EOF
+
+      # 🔟 Build APK
+      - name: Build APK
+        run: flutter build apk --flavor uat --release
+
+      # 1️⃣1️⃣ Build AAB
+      - name: Build AAB
+        run: flutter build appbundle --flavor uat --release
+
+      # 1️⃣2️⃣ Build IPA
+      - name: Build IPA
+        run: flutter build ipa --flavor uat --release --no-codesign
+
+      # 1️⃣3️⃣ Compress iOS
+      - name: Compress iOS
+        run: |
+          cd build
+          if [ -d "ios/archive" ]; then
+            tar -czf ios_uat.tar.gz ios/archive
+          elif [ -d "ios/iphoneos" ]; then
+            tar -czf ios_uat.tar.gz ios/iphoneos
+          else
+            tar -czf ios_uat.tar.gz ios
+          fi
+
+      # 1️⃣4️⃣ Prepare artifacts
+      - name: Prepare Artifacts
+        run: |
+          mkdir -p release-artifacts
+          
+          if [ -f "build/app/outputs/flutter-apk/app-uat-release.apk" ]; then
+            cp "build/app/outputs/flutter-apk/app-uat-release.apk" "release-artifacts/uat-android.apk"
+          fi
+          
+          if [ -f "build/app/outputs/bundle/uatRelease/app-uat-release.aab" ]; then
+            cp "build/app/outputs/bundle/uatRelease/app-uat-release.aab" "release-artifacts/uat-playstore.aab"
+          fi
+          
+          if [ -f "build/ios_uat.tar.gz" ]; then
+            cp "build/ios_uat.tar.gz" "release-artifacts/uat-ios.tar.gz"
+          fi
+          
+          ls -lh release-artifacts/
+
+      # 1️⃣5️⃣ Upload artifacts
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: uat-builds
+          path: release-artifacts/
+          if-no-files-found: warn
+
+  release:
+    name: Release UAT
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: uat-builds
+          path: ./artifacts
+
+      - name: List downloaded files
+        run: |
+          echo "Downloaded artifacts:"
+          ls -lhR ./artifacts
+
+      - name: Get short commit hash
+        id: commit
+        run: echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
+
+      - name: Create or Update Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: uat-latest
+          name: UAT - Latest Build
+          files: ./artifacts/*
+          body: |
+            **Environment:** User Acceptance Testing
+            **Build Date:** ${{ steps.date.outputs.date }}
+            **Commit:** ${{ steps.commit.outputs.sha }}
+            **Full SHA:** ${{ github.sha }}
+            
+            Auto-generated release from push to uat branch.
+            
+            **Files:**
+            - `uat-android.apk` - Android APK (sideload)
+            - `uat-playstore.aab` - Android App Bundle (Play Store)
+            - `uat-ios.tar.gz` - iOS Archive
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
