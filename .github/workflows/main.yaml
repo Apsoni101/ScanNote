@@ -132,7 +132,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.flavor }}-release
+          name: ${{ matrix.flavor }}-builds
           path: |
             build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk
             build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab
@@ -158,8 +158,25 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: ${{ matrix.flavor }}-release
+          name: ${{ matrix.flavor }}-builds
           path: ./artifacts
+
+      - name: Rename Artifacts
+        run: |
+          cd artifacts
+          # Rename APK with descriptive name
+          if [ -f "build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk" ]; then
+            mv "build/app/outputs/flutter-apk/app-${{ matrix.flavor }}-release.apk" "${{ matrix.flavor }}-android.apk"
+          fi
+          # Rename AAB with descriptive name
+          if [ -f "build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab" ]; then
+            mv "build/app/outputs/bundle/${{ matrix.flavor }}Release/app-${{ matrix.flavor }}-release.aab" "${{ matrix.flavor }}-playstore.aab"
+          fi
+          # Rename iOS archive with descriptive name
+          if [ -f "build/ios_${{ matrix.flavor }}.tar.gz" ]; then
+            mv "build/ios_${{ matrix.flavor }}.tar.gz" "${{ matrix.flavor }}-ios.tar.gz"
+          fi
+          cd ..
 
       - name: Get short commit hash
         id: commit
