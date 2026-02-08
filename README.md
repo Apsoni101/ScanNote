@@ -166,16 +166,17 @@ flutter run --flavor prod
 | ![](https://github.com/user-attachments/assets/b5b6c779-910a-4ef0-b9e5-8b2d207a1d01)| ![](https://github.com/user-attachments/assets/90a8c5f7-6473-4773-87b8-844c39a17f5d) | ![](https://github.com/user-attachments/assets/ed5122f0-db2e-4035-9b87-1e9f705976bc) |
 
 
-### Home Widget 
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/4649e40c-c639-434a-9bf0-3ad2d6706a45"
-       width="360"
-       height="780"
-       alt="Sheet Selection Screen" />
-</p>
+
+
+| Home Widget | Export Sheet Screen | Export Sheet Screen |
+|-------------|-------------|---------|
+| ![](https://github.com/user-attachments/assets/4649e40c-c639-434a-9bf0-3ad2d6706a45)| ![](https://github.com/user-attachments/assets/c2303c89-01b3-40d3-ba20-63f1060cb3ee) | ![](https://github.com/user-attachments/assets/aa4900a1-7736-4f26-8684-69f7cebd3b1c) |
+
+
 
 ---
+<img width="498" height="1110" alt="Screenshot 2026-02-08 at 1 48 28 PM" src="" />
 
 
 # Features
