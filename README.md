@@ -189,6 +189,7 @@ flutter run --flavor prod
 | **Scan Results** | • View Scanned Data<br>• Add Comments<br>• Preview Images<br> | ✅ |
 | **Sheet Selection and creation** | • Create New Sheets<br>• Select Existing Sheets<br>• View Sheet List<br>• Save Scanned Data to Sheets<br>• Google Sheets Integration | ✅ |
 | **Scan History** | • View All Scans history<br> | ✅ |
+| **Export Sheet** | • Download google sheets(Pdf / Excel / csv)<br> | ✅ |
 | **Settings** | • Theme Toggle (Light/Dark)<br>• Language Selection (English/Hindi)<br>• User Profile Management<br>• App Information<br>• About Section(Privacy policy , terms of service , help and support) | ✅ |
 | **Localization** | • Multi-language Support<br>• English & Hindi Languages<br>• Dynamic Language Switching | ✅ |
 | **Offline Support** | • Local Data Storage (Hive)<br>• Pending Sync Queue<br>• Offline Mode Detection<br>• Auto-sync on Connection | ✅ |
