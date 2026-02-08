@@ -537,6 +537,23 @@ Below is the list of main dependencies used in this project along with their pur
 
 - [Google ML Kit – Text Recognition](https://pub.dev/packages/google_mlkit_text_recognition)  Extracts text from images using ML Kit for ocr feature in app.
 
+- [Permission Handler](https://pub.dev/packages/permission_handler)  
+  Requests permissions for writting to write external storage so to get the permission to download file in downloads folder .
+
+- [Path Provider](https://pub.dev/packages/path_provider)  
+  Finds correct folders to download files for ios and android downloads folder .
+
+- [Background Downloader](https://pub.dev/packages/background_downloader)  
+  Downloads files in background i.e. downloading google sheets 
+
+- [Share Plus](https://pub.dev/packages/share_plus)  
+  Share google sheets to other apps .
+
+- [Flutter Toast](https://pub.dev/packages/fluttertoast)  
+  Shows small popup messages with custom ui .
+
+- [Quick Actions](https://pub.dev/packages/quick_actions)  
+  Adds home screen shortcut actions as scan qr , extract text and view scan history
 
 
 
