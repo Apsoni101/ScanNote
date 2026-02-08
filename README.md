@@ -176,7 +176,6 @@ flutter run --flavor prod
 
 
 ---
-<img width="498" height="1110" alt="Screenshot 2026-02-08 at 1 48 28 PM" src="" />
 
 
 # Features
