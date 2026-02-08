@@ -144,7 +144,7 @@ flutter run --flavor prod
 
 | Splash Screen | Auth Screen | Home Screen |
 |------------|---------------|---------------|
-| ![](https://github.com/user-attachments/assets/69f5acba-8f60-499f-87f5-791ad97e7dfd)  | ![](https://github.com/user-attachments/assets/0fa1559e-d5e8-4879-a948-4c75ba339b4c) | ![](https://github.com/user-attachments/assets/867e1d24-ac4f-48f2-891a-5043123d675d)|
+| ![](https://github.com/user-attachments/assets/69f5acba-8f60-499f-87f5-791ad97e7dfd)  | ![](https://github.com/user-attachments/assets/0fa1559e-d5e8-4879-a948-4c75ba339b4c) | ![](https://github.com/user-attachments/assets/8d84c413-8fcd-4fed-9f28-9cf2ef695181)|
 
 | History Screen | Scanner Screen | Scan Result QR Screen |
 |------------|---------------|---------------|
@@ -475,6 +475,27 @@ lib/
     │           ├── history_empty_view.dart
     │           ├── history_error_view.dart
     │           └── history_search_bar.dart
+    ├── export_sheet/
+    │   ├── data/
+    │   │   ├── data_source/
+    │   │   │   └── export_sheet_data_source.dart
+    │   │   └── repo_impl/
+    │   │       └── export_sheet_repository_impl.dart
+    │   ├── domain/
+    │   │   ├── repo/
+    │   │   │   └── export_sheet_repo.dart
+    │   │   └── use_case/
+    │   │       └── export_sheet_use_case.dart
+    │   └── presentation/
+    │       ├── bloc/
+    │       │   ├── export_sheet_bloc.dart
+    │       │   ├── export_sheet_event.dart
+    │       │   └── export_sheet_state.dart
+    │       ├── screen/
+    │       │   └── export_sheet_screen.dart
+    │       └── widget/
+    │           ├── export_format_tile_card.dart
+    │           └── export_sheet_bottom_nav_bar.dart
     └── common/
         └── presentation/
             └── widgets/
