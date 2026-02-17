@@ -24,7 +24,8 @@ final class LoginSuccess extends GoogleSignInSignUpState {
 }
 
 class LoginUnknownError extends GoogleSignInSignUpState {
-  const LoginUnknownError();
+  const LoginUnknownError(this.message);
+  final String message;
 }
 
 /// 🌐 No internet

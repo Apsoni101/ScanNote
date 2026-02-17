@@ -50,10 +50,10 @@ class GoogleSignInSignUpBloc
               break;
 
             default:
-              emit(const LoginUnknownError());
+              emit(LoginUnknownError(failure.message));
           }
         } else {
-          emit(const LoginUnknownError());
+          emit(LoginUnknownError(failure.message));
         }
 
         emit(const LoginInitial());
