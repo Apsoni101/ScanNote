@@ -53,7 +53,7 @@ class _GoogleSignInSignUpScreenState extends State<GoogleSignInSignUpScreen> {
               }
 
               if (state is LoginUnknownError) {
-                _show(context, state.message);
+                _show(context, context.locale.loginFailedPleaseTryAgain);
               }
               if (state is LoginSuccess) {
                 await context.router.replace(
