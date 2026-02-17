@@ -1,46 +1,47 @@
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
     id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+}
+
+val keystorePropertiesFile = rootProject.file("key.properties")
+
+fun signingProp(propName: String, envName: String): String? {
+    if (keystorePropertiesFile.exists()) {
+        val match = keystorePropertiesFile
+            .readLines()
+            .find { it.trim().startsWith("$propName=") }
+        if (match != null) {
+            return match.trim().substringAfter("=").trim()
+        }
+    }
+    return System.getenv(envName)
 }
 
 android {
     namespace = "com.scannote.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "29.0.14206865"
+
     flavorDimensions += "default"
     productFlavors {
         create("uat") {
             dimension = "default"
-            resValue(
-                type = "string",
-                name = "app_name",
-                value = "ScanNote UAT"
-            )
+            resValue(type = "string", name = "app_name", value = "ScanNote UAT")
             applicationIdSuffix = ".uat"
         }
         create("dev") {
             dimension = "default"
-            resValue(
-                type = "string",
-                name = "app_name",
-                value = "ScanNote DEV"
-            )
+            resValue(type = "string", name = "app_name", value = "ScanNote DEV")
             applicationIdSuffix = ".dev"
         }
         create("prod") {
             dimension = "default"
-            resValue(
-                type = "string",
-                name = "app_name",
-                value = "ScanNote"
-            )
+            resValue(type = "string", name = "app_name", value = "ScanNote")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -48,6 +49,16 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+
+    signingConfigs {
+        create("release") {
+            val keystore = signingProp("storeFile", "KEYSTORE_FILE") ?: "keystore.jks"
+            storeFile = file(keystore)
+            storePassword = signingProp("storePassword", "KEYSTORE_PASSWORD")
+            keyAlias = signingProp("keyAlias", "KEY_ALIAS")
+            keyPassword = signingProp("keyPassword", "KEY_PASSWORD")
+        }
     }
 
     defaultConfig {
@@ -59,26 +70,29 @@ android {
     }
 
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+        debug {
             signingConfig = signingConfigs.getByName("debug")
         }
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
     }
+
     buildFeatures {
         viewBinding = true
     }
 }
-dependencies {
-    // Core text recognition
-    implementation("com.google.mlkit:text-recognition:16.0.0")
 
-    // Language modules required by ML Kit internally
+dependencies {
+    implementation("com.google.mlkit:text-recognition:16.0.0")
     implementation("com.google.mlkit:text-recognition-chinese:16.0.0")
     implementation("com.google.mlkit:text-recognition-devanagari:16.0.0")
     implementation("com.google.mlkit:text-recognition-japanese:16.0.0")
     implementation("com.google.mlkit:text-recognition-korean:16.0.0")
 }
+
 flutter {
     source = "../.."
 }
