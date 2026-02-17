@@ -20,6 +20,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'gradle'
 
       # 3️⃣ Flutter
       - name: Setup Flutter
@@ -29,29 +30,66 @@ jobs:
           channel: 'stable'
           cache: true
 
-      # 4️⃣ Dependencies
+      # 4️⃣ Pub cache
+      - name: Cache Pub dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            .dart_tool
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+          restore-keys: |
+            pub-${{ runner.os }}-
+
+      # 5️⃣ Dependencies
       - name: Pub Get
         run: flutter pub get
 
-      # 5️⃣ Restore Android Firebase
+      # 6️⃣ Restore Android Firebase
       - name: Restore Android Firebase
         run: |
           mkdir -p android/app/src/prod
           echo "${{ secrets.ANDROID_GSERVICES_PROD }}" | base64 --decode > android/app/src/prod/google-services.json
 
-      # 6️⃣ Restore iOS Firebase
+      # 7️⃣ Restore iOS Firebase
       - name: Restore iOS Firebase
         run: |
           mkdir -p ios/config/prod
           echo "${{ secrets.IOS_GSERVICES_PROD }}" | base64 --decode > ios/config/prod/GoogleService-Info.plist
 
-      # 7️⃣ Update CocoaPods and Xcodeproj
+      # 8️⃣ Cache Ruby gems (CocoaPods + Xcodeproj)
+      - name: Cache Ruby gems
+        uses: actions/cache@v4
+        with:
+          path: /Library/Ruby/Gems
+          key: gems-${{ runner.os }}-cocoapods-1.16.2-xcodeproj-1.27.0
+          restore-keys: |
+            gems-${{ runner.os }}-
+
+      # 9️⃣ Update CocoaPods and Xcodeproj
       - name: Update CocoaPods and Xcodeproj
         run: |
           sudo gem install cocoapods -v 1.16.2
           sudo gem install xcodeproj -v 1.27.0
 
-      # 8️⃣ iOS Pods
+      # 🔟 Cache CocoaPods repo and downloaded pods
+      - name: Cache CocoaPods repo
+        uses: actions/cache@v4
+        with:
+          path: ~/.cocoapods
+          key: cocoapods-repo-${{ runner.os }}-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            cocoapods-repo-${{ runner.os }}-
+
+      - name: Cache Pods directory
+        uses: actions/cache@v4
+        with:
+          path: ios/Pods
+          key: pods-${{ runner.os }}-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: |
+            pods-${{ runner.os }}-
+
+      # 1️⃣1️⃣ iOS Pods
       - name: Install iOS Pods
         run: |
           cd ios
@@ -59,7 +97,7 @@ jobs:
           pod install
           cd ..
 
-      # 9️⃣ Android Keystore
+      # 1️⃣2️⃣ Android Keystore
       - name: Decode Keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/keystore.jks
@@ -73,19 +111,19 @@ jobs:
           storeFile=keystore.jks
           EOF
 
-      # 🔟 Build APK
+      # 1️⃣3️⃣ Build APK
       - name: Build APK
         run: flutter build apk --flavor prod --release
 
-      # 1️⃣1️⃣ Build AAB
+      # 1️⃣4️⃣ Build AAB
       - name: Build AAB
         run: flutter build appbundle --flavor prod --release
 
-      # 1️⃣2️⃣ Build IPA
+      # 1️⃣5️⃣ Build IPA
       - name: Build IPA
         run: flutter build ipa --flavor prod --release --no-codesign
 
-      # 1️⃣3️⃣ Compress iOS
+      # 1️⃣6️⃣ Compress iOS
       - name: Compress iOS
         run: |
           cd build
@@ -97,7 +135,7 @@ jobs:
             tar -czf ios_prod.tar.gz ios
           fi
 
-      # 1️⃣4️⃣ Prepare artifacts
+      # 1️⃣7️⃣ Prepare artifacts
       - name: Prepare Artifacts
         run: |
           mkdir -p release-artifacts
@@ -116,7 +154,7 @@ jobs:
           
           ls -lh release-artifacts/
 
-      # 1️⃣5️⃣ Upload artifacts
+      # 1️⃣8️⃣ Upload artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
