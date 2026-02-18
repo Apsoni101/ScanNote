@@ -282,5 +282,8 @@
   "commaSeparatedValuesForDataTransfer": "Comma-separated values for data transfer",
   "loading": "Loading...",
   "fileDownloadedSuccessfully": "File downloaded successfully",
-  "downloadFailed": "Download failed"
+  "downloadFailed": "Download failed",
+  "underDevelopment": "Under Development",
+  "thisSectionIsCurrentlyBeingBuiltWellMakeItAvailableSoon": "This section is currently being built. We'll make it available soon.",
+  "goBack": "Go Back"
 }

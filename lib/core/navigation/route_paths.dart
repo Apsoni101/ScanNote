@@ -13,4 +13,5 @@ class RoutePaths {
   static const String history = 'history';
   static const String settings = 'settings';
   static const String exportSheet = 'exportSheet';
+  static const String underDevelopment = 'underDevelopment';
 }

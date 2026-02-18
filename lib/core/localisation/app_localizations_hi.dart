@@ -503,4 +503,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get downloadFailed => 'डाउनलोड असफल रहा';
+
+  @override
+  String get underDevelopment => 'निर्माणाधीन';
+
+  @override
+  String get thisSectionIsCurrentlyBeingBuiltWellMakeItAvailableSoon =>
+      'यह अनुभाग अभी बनाया जा रहा है। हम इसे जल्द ही उपलब्ध कराएंगे।';
+
+  @override
+  String get goBack => 'वापस जाएं';
 }

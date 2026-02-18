@@ -282,5 +282,8 @@
   "commaSeparatedValuesForDataTransfer": "डेटा ट्रांसफर के लिए कॉमा से अलग किए गए मान",
   "loading": "लोड हो रहा है...",
   "fileDownloadedSuccessfully": "फ़ाइल सफलतापूर्वक डाउनलोड हुई",
-  "downloadFailed": "डाउनलोड असफल रहा"
+  "downloadFailed": "डाउनलोड असफल रहा",
+  "underDevelopment": "निर्माणाधीन",
+  "thisSectionIsCurrentlyBeingBuiltWellMakeItAvailableSoon": "यह अनुभाग अभी बनाया जा रहा है। हम इसे जल्द ही उपलब्ध कराएंगे।",
+  "goBack": "वापस जाएं"
 }

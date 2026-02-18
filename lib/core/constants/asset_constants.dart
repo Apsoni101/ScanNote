@@ -21,6 +21,8 @@ class AppAssets {
   static const String copyIc = 'assets/icons/copy_icon.svg';
   static const String languageGlobeIc = 'assets/icons/language_globe_icon.svg';
   static const String logOutIc = 'assets/icons/log_out_icon.svg';
+  static const String developmentToolIcon =
+      'assets/icons/development_tool_icon.svg';
   static const String codeIsArtLoading =
       'assets/icons/code_is_art_loading_icon.gif';
 }

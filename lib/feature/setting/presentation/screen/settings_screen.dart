@@ -149,7 +149,11 @@ class SettingsScreen extends StatelessWidget {
                           children: <Widget>[
                             SettingsAboutTextButtonTile(
                               title: context.locale.privacyPolicy,
-                              onPressed: () {},
+                              onPressed: () {
+                                context.router.push(
+                                  const UnderDevelopmentRoute(),
+                                );
+                              },
                             ),
                             Divider(
                               height: 1,
@@ -157,7 +161,11 @@ class SettingsScreen extends StatelessWidget {
                             ),
                             SettingsAboutTextButtonTile(
                               title: context.locale.termsOfService,
-                              onPressed: () {},
+                              onPressed: () {
+                                context.router.push(
+                                  const UnderDevelopmentRoute(),
+                                );
+                              },
                             ),
                             Divider(
                               height: 1,
@@ -165,7 +173,11 @@ class SettingsScreen extends StatelessWidget {
                             ),
                             SettingsAboutTextButtonTile(
                               title: context.locale.helpAndSupport,
-                              onPressed: () {},
+                              onPressed: () {
+                                context.router.push(
+                                  const UnderDevelopmentRoute(),
+                                );
+                              },
                             ),
                           ],
                         ),

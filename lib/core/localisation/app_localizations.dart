@@ -973,6 +973,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Download failed'**
   String get downloadFailed;
+
+  /// No description provided for @underDevelopment.
+  ///
+  /// In en, this message translates to:
+  /// **'Under Development'**
+  String get underDevelopment;
+
+  /// No description provided for @thisSectionIsCurrentlyBeingBuiltWellMakeItAvailableSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'This section is currently being built. We\'ll make it available soon.'**
+  String get thisSectionIsCurrentlyBeingBuiltWellMakeItAvailableSoon;
+
+  /// No description provided for @goBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get goBack;
 }
 
 class _AppLocalizationsDelegate

@@ -501,4 +501,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get downloadFailed => 'Download failed';
+
+  @override
+  String get underDevelopment => 'Under Development';
+
+  @override
+  String get thisSectionIsCurrentlyBeingBuiltWellMakeItAvailableSoon =>
+      'This section is currently being built. We\'ll make it available soon.';
+
+  @override
+  String get goBack => 'Go Back';
 }
