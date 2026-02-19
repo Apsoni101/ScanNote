@@ -64,6 +64,7 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
     required this.pdfTextBackground,
     required this.excelTextBackground,
     required this.csvTextBackground,
+    required this.scannerBackground,
   });
 
   final Color primaryDefault;
@@ -125,6 +126,7 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
   final Color pdfTextBackground;
   final Color excelTextBackground;
   final Color csvTextBackground;
+  final Color scannerBackground;
 
   @override
   ThemeExtension<AppColorThemeExtension> copyWith({
@@ -187,6 +189,7 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
     final Color? pdfTextBackground,
     final Color? excelTextBackground,
     final Color? csvTextBackground,
+    final Color? scannerBackground,
   }) {
     return AppColorThemeExtension(
       primaryDefault: primaryDefault ?? this.primaryDefault,
@@ -254,6 +257,7 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
       pdfTextBackground: pdfTextBackground ?? this.pdfTextBackground,
       excelTextBackground: excelTextBackground ?? this.excelTextBackground,
       csvTextBackground: csvTextBackground ?? this.csvTextBackground,
+      scannerBackground: scannerBackground ?? this.scannerBackground,
     );
   }
 
@@ -408,6 +412,7 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension> {
         t,
       )!,
       csvIconBackground: .lerp(csvIconBackground, other.csvIconBackground, t)!,
+      scannerBackground: .lerp(scannerBackground, other.scannerBackground, t)!,
       pdfTextBackground: .lerp(pdfTextBackground, other.pdfTextBackground, t)!,
       excelTextBackground: .lerp(
         excelTextBackground,

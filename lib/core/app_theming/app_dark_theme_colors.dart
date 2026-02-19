@@ -62,5 +62,6 @@ class AppDarkThemeColors extends AppColorThemeExtension {
     super.pdfTextBackground = const Color(0xFFE53935),
     super.excelTextBackground = const Color(0xFF43A047),
     super.csvTextBackground = const Color(0xFFFB8C00),
+    super.scannerBackground = const Color(0xFF000000),
   });
 }

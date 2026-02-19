@@ -43,6 +43,16 @@ class CommentInputField extends StatelessWidget {
       onChanged: (final String value) {
         context.read<ResultBloc>().add(OnResultCommentChanged(value));
       },
+      onTapOutside: (final PointerDownEvent pointerDownEvent) {
+        FocusScope.of(context).unfocus();
+      },
+      onEditingComplete: () {
+        FocusScope.of(context).unfocus();
+      },
+      textInputAction: TextInputAction.done,
+      onSubmitted: (_) {
+        FocusScope.of(context).unfocus();
+      },
       maxLines: 4,
       style: AppTextStyles.airbnbCerealW400S14Lh20Ls0.copyWith(
         color: context.appColors.textPrimary,

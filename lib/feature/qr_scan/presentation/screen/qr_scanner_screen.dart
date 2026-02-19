@@ -115,7 +115,7 @@ class QrScanningViewState extends State<QrScanningView> {
           }
         },
         child: Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: context.appColors.scannerBackground,
           extendBodyBehindAppBar: true,
           appBar: QrScannerAppBar(controller: _controller),
           body: Stack(

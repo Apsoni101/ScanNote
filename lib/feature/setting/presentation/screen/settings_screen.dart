@@ -144,8 +144,8 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       RoundedCornerElevatedCard(
-                        child: ListView(
-                          shrinkWrap: true,
+                        child: Column(
+                          crossAxisAlignment: .start,
                           children: <Widget>[
                             SettingsAboutTextButtonTile(
                               title: context.locale.privacyPolicy,
